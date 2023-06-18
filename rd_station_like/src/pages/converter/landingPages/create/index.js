@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import "../../../../assets/css/mainCreateRender.css";
+import LPMenuRender from "../../../../components/LP/LPMenuRender";
 import LPRender from "../../../../components/LP/LPRender";
 import LPToolRender from "../../../../components/LP/LPToolRender";
 import { KEY_TYPES } from "../../../../constants/LpContants";
 import comum from "../../../../helpers/comum";
 
+// TODO: PARSE TO CSS ALL STYLES INLINE
+
 const INIT_STATE = {
   id: comum.GenerateId(),
+  name: "LandingPage Test",
   properties: [
     {
       id: comum.GenerateId(),
@@ -264,17 +268,19 @@ function CreateLandingPage() {
 
   return (
     <div className="main-create-render">
+      <LPMenuRender title={script.name} />
       <div
         style={{
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
           overflow: "hidden",
+          paddingTop: 40,
         }}
       >
         <div
           style={{
-            borderRight: "1px solid #ced4da",
+            borderRight: "1px solid var(--gray)",
             height: "100vh",
             width: "25vw",
           }}

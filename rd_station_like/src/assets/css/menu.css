@@ -12,6 +12,7 @@
 }
 .menu-bar-profile {
   padding: 10px;
+  padding-right: 25px;
 }
 
 .menu-bar-container {
@@ -20,4 +21,11 @@
   left: 0;
   right: 0;
   z-index: 999;
+}
+
+.menu-bar-variant {
+  height: 40px !important;
+  padding: 0;
+  border-bottom: 1px double;
+  border-bottom-color: var(--gray);
 }

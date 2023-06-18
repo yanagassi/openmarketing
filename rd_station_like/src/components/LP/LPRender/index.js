@@ -46,7 +46,7 @@ function LPRender({
               />
 
               {e.id === activeId ? (
-                <div className="add-section" style={{}}>
+                <div className="add-section">
                   <a style={{}} onClick={() => addNewSection()}>
                     <MdAddBox className="md-add-icons" />
                   </a>
