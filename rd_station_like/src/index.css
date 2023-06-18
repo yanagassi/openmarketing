@@ -1,0 +1,35 @@
+:root {
+  --blue: #66a3ff;
+  --blue-light: #66a3ff96;
+  --primary: #66a3ff;
+  --white: #f6e3e3;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.main-application {
+  padding-top: 60px;
+}
+
+.col-not-padding {
+  padding: 0;
+  overflow-x: auto;
+  width: 100% !important;
+}
+
+.form-control,
+.form-label,
+.form-select {
+  font-size: 12px !important;
+}

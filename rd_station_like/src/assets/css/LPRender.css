@@ -1,0 +1,22 @@
+.form-landing-page {
+  padding: 10px;
+}
+
+.input-form-lp {
+  margin-bottom: 5px;
+}
+.input-form-lp > label {
+  font-weight: 500;
+}
+
+.lp-form-button {
+  margin-top: 10px;
+}
+
+.form-edit-lp-inputs-container {
+  width: 100%;
+}
+
+.form-edit-lp-inputs-container > input {
+  margin-bottom: 5px;
+}

@@ -1,0 +1,73 @@
+.section-active {
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 2px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-style: dashed;
+  border-left: none;
+  /* border-right: none; */
+  /* border-top: none; */
+  border-color: var(--blue);
+  background-color: transparent;
+}
+.section-desactive {
+  border-style: dashed;
+  border-width: 2px;
+  border-radius: 2px;
+  border-bottom: none;
+  border-top: none;
+  border-left: none;
+  border-color: var(--blue);
+}
+
+.card-selection {
+  padding: 5px;
+  background: var(--white) !important;
+}
+
+.section-active-variant {
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 2px;
+  border-color: var(--blue);
+}
+
+.not-selectable {
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  overflow-y: hidden;
+}
+
+.add-section {
+  z-index: 2 !important;
+  font-size: 15px;
+  color: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  height: 0px;
+}
+
+.add-section > a {
+  /* text-align: center; */
+  margin-top: -2px;
+  z-index: 2;
+}
+
+.section-tool-bar {
+  background-color: #66a3ff34;
+}
+
+.md-add-icons {
+  background-color: rgba(255, 255, 255, 0.742);
+  border-radius: 4px;
+}

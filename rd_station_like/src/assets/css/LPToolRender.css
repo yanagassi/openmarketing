@@ -1,0 +1,23 @@
+.lp-render-tab-options {
+  padding: 10px;
+}
+
+.form-edit-lp-input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.form-edit-input-group {
+  width: 100%;
+}
+
+.lp-form-delete-icon {
+  margin-left: 10px;
+  color: var(--blue);
+  cursor: pointer;
+}
+
+.lp-form-icons-action {
+  /* display: flex; */
+}

@@ -1,0 +1,23 @@
+.menu-bar-item {
+  font-size: medium;
+}
+
+.menu-bar-main {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.menu-bar-profile {
+  padding: 10px;
+}
+
+.menu-bar-container {
+  position: fixed;
+  height: 60px;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
