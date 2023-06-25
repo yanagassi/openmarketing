@@ -17,6 +17,8 @@ const Section = ({
   deleteElement,
   addNewElement,
   activeId,
+  readOnly,
+  isMobile,
 }) => {
   const IS_ACTIVE = activeId === id;
   const [modal, setModal] = useState(false);
@@ -70,30 +72,33 @@ const Section = ({
     handlerElement(updatedElements, id);
   };
 
+  const LP_PX = isMobile ? configs.LP_PX_TAM_MOBILE : configs.LP_PX_TAM;
+
   return (
     <div
       className="not-selectable"
-      style={{ width: configs.LP_PX_TAM }}
+      style={{ width: isMobile && !readOnly ? LP_PX + 20 : LP_PX }}
       onClick={() => onActive(id)}
     >
-      <div
-        className={
-          "card card-selection" + (IS_ACTIVE ? " section-tool-bar" : "")
-        }
-      >
-        <a>
-          <MdAddBox color="var(--blue)" onClick={() => setModal(true)} />
-        </a>
-        <a>
-          <MdDelete color="var(--blue)" />
-        </a>
-      </div>
+      {!readOnly ? (
+        <div
+          className={
+            "card card-selection" + (IS_ACTIVE ? " section-tool-bar" : "")
+          }
+        >
+          <a>
+            <MdAddBox color="var(--blue)" onClick={() => setModal(true)} />
+          </a>
+          <a>
+            <MdDelete color="var(--blue)" />
+          </a>
+        </div>
+      ) : null}
       <div
         style={{
           position: "relative",
-          width: configs.LP_PX_TAM,
+          width: LP_PX,
           height: `${styles?.height}px` ?? "30vh",
-
           opacity: styles?.sectionOpacity
             ? styles?.sectionOpacity / 100
             : undefined,
@@ -106,7 +111,9 @@ const Section = ({
           onActiveElement(null);
         }}
         onDragOver={handleDragOver}
-        className={IS_ACTIVE ? "section-active" : "section-desactive"}
+        className={
+          !readOnly ? (IS_ACTIVE ? "section-active" : "section-desactive") : ""
+        }
         onDrop={handleDrop}
       >
         {elements.map((element) => (
@@ -116,6 +123,7 @@ const Section = ({
             handlerElement={handlerElement}
             type={element.type}
             script={script}
+            readOnly={readOnly}
             handleDragStart={handleDragStart}
             deleteElement={deleteElement}
             onActiveElement={onActiveElement}

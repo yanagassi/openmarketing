@@ -1,6 +1,6 @@
 import { MdDelete } from "react-icons/md";
-import { Button, FormGroup, Input, Label } from "reactstrap";
 import { LP_HTML_COMPONENTS_TYPE } from "../../../constants/LpContants";
+import FormDefaultLp from "./formDefault";
 
 function ComponentSwitch({
   element,
@@ -10,7 +10,7 @@ function ComponentSwitch({
   onActiveElement,
   deleteElement,
   activeId,
-  script,
+  readOnly,
 }) {
   const getObject = () => {
     const fin = {
@@ -58,44 +58,7 @@ function ComponentSwitch({
         return <img {...fin} />;
       case LP_HTML_COMPONENTS_TYPE.form:
         return (
-          <form
-            {...fin}
-            className="card form-landing-page"
-            onSubmit={(e) => console.log(e)}
-          >
-            <span
-              style={{
-                color: element?.content?.colorTilte,
-                textAlign: element?.content?.textAlignTitle,
-                fontSize: `${element?.content?.fontSizeTitle}px`,
-              }}
-            >
-              {element?.content?.title}{" "}
-            </span>
-            {element?.content?.fields?.map((e) => (
-              <FormGroup className="input-form-lp">
-                <Label style={{ color: e.color }}>{e.label}: </Label>{" "}
-                <Input type={e.type} />
-              </FormGroup>
-            ))}
-
-            <Button
-              className="lp-form-button"
-              type="submit"
-              style={{
-                backgroundColor: element?.content?.buttonBackground,
-                textAlign: element?.content?.textAlignButton,
-                borderColor: element?.content?.borderColorButton,
-                borderWidth: `${element?.content?.borderWidthButton}px`,
-                borderRadius: `${element?.content?.borderRadiusButton}px`,
-              }}
-            >
-              {!element?.content?.buttonText ||
-              element?.content?.buttonText === ""
-                ? "Vamos Lá!"
-                : element?.content?.buttonText}
-            </Button>
-          </form>
+          <FormDefaultLp readOnly={readOnly} fin={fin} element={element} />
         );
     }
   };

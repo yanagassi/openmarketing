@@ -3,6 +3,7 @@
   --blue-light: #66a3ff96;
   --primary: #66a3ff;
   --white: #f6e3e3;
+  --gray: #ced4da;
 }
 body {
   margin: 0;
@@ -19,7 +20,7 @@ code {
 }
 
 .main-application {
-  padding-top: 60px;
+  /* padding-top: 60px; */
 }
 
 .col-not-padding {
@@ -32,4 +33,13 @@ code {
 .form-label,
 .form-select {
   font-size: 12px !important;
+}
+
+.button-mid-height {
+  height: 30px;
+  font-size: 13px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-weight: 600;
 }

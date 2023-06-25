@@ -3,17 +3,22 @@ import "../../../assets/css/LPRender.css";
 import "../../../assets/css/mainrender.css";
 import configs from "../../../configs";
 import Section from "./section";
+
 function LPRender({
   script,
-  handlerElement,
   activeId,
-  onActive,
-  onActiveElement,
-  elementActive,
-  addNewElement,
-  deleteElement,
-  addNewSection,
+  readOnly = false,
+  isMobile = false,
+  // Estão iniciadas assim, pq no readonly=true não é necessário.
+  handlerElement = () => {},
+  onActive = () => {},
+  onActiveElement = () => {},
+  elementActive = () => {},
+  addNewElement = () => {},
+  deleteElement = () => {},
+  addNewSection = () => {},
 }) {
+  const LP_PX = isMobile ? configs.LP_PX_TAM_MOBILE : configs.LP_PX_TAM;
   return (
     <div className="main-render-div">
       <div>
@@ -21,12 +26,12 @@ function LPRender({
           <div
             style={{
               background: e.styles.backgroundSectionColor,
-              paddingLeft: `calc(50% - ${configs.LP_PX_TAM / 2}px)`,
+              paddingLeft: `calc(50% - ${LP_PX / 2}px)`,
             }}
           >
             <div
               style={{
-                width: configs.LP_PX_TAM,
+                // width: LP_PX,
                 overflowY: "hidden",
               }}
             >
@@ -34,6 +39,8 @@ function LPRender({
                 elements={e.items}
                 id={e.id}
                 script={script}
+                readOnly={readOnly}
+                isMobile={isMobile}
                 handlerElement={handlerElement}
                 styles={e.styles}
                 activeId={activeId}
@@ -46,7 +53,7 @@ function LPRender({
               />
 
               {e.id === activeId ? (
-                <div className="add-section" style={{}}>
+                <div className="add-section">
                   <a style={{}} onClick={() => addNewSection()}>
                     <MdAddBox className="md-add-icons" />
                   </a>

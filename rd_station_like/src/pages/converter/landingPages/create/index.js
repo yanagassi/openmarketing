@@ -1,107 +1,25 @@
 import { useEffect, useState } from "react";
 import "../../../../assets/css/mainCreateRender.css";
+import LPMenuRender from "../../../../components/LP/LPMenuRender";
 import LPRender from "../../../../components/LP/LPRender";
 import LPToolRender from "../../../../components/LP/LPToolRender";
+import TestTemplate from "../../../../constants/LPTemplateDefault";
+import TestTemplateMobile from "../../../../constants/LPTemplateDefaultMobile";
 import { KEY_TYPES } from "../../../../constants/LpContants";
 import comum from "../../../../helpers/comum";
 
-const INIT_STATE = {
-  id: comum.GenerateId(),
-  properties: [
-    {
-      id: comum.GenerateId(),
-      styles: {
-        backgroundSectionColor: "#F3EFE6",
-        sectionOpacity: 100,
-
-        height: 1000,
-      },
-      items: [
-        {
-          id: comum.GenerateId(),
-          content: {
-            width: 350,
-            title: "Adote Agora",
-            colorTilte: "#523E32",
-            fontSizeTitle: 24,
-            textAlignTitle: "center",
-            background: "#FFFFFF",
-            borderRadius: 3,
-            buttonText: "Cadastrar",
-            buttonBackground: "#523E32",
-            textAlignButton: "center",
-            borderColorButton: "#523E32",
-            borderWidthButton: 2,
-            borderRadiusButton: 5,
-            fields: [
-              {
-                id: "emailField",
-                label: "Email",
-                type: "email",
-                color: "#523E32",
-              },
-              {
-                id: "nameField",
-                label: "Nome",
-                type: "text",
-                color: "#523E32",
-              },
-              {
-                id: "passwordField",
-                label: "1 + 1",
-                type: "number",
-                color: "#523E32",
-              },
-            ],
-          },
-          position: {
-            x: 530,
-            y: 20,
-          },
-          type: "form",
-        },
-        {
-          type: "h1",
-          label: "Cabeçalho 1",
-          id: comum.GenerateId(),
-          content: {
-            text: "Animais de Estimação",
-            color: "#523E32",
-            width: "100%",
-            height: "auto",
-            fontWeight: "bold",
-            textAlign: "center",
-          },
-          position: {
-            x: 45,
-            y: 45,
-          },
-        },
-        {
-          type: "span",
-          label: "Descrição",
-          id: comum.GenerateId(),
-          content: {
-            text: "Descubra mais sobre diferentes animais de estimação. Saiba como cuidar deles e escolher o animal perfeito para sua família.",
-            color: "#523E32",
-            width: 400,
-            height: "auto",
-            fontWeight: "normal",
-            textAlign: "center",
-          },
-          position: {
-            x: 45,
-            y: 100,
-          },
-        },
-      ],
-    },
-  ],
-};
-
 function CreateLandingPage() {
-  //Main State
-  const [script, setScript] = useState(INIT_STATE);
+  // Esses são os SCRIPTS que devem ser mandados ao Backend
+  const [desktopScript, setDesktopScript] = useState(TestTemplate());
+  const [mobileScript, setMobileScript] = useState(TestTemplateMobile());
+
+  // Só pode ser alterada pelo handleScript().
+  const [isMobile, _setIsMobile] = useState(false);
+
+  // Esse script é só para exebição.
+  const [script, setScriptMain] = useState(desktopScript);
+
+  // Auxiliares para o funcionamento do sistema.
   const [sectionActive, setSectionActive] = useState(null); //ID
   const [elementActive, setElementActive] = useState(null); //ID
   const [activeSectionValues, setActiveSectionValues] = useState(null);
@@ -112,19 +30,24 @@ function CreateLandingPage() {
     setActiveElementsValues(getValueElementActive());
   }, [script, elementActive, sectionActive]);
 
-  useEffect(() => {
-    console.log(JSON.stringify(script));
-  }, [script]);
+  function setScript(e) {
+    if (isMobile) setMobileScript(e);
+    else setDesktopScript(e);
+    setScriptMain(e);
+  }
+
+  function handleScript() {
+    const to = !isMobile;
+    _setIsMobile(to);
+    setScriptMain(to ? mobileScript : desktopScript);
+  }
 
   function getValueElementActive() {
-    if (!elementActive) return;
+    if (!elementActive) return "";
+
     const activeSec = getValueSectionActive();
-    const finl = activeSec.items.filter((e) => {
-      if (e.id == elementActive) {
-        return e;
-      }
-    });
-    return finl[0];
+    const finl = activeSec?.items?.find((e) => e.id === elementActive);
+    return finl || "";
   }
 
   function addNewSection() {
@@ -257,24 +180,28 @@ function CreateLandingPage() {
         return i;
       }),
     });
-    setTimeout(() => {
-      console.log(script);
-    }, 1000);
   }
 
   return (
     <div className="main-create-render">
+      <LPMenuRender
+        isMobile={isMobile}
+        title={script.name}
+        handleScript={handleScript}
+      />
+
       <div
         style={{
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
           overflow: "hidden",
+          paddingTop: 40,
         }}
       >
         <div
           style={{
-            borderRight: "1px solid #ced4da",
+            borderRight: "1px solid var(--gray)",
             height: "100vh",
             width: "25vw",
           }}
@@ -282,10 +209,10 @@ function CreateLandingPage() {
           <LPToolRender
             activeId={sectionActive}
             script={script}
-            updateSectionStyles={updateSectionStyles}
             activeSectionValues={activeSectionValues}
             elementActive={elementActive}
             activeElementValues={activeElementValues}
+            updateSectionStyles={updateSectionStyles}
             updateItemByKey={updateItemByKey}
             onActiveElement={setElementActive}
             handlerElement={updateProperties}
@@ -297,11 +224,12 @@ function CreateLandingPage() {
         <div style={{ width: "75vw", overflowX: "auto" }}>
           <LPRender
             script={script}
-            handlerElement={updateProperties}
+            isMobile={isMobile}
             activeId={sectionActive}
+            elementActive={elementActive}
+            handlerElement={updateProperties}
             deleteElement={deleteElement}
             onActive={setSectionActive}
-            elementActive={elementActive}
             addNewSection={addNewSection}
             onActiveElement={setElementActive}
             addNewElement={addNewElement}
