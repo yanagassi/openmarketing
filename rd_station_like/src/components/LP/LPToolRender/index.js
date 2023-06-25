@@ -129,7 +129,7 @@ function LPToolRender({
         paddingTop: 5,
       }}
     >
-      <Nav tabs style={{ width: "100%", position: "fixed" }}>
+      <Nav tabs style={{ width: "25vw", position: "fixed" }}>
         <NavItem>
           <NavLink
             className={activeTab === "tab1" ? "active" : ""}
@@ -174,6 +174,7 @@ function LPToolRender({
             />
           </TabPane>
         </TabContent>
+        <div style={{ height: 160 }}></div>
       </div>
     </div>
   );

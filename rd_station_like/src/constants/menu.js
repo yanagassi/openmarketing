@@ -2,6 +2,7 @@ import Atrair from "../pages/atrair";
 import Converter from "../pages/converter";
 import LandingPages from "../pages/converter/landingPages";
 import CreateLandingPage from "../pages/converter/landingPages/create";
+import ViewLandingPage from "../pages/converter/landingPages/viewLandingPage";
 import HomeScreen from "../pages/home";
 
 const MENU_ITENS = [
@@ -38,6 +39,16 @@ const MENU_ITENS = [
     hidden: true,
     component: <CreateLandingPage />,
   },
+
+  {
+    text: "Landing Pages",
+    href: "/view/:id",
+    active: true,
+    hidden: true,
+    hideMenu: true,
+    component: <ViewLandingPage />,
+  },
+
   {
     text: "Relacionar",
     href: "/relacionar",

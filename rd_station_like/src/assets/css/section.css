@@ -24,6 +24,7 @@
 .card-selection {
   padding: 5px;
   background: var(--white) !important;
+  min-width: 25px;
 }
 
 .section-active-variant {

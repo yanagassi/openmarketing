@@ -42,7 +42,7 @@ function FormOptions({ activeElementValues, updateItemByKey, elementActive }) {
   }
 
   return (
-    <div style={{ marginTop: 30, marginBottom: 30 }}>
+    <div style={{ marginTop: 30 }}>
       <span>Formulário:</span>
       {activeElementValues?.content?.fields?.map((e, i) => (
         <FormGroup className="form-edit-input-group">
