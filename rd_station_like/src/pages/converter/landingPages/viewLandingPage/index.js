@@ -3,7 +3,7 @@ import LPRender from "../../../../components/LP/LPRender";
 import TestTemplate from "../../../../constants/LPTemplateDefault";
 import TestTemplateMobile from "../../../../constants/LPTemplateDefaultMobile";
 
-const isMobile = false;
+const isMobile = true;
 const INIT_STATE = isMobile ? TestTemplateMobile() : TestTemplate();
 
 function ViewLandingPage() {
