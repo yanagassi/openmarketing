@@ -4,9 +4,12 @@ from flask import Flask
 from flask_restful import Api
 from flask_swagger_ui import get_swaggerui_blueprint
 from route_register import RouteRegister
+from settings import JWT_SECRETE
+from flask_cors import CORS
 
 # Criar o aplicativo Flask
 app = Flask(__name__)
+cors = CORS(app)  # Configuração básica para permitir CORS em todas as rotas
 
 # Configuração do Swagger
 SWAGGER_URL = "/swagger"
@@ -21,6 +24,7 @@ swagger_ui_blueprint = get_swaggerui_blueprint(
 )
 
 app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
+app.config['SECRET_KEY'] = JWT_SECRETE
 
 api = Api(app)
 route_register = RouteRegister(api)

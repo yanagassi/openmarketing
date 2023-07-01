@@ -8,6 +8,11 @@ class Users():
                  id = 0):
         self._id = id
         self.name = name
-        self.name = passw
         self.email = email
         
+    def get_jwt_safe_data(self):
+        return{
+            "_id": self._id,
+            "name": self.name,
+            "email": self.email,
+        }

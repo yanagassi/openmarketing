@@ -15,7 +15,7 @@ def run_migration():
         {
             "name": "Admin",
             "email": "admin@admin.com",
-            "pass": sha256("admin123".encode('utf-8')).hexdigest(),
+            "password": sha256("admin123".encode('utf-8')).hexdigest(),
         }
     ]
     marketing_automation_collection.insert_many(data)

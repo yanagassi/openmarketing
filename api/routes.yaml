@@ -1,8 +1,8 @@
 - controller: controllers.UserController.UserController
   routes:
-    - route: /users
+    - route: /api/users
       methods: ["GET"]
       endpoint: get_user
-    - route: /
+    - route: /api/users/login
       methods: ["POST"]
-      endpoint: create_user
+      endpoint: post

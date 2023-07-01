@@ -4,6 +4,7 @@ import LandingPages from "../pages/converter/landingPages";
 import CreateLandingPage from "../pages/converter/landingPages/create";
 import ViewLandingPage from "../pages/converter/landingPages/viewLandingPage";
 import HomeScreen from "../pages/home";
+import Login from "../pages/login";
 
 const MENU_ITENS = [
   {
@@ -11,18 +12,21 @@ const MENU_ITENS = [
     href: "/",
     active: true,
     component: <HomeScreen />,
+    private: true,
   },
   {
     text: "Atrair",
     href: "/atrair",
     active: true,
     component: <Atrair />,
+    private: true,
   },
   {
     text: "Converter",
     href: "/converter",
     active: true,
     component: <Converter />,
+    private: true,
   },
   {
     text: "Landing Pages",
@@ -30,14 +34,15 @@ const MENU_ITENS = [
     active: true,
     hidden: true,
     component: <LandingPages />,
+    private: true,
   },
-
   {
     text: "Landing Pages",
     href: "/landing-pages/create",
     active: true,
     hidden: true,
     component: <CreateLandingPage />,
+    private: true,
   },
 
   {
@@ -47,22 +52,16 @@ const MENU_ITENS = [
     hidden: true,
     hideMenu: true,
     component: <ViewLandingPage />,
+    private: false,
   },
 
   {
-    text: "Relacionar",
-    href: "/relacionar",
-    active: false,
-  },
-  {
-    text: "Analisar",
-    href: "/analisar",
-    active: false,
-  },
-  {
-    text: "Vender",
-    href: "/vender",
-    active: false,
+    text: "Login",
+    href: "/users/login",
+    active: true,
+    hidden: true,
+    component: <Login />,
+    private: false,
   },
 ];
 

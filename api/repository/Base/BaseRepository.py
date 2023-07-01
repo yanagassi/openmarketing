@@ -14,6 +14,11 @@ class BaseRepository:
 
     def insert_many(self, collection, data):
         try:
+            instancia_classe = getattr(CollectionsRegister, collection.upper())[0]()
+            for chave in data:
+                if(chave == "_id"):
+                    data[chave] = str(data[chave])
+                setattr(instancia_classe, chave, data[chave])
             insert = self._db[collection].insert_many(data)
             return insert.inserted_ids
         except Exception as e:
@@ -22,6 +27,12 @@ class BaseRepository:
         
     def insert(self, collection, data):
         try:
+            instancia_classe = getattr(CollectionsRegister, collection.upper())[0]()
+            for chave in data:
+                if(chave == "_id"):
+                    data[chave] = str(data[chave])
+                setattr(instancia_classe, chave, data[chave])
+                
             insert = self._db[collection].insert_one(data)
             return insert.inserted_id
         except Exception as e:
@@ -50,6 +61,21 @@ class BaseRepository:
             res = self._db[collection].find_one({
                 "_id": id
             })
+            instancia_classe = getattr(CollectionsRegister, collection.upper())[0]()
+            
+            for chave in res:
+                if(chave == "_id"):
+                    res[chave] = str(res[chave])
+                setattr(instancia_classe, chave, res[chave])
+                
+            return instancia_classe
+        except Exception as e:
+            print(e)
+            return False
+        
+    def get_one(self, collection, filter = {}):
+        try:
+            res = self._db[collection].find_one(filter)
             instancia_classe = getattr(CollectionsRegister, collection.upper())[0]()
             
             for chave in res:
