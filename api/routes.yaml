@@ -1,0 +1,8 @@
+- controller: controllers.UserController.UserController
+  routes:
+    - route: /api/users
+      methods: ["GET"]
+      endpoint: get_user
+    - route: /api/users/login
+      methods: ["POST"]
+      endpoint: post

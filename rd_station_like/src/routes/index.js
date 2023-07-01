@@ -1,18 +1,33 @@
 import {
   Route,
   BrowserRouter as Router,
-  Routes as Switch,
+  Routes,
+  Navigate,
 } from "react-router-dom";
-import MENU_ITENS from "../constants/menu";
+import MENU_ITEMS from "../constants/menu";
+import { useContext } from "react";
+import { ApiContext } from "../context/ApiContext";
 
 const RoutesApp = () => {
+  const { isLoggedIn, logout } = useContext(ApiContext);
+
   return (
     <Router>
-      <Switch>
-        {MENU_ITENS.filter((e) => e.component).map((e) => (
-          <Route path={e.href} element={e.component} />
+      <Routes>
+        {MENU_ITEMS.filter((e) => e.component).map((e) => (
+          <Route
+            key={e.href}
+            path={e.href}
+            element={
+              e.private && !isLoggedIn ? (
+                <Navigate to="/users/login" replace={true} />
+              ) : (
+                e.component
+              )
+            }
+          />
         ))}
-      </Switch>
+      </Routes>
     </Router>
   );
 };
