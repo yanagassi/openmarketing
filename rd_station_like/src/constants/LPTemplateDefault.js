@@ -2,8 +2,9 @@ import comum from "../helpers/comum";
 
 const TestTemplate = () => {
   return {
-    id: comum.GenerateId(),
+    id: "64a75d1de2af721fb2eec308",
     name: "LandingPage Test",
+    organization_id: "65624415edf29e3513a7c5a7",
     properties: [
       {
         id: comum.GenerateId(),

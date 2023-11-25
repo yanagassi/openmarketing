@@ -1,3 +1,4 @@
+import React from "react";
 import { MdDelete } from "react-icons/md";
 import { LP_HTML_COMPONENTS_TYPE } from "../../../constants/LpContants";
 import FormDefaultLp from "./formDefault";
@@ -12,6 +13,14 @@ function ComponentSwitch({
   activeId,
   readOnly,
 }) {
+  const elementStyle = {
+    position: "absolute",
+    left: element.position.x - 20,
+    top: element.position.y + 25,
+    borderRadius: 2,
+    zIndex: 1,
+  };
+
   const getObject = () => {
     const fin = {
       key: element.id,
@@ -41,8 +50,8 @@ function ComponentSwitch({
           : undefined,
       },
       className: elementActive === element.id ? "section-active-variant" : "",
-      // ...element?.content,
     };
+
     switch (type) {
       case LP_HTML_COMPONENTS_TYPE.h1:
         return <h1 {...fin}>{element?.content?.text}</h1>;
@@ -60,82 +69,82 @@ function ComponentSwitch({
         return (
           <FormDefaultLp readOnly={readOnly} fin={fin} element={element} />
         );
+      default:
+        return null;
     }
   };
 
-  // DPS PASSAR PARA CSS
-
-  return (
-    <>
-      <div onKeyDownCapture={(e) => {}}>
-        {elementActive === element.id ? (
-          <div
-            style={{
-              width: element.position.x,
-              height: element.position.y,
-              borderBottom: "thin solid",
-              borderStyle: "dotted",
-              borderTop: "none",
-              borderLeft: "none",
-              borderRight: "thin solid",
-              borderColor: "var(--blue-light)",
-              zIndex: 1,
-            }}
-          >
-            <span
-              style={{
-                position: "relative",
-                top: element.position.y,
-                width: element?.content?.width,
-                left: "calc(100% - 30px)",
-                fontSize: 10,
-                color: "#9b9997",
-                zIndex: 99,
-                zIndex: 1,
-              }}
-            >
-              {element.position.x.toFixed(0)}px
-            </span>
-            <span
-              style={{
-                position: "absolute",
-                top:
-                  element.position.y > 10
-                    ? element.position.y / 2
-                    : element.position.y,
-                left: element.position.x + 10,
-                color: "#9b9997",
-                fontSize: 10,
-                zIndex: 2,
-              }}
-            >
-              {element.position.y.toFixed(0)}px
-            </span>
-          </div>
-        ) : null}
-        <div style={{ width: element?.content?.width }}>{getObject()}</div>
+  const renderActiveOverlay = () => {
+    if (
+      elementActive === element.id &&
+      element.type !== LP_HTML_COMPONENTS_TYPE.form
+    ) {
+      return (
         <div
           style={{
-            position: "absolute",
-            left: element.position.x - 20,
-            top: element.position.y + 25,
-            borderRadius: 2,
+            width: element.position.x,
+            height: element.position.y,
+            borderBottom: "thin solid",
+            borderStyle: "dotted",
+            borderTop: "none",
+            borderLeft: "none",
+            borderRight: "thin solid",
+            borderColor: "var(--blue-light)",
             zIndex: 1,
           }}
         >
-          {elementActive === element.id &&
-          element.type != LP_HTML_COMPONENTS_TYPE.form ? (
-            <a
-              href="#"
-              style={{ color: "white", zIndex: 10 }}
-              onClick={() => deleteElement(activeId, element.id, element)}
-            >
-              <MdDelete />
-            </a>
-          ) : null}
+          <span
+            style={{
+              position: "relative",
+              top: element.position.y,
+              width: element?.content?.width,
+              left: "calc(100% - 30px)",
+              fontSize: 10,
+              color: "#9b9997",
+              zIndex: 1,
+            }}
+          >
+            {element.position.x.toFixed(0)}px
+          </span>
+          <span
+            style={{
+              position: "absolute",
+              top:
+                element.position.y > 10
+                  ? element.position.y / 2
+                  : element.position.y,
+              left: element.position.x + 10,
+              color: "#9b9997",
+              fontSize: 10,
+              zIndex: 2,
+            }}
+          >
+            {element.position.y.toFixed(0)}px
+          </span>
         </div>
+      );
+    }
+
+    return null;
+  };
+
+  return (
+    <div onKeyDownCapture={(e) => {}}>
+      {renderActiveOverlay()}
+      <div style={{ width: element?.content?.width }}>{getObject()}</div>
+      <div style={elementStyle}>
+        {elementActive === element.id &&
+        element.type !== LP_HTML_COMPONENTS_TYPE.form ? (
+          <a
+            href="#"
+            style={{ color: "white", zIndex: 10 }}
+            onClick={() => deleteElement(activeId, element.id, element)}
+          >
+            <MdDelete />
+          </a>
+        ) : null}
       </div>
-    </>
+    </div>
   );
 }
 

@@ -47,7 +47,7 @@ const MENU_ITENS = [
 
   {
     text: "Landing Pages",
-    href: "/view/:id",
+    href: "/view/:route_lp_view_id",
     active: true,
     hidden: true,
     hideMenu: true,
