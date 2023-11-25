@@ -6,3 +6,8 @@
     - route: /api/users/login
       methods: ["POST"]
       endpoint: post
+- controller: controllers.LeadsController.LeadsController
+  routes:
+    - route: /api/leads
+      methods: ["POST"]
+      endpoint: create_lead

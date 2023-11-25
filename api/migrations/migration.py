@@ -1,7 +1,8 @@
 from hashlib import sha256
 
 from pymongo import MongoClient
-from settings import DATABASE_NAME, MONGO_URI
+MONGO_URI = "mongodb://localhost:27017/"
+DATABASE_NAME = "marketing_automation"
 
 
 # Função para executar a migração
@@ -16,6 +17,10 @@ def run_migration():
             "name": "Admin",
             "email": "admin@admin.com",
             "password": sha256("admin123".encode('utf-8')).hexdigest(),
+            "organizations": [{
+                "name": "Fantasia Corporate",
+                "url": "fantasiacorporate.com",
+            }]
         }
     ]
     marketing_automation_collection.insert_many(data)

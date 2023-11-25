@@ -3,6 +3,7 @@ import "../../../assets/css/LPRender.css";
 import "../../../assets/css/mainrender.css";
 import configs from "../../../configs";
 import Section from "./section";
+import PropTypes from "prop-types";
 
 function LPRender({
   script,
@@ -54,7 +55,7 @@ function LPRender({
 
               {e.id === activeId ? (
                 <div className="add-section">
-                  <a style={{}} onClick={() => addNewSection()}>
+                  <a onClick={addNewSection}>
                     <MdAddBox className="md-add-icons" />
                   </a>
                 </div>
@@ -66,5 +67,18 @@ function LPRender({
     </div>
   );
 }
+LPRender.propTypes = {
+  script: PropTypes.object.isRequired,
+  activeId: PropTypes.string.isRequired,
+  readOnly: PropTypes.bool,
+  isMobile: PropTypes.bool,
+  handlerElement: PropTypes.func,
+  onActive: PropTypes.func,
+  onActiveElement: PropTypes.func,
+  elementActive: PropTypes.func,
+  addNewElement: PropTypes.func,
+  deleteElement: PropTypes.func,
+  addNewSection: PropTypes.func,
+};
 
 export default LPRender;

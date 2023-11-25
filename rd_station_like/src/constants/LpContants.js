@@ -128,13 +128,14 @@ const FORM_LP_TYPES = {
     type: "text",
   },
 };
-
+const FORM_LP_EMAIL_TYPE = "email";
+const FORM_LP_EMAIL_NAME_ID = "emailField";
 const FORM_LP_INPUT_TYPES = {
   operations: [
     "text",
     "checkbox",
     "date",
-    "email",
+    FORM_LP_EMAIL_TYPE,
     "number",
     "password",
     "radio",
@@ -216,6 +217,8 @@ export {
   FORM_LP_INPUT_TYPES,
   FORM_LP_TYPES,
   KEY_TYPES,
+  FORM_LP_EMAIL_TYPE,
   KEY_VALUE,
   LP_HTML_COMPONENTS_TYPE,
+  FORM_LP_EMAIL_NAME_ID,
 };

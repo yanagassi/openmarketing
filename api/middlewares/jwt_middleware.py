@@ -1,7 +1,7 @@
 from functools import wraps
 from flask import request, jsonify
 import jwt
-from settings import JWT_SECRETE
+from settings import JWT_SECRET
 from constants.messages import ERRO_AUTH, ERRO_AUTH_EXP
 
 def jwt_required(f):
@@ -17,7 +17,7 @@ def jwt_required(f):
             return {'message' : ERRO_AUTH}, 401
 
         try:
-            decoded_token = jwt.decode(token, JWT_SECRETE, algorithms=['HS256']) 
+            decoded_token = jwt.decode(token, JWT_SECRET, algorithms=['HS256']) 
         except jwt.ExpiredSignatureError:
             return { 'message' : ERRO_AUTH_EXP }, 401
         except jwt.InvalidTokenError:

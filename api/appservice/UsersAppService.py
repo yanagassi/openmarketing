@@ -3,7 +3,9 @@ import json
 from hashlib import sha256
 from .Base.BaseAppService import BaseAppService
 import jwt
-from settings import JWT_SECRETE
+from settings import JWT_SECRET
+
+
 class UsersAppService(BaseAppService):
     def __init__(self) :
         self._user_repository = UsersRepository()
@@ -22,9 +24,11 @@ class UsersAppService(BaseAppService):
             return False
         
         jwt_body = result.get_jwt_safe_data()
+        jwt_body["organization"] = jwt_body["organizations"][0]
+        jwt_body["organizations"] = None 
         
         token = jwt.encode(
             payload=jwt_body,
-            key=JWT_SECRETE
+            key=JWT_SECRET
         )
         return token
