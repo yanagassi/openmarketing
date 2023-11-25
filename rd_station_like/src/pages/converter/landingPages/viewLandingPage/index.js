@@ -41,7 +41,6 @@ function ViewLandingPage() {
       };
     }
 
-    console.log("Aqui deve ter uma request de acesso, params:", bodyData);
     const response = await leads_events.subscription_form(
       bodyData,
       script.organization_id

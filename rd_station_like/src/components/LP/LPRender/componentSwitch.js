@@ -6,6 +6,7 @@ import FormDefaultLp from "./formDefault";
 function ComponentSwitch({
   element,
   type,
+  script,
   handleDragStart,
   elementActive,
   onActiveElement,
@@ -67,7 +68,12 @@ function ComponentSwitch({
         return <img {...fin} />;
       case LP_HTML_COMPONENTS_TYPE.form:
         return (
-          <FormDefaultLp readOnly={readOnly} fin={fin} element={element} />
+          <FormDefaultLp
+            organization_id={script.organization_id}
+            readOnly={readOnly}
+            fin={fin}
+            element={element}
+          />
         );
       default:
         return null;

@@ -6,7 +6,7 @@ import cookiesHelper from "../../../helpers/cookiesHelper";
 import { FORM_LP_EMAIL_TYPE } from "../../../constants/LpContants";
 import leads_events from "../../../models/leads_events";
 
-function FormDefaultLp({ readOnly, fin, element }) {
+function FormDefaultLp({ readOnly, fin, element, organization_id }) {
   const [form, setForm] = useState({});
   const { route_lp_view_id } = useParams();
   const EMAIL_FIELD = element.content.fields.filter(
@@ -52,7 +52,10 @@ function FormDefaultLp({ readOnly, fin, element }) {
 
     cookiesHelper.addOrUpdateCookie(EMAIL_FIELD[0].id, form[EMAIL_FIELD[0].id]);
 
-    const response = await leads_events.subscription_form(objectForm);
+    const response = await leads_events.subscription_form(
+      objectForm,
+      organization_id
+    );
     alert(response);
   }
 
