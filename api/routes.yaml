@@ -6,8 +6,15 @@
     - route: /api/users/login
       methods: ["POST"]
       endpoint: post
+
 - controller: controllers.LeadsController.LeadsController
   routes:
     - route: /api/leads
       methods: ["POST"]
       endpoint: create_lead
+
+- controller: controllers.LandingPagesController.LandingPagesController
+  routes:
+    - route: /api/landing-pages/<id>
+      methods: ["GET"]
+      endpoint: get_by_id

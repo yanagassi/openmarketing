@@ -47,6 +47,16 @@ const MENU_ITENS = [
 
   {
     text: "Landing Pages",
+    href: "/landing-pages/edit/:id_lp",
+    active: true,
+    hidden: true,
+    hideMenu: true,
+    component: <CreateLandingPage />,
+    private: false,
+  },
+
+  {
+    text: "Landing Pages",
     href: "/view/:route_lp_view_id",
     active: true,
     hidden: true,

@@ -7,8 +7,12 @@ import TestTemplate from "../../../../constants/LPTemplateDefault";
 import TestTemplateMobile from "../../../../constants/LPTemplateDefaultMobile";
 import { KEY_TYPES } from "../../../../constants/LpContants";
 import comum from "../../../../helpers/comum";
+import { useParams } from "react-router-dom";
+import landing_pages from "../../../../models/landing_pages";
 
 function CreateLandingPage() {
+  const { id_lp } = useParams();
+
   // Esses são os SCRIPTS que devem ser mandados ao Backend
   const [desktopScript, setDesktopScript] = useState(TestTemplate());
   const [mobileScript, setMobileScript] = useState(TestTemplateMobile());
@@ -29,6 +33,20 @@ function CreateLandingPage() {
     setActiveSectionValues(getValueSectionActive());
     setActiveElementsValues(getValueElementActive());
   }, [script, elementActive, sectionActive]);
+
+  useEffect(() => {
+    init();
+  }, []);
+
+  async function init() {
+    let data = await landing_pages.get_lp(id_lp);
+    if (typeof data == "string") {
+      data = JSON.parse(data);
+    }
+    console.log(data);
+    setDesktopScript(data.desktop);
+    setMobileScript(data.mobile);
+  }
 
   function setScript(e) {
     if (isMobile) setMobileScript(e);
@@ -186,7 +204,7 @@ function CreateLandingPage() {
     <div className="main-create-render">
       <LPMenuRender
         isMobile={isMobile}
-        title={script.name}
+        title="LandingPages"
         handleScript={handleScript}
       />
 
@@ -233,6 +251,7 @@ function CreateLandingPage() {
             addNewSection={addNewSection}
             onActiveElement={setElementActive}
             addNewElement={addNewElement}
+            readOnly={false}
           />
         </div>
         {/* </Col> */}
