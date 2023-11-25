@@ -60,7 +60,11 @@ function FormDefaultLp({ readOnly, fin, element, organization_id }) {
   }
 
   return (
-    <form {...fin} className="card form-landing-page" onSubmit={submitForm}>
+    <form
+      {...fin}
+      className={`card form-landing-page ${fin.className}`}
+      onSubmit={submitForm}
+    >
       <span
         style={{
           color: element?.content?.colorTilte,

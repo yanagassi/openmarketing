@@ -82,8 +82,9 @@ function ComponentSwitch({
 
   const renderActiveOverlay = () => {
     if (
-      elementActive === element.id &&
-      element.type !== LP_HTML_COMPONENTS_TYPE.form
+      elementActive === element.id
+      // /&&
+      // element.type !== LP_HTML_COMPONENTS_TYPE.form
     ) {
       return (
         <div

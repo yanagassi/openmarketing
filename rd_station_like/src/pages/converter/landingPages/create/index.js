@@ -11,11 +11,13 @@ import { useParams } from "react-router-dom";
 import landing_pages from "../../../../models/landing_pages";
 
 function CreateLandingPage() {
-  const { id_lp } = useParams();
+  const { id_lp = null } = useParams();
+  const [load, setLoad] = useState(id_lp != null ? true : false);
 
   // Esses são os SCRIPTS que devem ser mandados ao Backend
   const [desktopScript, setDesktopScript] = useState(TestTemplate());
   const [mobileScript, setMobileScript] = useState(TestTemplateMobile());
+  const [metaData, setMetaData] = useState({});
 
   // Só pode ser alterada pelo handleScript().
   const [isMobile, _setIsMobile] = useState(false);
@@ -40,12 +42,23 @@ function CreateLandingPage() {
 
   async function init() {
     let data = await landing_pages.get_lp(id_lp);
+    if (!data) {
+      return;
+    }
     if (typeof data == "string") {
       data = JSON.parse(data);
     }
-    console.log(data);
+
     setDesktopScript(data.desktop);
     setMobileScript(data.mobile);
+
+    setScriptMain(isMobile ? data.mobile : data.desktop);
+    setMetaData({
+      ...data,
+      desktop: null,
+      mobile: null,
+    });
+    setLoad(false);
   }
 
   function setScript(e) {
@@ -199,12 +212,15 @@ function CreateLandingPage() {
       }),
     });
   }
-
+  if (load) {
+    return <></>;
+  }
   return (
     <div className="main-create-render">
       <LPMenuRender
         isMobile={isMobile}
-        title="LandingPages"
+        title={metaData.title}
+        body={{ ...metaData, mobile: mobileScript, desktop: desktopScript }}
         handleScript={handleScript}
       />
 
@@ -251,7 +267,6 @@ function CreateLandingPage() {
             addNewSection={addNewSection}
             onActiveElement={setElementActive}
             addNewElement={addNewElement}
-            readOnly={false}
           />
         </div>
         {/* </Col> */}

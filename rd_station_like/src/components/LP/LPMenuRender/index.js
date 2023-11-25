@@ -8,7 +8,15 @@ import {
   NavLink,
   Navbar,
 } from "reactstrap";
-function LPMenuRender({ title, handleScript, isMobile }) {
+function LPMenuRender({
+  title = "Nova LandingPage",
+  handleScript,
+  isMobile,
+  body,
+}) {
+  function salvar() {
+    console.log(body);
+  }
   return (
     <>
       <Navbar
@@ -39,7 +47,11 @@ function LPMenuRender({ title, handleScript, isMobile }) {
             </Nav>
           </div>
           <div className="menu-bar-profile">
-            <Button color="primary" className="button-mid-height">
+            <Button
+              color="primary"
+              className="button-mid-height"
+              onClick={() => salvar()}
+            >
               Salvar
             </Button>
           </div>
