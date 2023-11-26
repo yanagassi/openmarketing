@@ -5,6 +5,12 @@
 .menu-bar {
   height: 60px;
 }
+
+.menu-bar-item > .nav-link,
+.menu-data-items {
+  color: var(--white) !important;
+  z-index: 99999 !important;
+}
 .menu-bar-main {
   position: fixed;
   display: flex;
@@ -12,6 +18,9 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  z-index: 1000;
 }
 .menu-bar-profile {
   padding: 10px;
@@ -45,6 +54,13 @@
   display: flex;
 }
 
+.nav-item {
+  margin-right: 10px;
+}
 .menu-bar-switch > svg {
   margin-right: 10px;
+}
+
+.image-logo {
+  margin-right: 15px;
 }

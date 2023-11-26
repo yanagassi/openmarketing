@@ -1,11 +1,26 @@
-import React, { useContext } from "react";
-import { Nav, NavItem, NavLink, Navbar, Row } from "reactstrap";
+import React, { useContext, useState } from "react";
+import {
+  Nav,
+  NavItem,
+  NavLink,
+  Navbar,
+  Row,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
 import "../../assets/css/menu.css";
 import MenuItems from "../../constants/menu";
 import { ApiContext } from "../../context/ApiContext";
 
 const MenuBar = () => {
   const { isLoggedIn, user, logout } = useContext(ApiContext);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
 
   if (window?.location?.pathname?.match(/\/view\/[^&]*/)?.length > 0) {
     return null;
@@ -17,12 +32,48 @@ const MenuBar = () => {
         <div className="menu-bar-main">
           <div>
             <Nav navbar>
-              {isLoggedIn &&
+              <img
+                src="https://cdn.custom-cursor.com/cursors/stonks_meme_1254.png"
+                height={45}
+                style={{ transform: "scaleX(-1)" }}
+                className="image-logo"
+                width={100}
+              />
+              {/* {isLoggedIn &&
                 MenuItems.filter((i) => !i.hidden).map((i) => (
-                  <NavItem active={i.active} className="menu-bar-item">
+                  <NavItem
+                    active={i.active}
+                    className="menu-bar-item"
+                    key={i.text}
+                  >
                     <NavLink href={i.href}>{i.text}</NavLink>
                   </NavItem>
-                ))}
+                ))} */}
+
+              <NavItem className="menu-bar-item">
+                <NavLink href="/">Inicio</NavLink>
+              </NavItem>
+
+              {isLoggedIn && (
+                <Dropdown
+                  className="menu-data-items"
+                  nav
+                  isOpen={dropdownOpen}
+                  toggle={toggleDropdown}
+                >
+                  <DropdownToggle className="menu-data-items" nav caret>
+                    Converter{" "}
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem href="/landing-pages">
+                      LandingPages
+                    </DropdownItem>
+                    {/* <DropdownItem href="/converter/opcao2">
+                      Opção 2
+                    </DropdownItem> */}
+                  </DropdownMenu>
+                </Dropdown>
+              )}
             </Nav>
           </div>
           {isLoggedIn && (

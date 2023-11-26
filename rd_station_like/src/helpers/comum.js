@@ -1,8 +1,13 @@
-function Redirect(url) {
+function Redirect(url, openInNewTab = false) {
   if (!url) {
     return;
   }
-  window.location.href = url;
+
+  if (openInNewTab) {
+    window.open(url, "_blank");
+  } else {
+    window.location.href = url;
+  }
 }
 
 function GenerateId(length = 10) {
@@ -80,6 +85,14 @@ function GetLabelData(key) {
   };
 }
 
+function isMobile() {
+  const userAgent = navigator.userAgent;
+  const mobileRegex =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+
+  return mobileRegex.test(userAgent) || window.innerWidth < 768; // Adapte o valor conforme necessário
+}
+
 export default {
   Redirect,
   GenerateId,
@@ -87,4 +100,5 @@ export default {
   GerarRGBA,
   HexToRGBA,
   GetLabelData,
+  isMobile,
 };

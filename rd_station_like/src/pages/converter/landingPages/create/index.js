@@ -222,6 +222,7 @@ function CreateLandingPage() {
         title={metaData.title}
         body={{ ...metaData, mobile: mobileScript, desktop: desktopScript }}
         handleScript={handleScript}
+        id_lp={id_lp}
       />
 
       <div

@@ -18,3 +18,7 @@
     - route: /api/landing-pages/<id>
       methods: ["GET"]
       endpoint: get_by_id
+
+    - route: /api/landing-pages
+      methods: ["POST"]
+      endpoint: create_or_edit

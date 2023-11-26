@@ -10,6 +10,23 @@ class BaseRepository:
         self._connection = MongoClient(MONGO_URI)
         self._db = self._connection[DATABASE_NAME]
 
+    @staticmethod
+    def convert_ids_to_objectid(obj):
+        """
+        Converte todas as ocorrências da chave 'id' para ObjectId no objeto.
+        """
+        if isinstance(obj, list):
+            return [BaseRepository.convert_ids_to_objectid(item) for item in obj]
+        elif isinstance(obj, dict):
+            return {
+                key: BaseRepository.convert_ids_to_objectid(value)
+                for key, value in obj.items()
+            }
+        elif isinstance(obj, str) and obj.startswith("ObjectId("):
+            # Se a string começa com "ObjectId(", então é uma representação de ObjectId
+            return ObjectId(obj[9:-1])
+        return obj
+
     def __del__(self):
         try:
             self._connection.close()

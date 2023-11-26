@@ -9,4 +9,13 @@ async function get_lp(lp_id) {
   }
 }
 
-export default { get_lp };
+async function save(body) {
+  try {
+    const { data } = await api.post(`/api/landing-pages`, body);
+    return data;
+  } catch {
+    return false;
+  }
+}
+
+export default { get_lp, save };

@@ -5,22 +5,38 @@ import TestTemplateMobile from "../../../../constants/LPTemplateDefaultMobile";
 import LP_LEADS_REQUEST_TYPE from "../../../../constants/LPLeadsRequestType";
 import { useParams } from "react-router-dom";
 import cookiesHelper from "../../../../helpers/cookiesHelper";
+import landing_pages from "../../../../models/landing_pages";
+
 import {
   FORM_LP_EMAIL_NAME_ID,
   FORM_LP_EMAIL_TYPE,
 } from "../../../../constants/LpContants";
 import leads_events from "../../../../models/leads_events";
+import comum from "../../../../helpers/comum";
 
-const isMobile = true;
-const INIT_STATE = isMobile ? TestTemplateMobile() : TestTemplate();
+const isMobile = comum.isMobile();
 
 function ViewLandingPage() {
-  const [script, _] = useState(INIT_STATE);
+  const [script, setScript] = useState({});
+  const [load, setLoad] = useState(true);
   const { route_lp_view_id } = useParams();
 
   useEffect(() => {
+    init();
     makeAcess();
   }, []);
+
+  async function init() {
+    let data = await landing_pages.get_lp(route_lp_view_id);
+    if (!data) {
+      return;
+    }
+    if (typeof data == "string") {
+      data = JSON.parse(data);
+    }
+    setScript(isMobile ? data.mobile : data.desktop);
+    setLoad(false);
+  }
 
   async function makeAcess() {
     let bodyData = {
@@ -46,6 +62,9 @@ function ViewLandingPage() {
       script.organization_id
     );
     // alert(response);
+  }
+  if (load) {
+    return null;
   }
   return (
     <div style={{ width: "100vw", overflowX: "auto" }}>

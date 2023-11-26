@@ -19,7 +19,7 @@ class LandingPageRepository:
             CollectionsRegister.LANDINGPAGES[1], {"_id": ObjectId(event_id)}
         )
 
-    def update_event(self, event_id, updated_data):
+    def update(self, event_id, updated_data):
         return self._repository.update_by_id(
             CollectionsRegister.LANDINGPAGES[1], event_id, updated_data
         )

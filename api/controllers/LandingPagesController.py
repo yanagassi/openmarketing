@@ -1,5 +1,7 @@
 from appservice.LandingPagesAppService import LandingPagesAppService
 from flask import Flask, jsonify
+from flask import request
+
 from flask_restful import Resource
 from helpers.comun import verify_json
 from constants.messages import ERRO_LOGIN
@@ -38,3 +40,11 @@ class LandingPagesController(Resource):
             result,
             200,
         )
+
+    @jwt_required
+    def post(self):
+        body = request.get_json()
+        if "id" in body:
+            return self._appservice.update_landing_page(body["id"], body)
+        else:
+            return self._appservice.create_landing_page(body)
