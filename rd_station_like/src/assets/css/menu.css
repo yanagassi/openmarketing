@@ -5,6 +5,9 @@
 .menu-bar {
   height: 60px;
 }
+.nav-link {
+  border-radius: 0 !important;
+}
 
 .menu-bar-item > .nav-link,
 .menu-data-items {
@@ -54,7 +57,7 @@
   display: flex;
 }
 
-.nav-item {
+.menu-bar > .nav-item {
   margin-right: 10px;
 }
 .menu-bar-switch > svg {

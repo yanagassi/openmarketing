@@ -7,10 +7,16 @@
   --gray: #ced4da;
 }
 
+.btn {
+  font-size: 13px;
+}
 .bg-dark,
 .btn-dark {
   background-color: var(--blue-bg) !important;
   border-color: var(--blue-bg) !important;
+}
+.nav-link {
+  cursor: pointer;
 }
 
 @font-face {

@@ -66,7 +66,7 @@ const MenuBar = () => {
                   </DropdownToggle>
                   <DropdownMenu>
                     <DropdownItem href="/landing-pages">
-                      LandingPages
+                      Landing Pages
                     </DropdownItem>
                     {/* <DropdownItem href="/converter/opcao2">
                       Opção 2

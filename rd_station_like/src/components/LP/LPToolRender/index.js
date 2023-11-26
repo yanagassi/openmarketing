@@ -126,7 +126,7 @@ function LPToolRender({
     <div
       style={{
         width: "100%",
-        paddingTop: 5,
+        marginTop: -1,
       }}
     >
       <Nav tabs style={{ width: "25vw", position: "fixed" }}>

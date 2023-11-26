@@ -9,7 +9,7 @@ function LandingPages() {
       <Col xs={12} md={10} className="text-center">
         <h4 className="mb-4">Landing Pages</h4>
         <img
-          src="https://img.freepik.com/free-vector/cartoon-exhausted-woman-sitting-table-working_74855-6943.jpg?w=1380&t=st=1701005983~exp=1701006583~hmac=04e70f8236f191ca816b60eeaba26bcbadb9d8a335d12c5e9bea10cbeb1cacd1"
+          src="https://img.freepik.com/free-vector/cartoon-exhausted-woman-sitting-table-working_74855-6943.jpg"
           alt="Imagem ilustrativa de landing pages"
           className="img-fluid"
           style={{ maxWidth: 450 }}
