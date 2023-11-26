@@ -39,6 +39,7 @@ class UsersAppService(BaseAppService):
         jwt_body = result.get_jwt_safe_data()
         jwt_body["organization"] = jwt_body["organizations"][0]
         jwt_body["organizations"] = None
-
+        jwt_body["organization"]["id"] = str(jwt_body["organization"]["_id"])
+        jwt_body["organization"]["_id"] = None
         token = jwt.encode(payload=jwt_body, key=JWT_SECRET)
         return token

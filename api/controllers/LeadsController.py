@@ -16,7 +16,7 @@ class LeadsController(Resource):
         self._events_appservice = EventsAppService()
         self._leads_appservice = LeadsAppService()
 
-    def post(self):
+    def create_lead(self):
         body = request.get_json()
         organization_id = request.headers.get("Organizationid")
 

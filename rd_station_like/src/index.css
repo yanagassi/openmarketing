@@ -6,8 +6,11 @@
   --white: #f6e3e3;
   --gray: #ced4da;
 }
-
-.btn {
+a {
+  text-decoration: none;
+}
+.btn,
+p {
   font-size: 13px;
 }
 .bg-dark,

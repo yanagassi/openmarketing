@@ -5,7 +5,7 @@
       endpoint: get_user
     - route: /api/users/login
       methods: ["POST"]
-      endpoint: post
+      endpoint: login
 
 - controller: controllers.LeadsController.LeadsController
   routes:
@@ -15,10 +15,12 @@
 
 - controller: controllers.LandingPagesController.LandingPagesController
   routes:
-    - route: /api/landing-pages/<id>
+    - route: /api/landing-pages
       methods: ["GET"]
-      endpoint: get_by_id
-
+      endpoint: get_all_lps
     - route: /api/landing-pages
       methods: ["POST"]
       endpoint: create_or_edit
+    - route: /api/landing-pages/<id>
+      methods: ["GET"]
+      endpoint: get_by_id

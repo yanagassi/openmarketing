@@ -10,6 +10,7 @@ import {
 } from "reactstrap";
 import landing_pages from "../../../models/landing_pages";
 import comum from "../../../helpers/comum";
+import { MdArrowBack, MdDoorBack, MdSave, MdVisibility } from "react-icons/md";
 
 function LPMenuRender({
   title = "Nova LandingPage",
@@ -52,13 +53,20 @@ function LPMenuRender({
           </Nav>
         </div>
         <div className="menu-bar-profile">
+          <Button
+            color="primary"
+            className="button-mid-height"
+            onClick={() => window.history.back()}
+          >
+            <MdArrowBack />
+          </Button>{" "}
           {id_lp ? (
             <Button
               color="primary"
               className="button-mid-height"
               onClick={() => comum.Redirect("/view/" + id_lp, true)}
             >
-              Vizualisar
+              <MdVisibility />
             </Button>
           ) : null}{" "}
           <Button
@@ -66,7 +74,7 @@ function LPMenuRender({
             className="button-mid-height"
             onClick={() => salvar()}
           >
-            Salvar
+            <MdSave /> Salvar
           </Button>
         </div>
       </div>

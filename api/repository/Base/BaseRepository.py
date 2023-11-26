@@ -3,6 +3,7 @@ from pymongo import MongoClient
 from settings import DATABASE_NAME, MONGO_URI
 import json
 from bson.objectid import ObjectId
+from datetime import datetime
 
 
 class BaseRepository:
@@ -121,6 +122,7 @@ class BaseRepository:
 
     def update_by_id(self, collection, id, data):
         try:
+            data["updated_data"] = datetime.now().isoformat()
             insert = self._db[collection].update_one(
                 {"_id": ObjectId(id)}, {"$set": self.class_to_json(data)}
             )

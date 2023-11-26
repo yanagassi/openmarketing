@@ -13,6 +13,7 @@
 .menu-data-items {
   color: var(--white) !important;
   z-index: 99999 !important;
+  margin-right: 5px;
 }
 .menu-bar-main {
   position: fixed;

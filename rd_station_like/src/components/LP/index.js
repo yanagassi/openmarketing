@@ -16,10 +16,15 @@ import { ApiContext } from "../../context/ApiContext";
 
 const MenuBar = () => {
   const { isLoggedIn, user, logout } = useContext(ApiContext);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownOpen1, setDropdownOpen1] = useState(false);
+  const [dropdownOpen2, setDropdownOpen2] = useState(false);
 
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
+  const toggleDropdown1 = () => {
+    setDropdownOpen1(!dropdownOpen1);
+  };
+
+  const toggleDropdown2 = () => {
+    setDropdownOpen2(!dropdownOpen2);
   };
 
   if (window?.location?.pathname?.match(/\/view\/[^&]*/)?.length > 0) {
@@ -39,40 +44,50 @@ const MenuBar = () => {
                 className="image-logo"
                 width={100}
               />
-              {/* {isLoggedIn &&
-                MenuItems.filter((i) => !i.hidden).map((i) => (
-                  <NavItem
-                    active={i.active}
-                    className="menu-bar-item"
-                    key={i.text}
-                  >
-                    <NavLink href={i.href}>{i.text}</NavLink>
-                  </NavItem>
-                ))} */}
-
               <NavItem className="menu-bar-item">
                 <NavLink href="/">Inicio</NavLink>
               </NavItem>
 
               {isLoggedIn && (
-                <Dropdown
-                  className="menu-data-items"
-                  nav
-                  isOpen={dropdownOpen}
-                  toggle={toggleDropdown}
-                >
-                  <DropdownToggle className="menu-data-items" nav caret>
-                    Converter{" "}
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    <DropdownItem href="/landing-pages">
-                      Landing Pages
-                    </DropdownItem>
-                    {/* <DropdownItem href="/converter/opcao2">
-                      Opção 2
-                    </DropdownItem> */}
-                  </DropdownMenu>
-                </Dropdown>
+                <>
+                  <Dropdown
+                    className="menu-data-items"
+                    nav
+                    isOpen={dropdownOpen1}
+                    toggle={toggleDropdown1}
+                  >
+                    <DropdownToggle className="menu-data-items" nav caret>
+                      Relacionar{" "}
+                    </DropdownToggle>
+                    <DropdownMenu>
+                      <DropdownItem href="/landing-pages">
+                        Base de Leads
+                      </DropdownItem>
+                      <DropdownItem href="/landing-pages">
+                        Leads Scoring
+                      </DropdownItem>
+                      <DropdownItem href="/landing-pages">
+                        Segmentação de Leads
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
+
+                  <Dropdown
+                    className="menu-data-items"
+                    nav
+                    isOpen={dropdownOpen2}
+                    toggle={toggleDropdown2}
+                  >
+                    <DropdownToggle className="menu-data-items" nav caret>
+                      Converter{" "}
+                    </DropdownToggle>
+                    <DropdownMenu>
+                      <DropdownItem href="/landing-pages">
+                        Landing Pages
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
+                </>
               )}
             </Nav>
           </div>

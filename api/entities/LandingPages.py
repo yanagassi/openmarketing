@@ -4,7 +4,14 @@ from datetime import datetime
 
 class LandingPages:
     def __init__(
-        self, organization_id="", title="", event={}, mobile={}, desktop={}, id=0
+        self,
+        organization_id="",
+        title="",
+        event={},
+        mobile={},
+        desktop={},
+        updated_data="",
+        id=0,
     ):
         self._id = id
         self._organization_id = organization_id
@@ -12,6 +19,7 @@ class LandingPages:
         self._mobile = mobile
         self._event = event
         self._title = title
+        self._updated_data = updated_data
 
     def get_jwt_safe_data(self):
         return {

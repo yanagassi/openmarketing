@@ -14,6 +14,10 @@ class LandingPagesAppService(BaseAppService):
     def get_landing_pages(self, id):
         return self._repo.get_by_id(id)
 
+    def get_all_landing_pages(self, organizationid):
+        res = self._repo.get_by_filter({"organization_id": ObjectId(organizationid)})
+        return res
+
     def update_landing_page(self, id, body):
         body = self._repo._repository.convert_ids_to_objectid(body)
         update = self._repo.update(id, body)
