@@ -70,7 +70,7 @@ class EventsAppService(BaseAppService):
                     "lead_id": lead_id,
                     "organization_id": organization_id,
                     "type_event": event_type,
-                    "event_date": datetime.now(),
+                    "event_date": datetime.now().isoformat(),
                 }
             )
             insert_id = str(result)

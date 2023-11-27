@@ -18,9 +18,9 @@ class EventsRepository:
             CollectionsRegister.EVENTS[1], {"_id": ObjectId(event_id)}
         )
 
-    def update_event(self, event_id, updated_data):
+    def update_event(self, event_id, updated_at):
         return self._repository.update_by_id(
-            CollectionsRegister.EVENTS[1], {"_id": event_id}, updated_data
+            CollectionsRegister.EVENTS[1], {"_id": event_id}, updated_at
         )
 
     def delete_event(self, event_id):

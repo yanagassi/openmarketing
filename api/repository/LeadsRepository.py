@@ -15,9 +15,9 @@ class LeadsRepository:
     def get_lead_by_id(self, lead_id):
         return self._repository.get_one(CollectionsRegister.LEADS[1], {"_id": lead_id})
 
-    def update_lead(self, lead_id, updated_data):
+    def update_lead(self, lead_id, updated_at):
         return self._repository.update_by_id(
-            CollectionsRegister.LEADS[1], lead_id, updated_data
+            CollectionsRegister.LEADS[1], lead_id, updated_at
         )
 
     def delete_lead(self, lead_id):

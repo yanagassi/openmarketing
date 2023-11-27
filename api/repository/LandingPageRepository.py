@@ -19,9 +19,9 @@ class LandingPageRepository:
             CollectionsRegister.LANDINGPAGES[1], {"_id": ObjectId(event_id)}
         )
 
-    def update(self, event_id, updated_data):
+    def update(self, event_id, updated_at):
         return self._repository.update_by_id(
-            CollectionsRegister.LANDINGPAGES[1], event_id, updated_data
+            CollectionsRegister.LANDINGPAGES[1], event_id, updated_at
         )
 
     def delete_event(self, event_id):

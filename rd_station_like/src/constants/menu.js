@@ -6,6 +6,7 @@ import ViewLandingPage from "../pages/converter/landingPages/viewLandingPage";
 import HomeScreen from "../pages/home";
 import Login from "../pages/login";
 import Leads from "../pages/relacionar/leads";
+import ViewLead from "../pages/relacionar/leads/viewLead";
 
 const MENU_ITENS = [
   {
@@ -43,6 +44,14 @@ const MENU_ITENS = [
     active: true,
     hidden: true,
     component: <Leads />,
+    private: true,
+  },
+  {
+    text: "Landing Pages",
+    href: "/leads/:id_lead",
+    active: true,
+    hidden: true,
+    component: <ViewLead />,
     private: true,
   },
 

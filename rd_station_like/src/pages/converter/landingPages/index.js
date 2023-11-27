@@ -113,7 +113,7 @@ function LandingPages() {
                 </td>
                 <td className="col-3">
                   <div className="date">
-                    <p>{e.updated_data}</p>
+                    <p>{comum.ParseDate(e.updated_at ?? e.created_at)}</p>
                   </div>
                 </td>
                 <td className="col-2">

@@ -43,11 +43,11 @@ function Leads() {
                   Nome
                 </div>
               </th>
-              <th>
+              {/* <th>
                 <div role="button" tabIndex="0" className="table-header">
                   Nº Interações
                 </div>
-              </th>
+              </th> */}
               <th>
                 <div role="button" tabIndex="0" className="table-header">
                   Data de Alteração
@@ -78,12 +78,12 @@ function Leads() {
                     <Badge className="status">Ativo</Badge>
                   </div>
                 </td>
-                <td className="col-1">
+                {/* <td className="col-1">
                   <center>{e.data_len ?? "0"}</center>
-                </td>
+                </td> */}
                 <td className="col-3">
                   <div className="date">
-                    <p>{e.updated_data}</p>
+                    <p>{comum.ParseDate(e.updated_at ?? e.created_at)}</p>
                   </div>
                 </td>
 
@@ -92,7 +92,7 @@ function Leads() {
                     <Button
                       type="button"
                       className="statistics-button"
-                      //   onClick={() => comum.Redirect(`/view/${e.id}`, true)}
+                      onClick={() => comum.Redirect(`/view/${e._id}`, true)}
                     >
                       <MdVisibility /> <span>Ver</span>
                     </Button>{" "}

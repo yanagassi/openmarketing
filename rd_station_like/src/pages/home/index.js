@@ -56,7 +56,7 @@ function HomeScreen() {
       <Row className="mt-5">
         <h6>Oportunidades:</h6>
         <Col>
-          <Card>
+          <Card style={{ minHeight: 380 }}>
             <CardBody>
               <center>
                 <img
@@ -71,6 +71,7 @@ function HomeScreen() {
                 a taxa de conversão para a sua campanha de marketing ao criar
                 Landing Pages impressionantes!
               </p>
+              <br />
               <center>
                 <Button
                   href="/landing-pages/nova"
@@ -84,7 +85,7 @@ function HomeScreen() {
           </Card>
         </Col>
         <Col>
-          <Card>
+          <Card style={{ minHeight: 380 }}>
             <CardBody>
               <center>
                 <img

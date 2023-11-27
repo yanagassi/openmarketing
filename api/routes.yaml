@@ -15,6 +15,9 @@
     - route: /api/leads
       methods: ["GET"]
       endpoint: get_leads
+    - route: /api/leads/<id>
+      methods: ["GET"]
+      endpoint: get_lead_by_id
 
 - controller: controllers.LandingPagesController.LandingPagesController
   routes:

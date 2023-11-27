@@ -9,4 +9,13 @@ async function get_leads() {
   }
 }
 
-export default { get_leads };
+async function get_lead_by_id(id) {
+  try {
+    const { data } = await api.get(`/api/leads/${id}`);
+    return data;
+  } catch {
+    return [];
+  }
+}
+
+export default { get_leads, get_lead_by_id };

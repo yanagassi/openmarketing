@@ -2,14 +2,17 @@ from .Base.BaseAppService import BaseAppService
 import http.cookies
 from settings import EMAIL_FIELD, NAME_FIELD
 from repository.LeadsRepository import LeadsRepository
+from repository.EventsRepository import EventsRepository
 import json
 from flask import Flask, jsonify
+from bson.objectid import ObjectId
 
 
 class LeadsAppService(BaseAppService):
     def __init__(self):
         # Inicializa o serviço de aplicativo para leads, utilizando o repositório de leads.
         self._repo = LeadsRepository()
+        self._events_repo = EventsRepository()
 
     def get_lead(self, email, organization_id):
         """
@@ -25,9 +28,29 @@ class LeadsAppService(BaseAppService):
             return json.loads(json.dumps(result[0].__dict__))
         return False
 
+    def get_lead_by_id(self, id, organization_id):
+        """
+        Obtém informações de um lead com base no endereço de e-mail.
+
+        :param id: id do lead.
+        :return: Dados do lead ou False se não encontrado.
+        """
+        result = self._repo.get_leads_by_filter(
+            {"_id": ObjectId(id), "organization_id": organization_id}
+        )
+        if result:
+            result = self.parse_lead(json.loads(json.dumps(result[0].__dict__)))
+            result["events"] = []
+            for i in self._events_repo.get_by_filter({"lead_id": id}):
+                result["events"].append(self.parse_lead(i.__dict__))
+            return result
+        return False
+
     def parse_lead(self, res):
         result = {}
         for name, value in res.items():
+            if "_id" == name:
+                result["id"] = res["_id"]
             if "_" not in name[0]:
                 result[name] = value
 
@@ -86,12 +109,15 @@ class LeadsAppService(BaseAppService):
             self._repo.update_lead(result["_id"], {"data": result["data"]})
 
             return result, False
+        fic_name = ""
+        if ("data" in body) and (NAME_FIELD in body["data"]):
+            fic_name = body["data"][NAME_FIELD]
 
         result_id = self._repo.insert_lead(
             {
                 "email": email,
                 "organization_id": body["organization_id"],
-                "name": body.get("name", ""),
+                "name": body.get("name", fic_name),
                 "data": body.get("data", {}),
             }
         )

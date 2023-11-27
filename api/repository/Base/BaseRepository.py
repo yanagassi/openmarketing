@@ -67,6 +67,9 @@ class BaseRepository:
                     data[chave] = str(data[chave])
                 setattr(instancia_classe, chave, data[chave])
 
+            data["created_at"] = datetime.now().isoformat()
+            data["updated_at"] = datetime.now().isoformat()
+
             insert = self._db[collection].insert_one(data)
             return insert.inserted_id
         except Exception as e:
@@ -122,7 +125,7 @@ class BaseRepository:
 
     def update_by_id(self, collection, id, data):
         try:
-            data["updated_data"] = datetime.now().isoformat()
+            data["updated_at"] = datetime.now().isoformat()
             insert = self._db[collection].update_one(
                 {"_id": ObjectId(id)}, {"$set": data}
             )

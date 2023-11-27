@@ -93,6 +93,45 @@ function isMobile() {
   return mobileRegex.test(userAgent) || window.innerWidth < 768; // Adapte o valor conforme necessário
 }
 
+function ParseDate(dataString) {
+  // Cria um objeto de data a partir da string fornecida
+  const data = new Date(dataString);
+
+  // Obtém o dia, mês e ano
+  const dia = data.getDate();
+  const mes = data.getMonth() + 1; // Os meses começam do zero, então somamos 1
+  const ano = data.getFullYear();
+
+  // Obtém as horas e minutos
+  const horas = data.getHours();
+  const minutos = data.getMinutes();
+
+  // Formata a data e hora no formato desejado
+  const dataFormatada = `${dia}/${mes}/${ano} ${horas}:${minutos}`;
+
+  // Obtém o deslocamento de fuso horário em minutos
+  const offsetMinutos = data.getTimezoneOffset();
+
+  // Calcula o deslocamento em horas
+  const offsetHoras = offsetMinutos / 60;
+
+  // Formata o deslocamento no formato GMT
+  const offsetFormatado =
+    offsetHoras > 0 ? `GMT -${offsetHoras}` : `GMT +${Math.abs(offsetHoras)}`;
+
+  // Adiciona o deslocamento de fuso horário à string final
+  const resultadoFinal = `${dataFormatada} (${offsetFormatado})`;
+
+  return resultadoFinal;
+}
+
+const CompareDateToSortDesc = (a, b) => {
+  const dateA = new Date(a.event_date);
+  const dateB = new Date(b.event_date);
+
+  return dateB - dateA;
+};
+
 export default {
   Redirect,
   GenerateId,
@@ -100,5 +139,7 @@ export default {
   GerarRGBA,
   HexToRGBA,
   GetLabelData,
+  CompareDateToSortDesc,
   isMobile,
+  ParseDate,
 };

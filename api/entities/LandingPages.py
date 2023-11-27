@@ -12,7 +12,7 @@ class LandingPages:
         event={},
         mobile={},
         desktop={},
-        updated_data="",
+        updated_at="",
         id=0,
     ):
         self._id = id
@@ -21,7 +21,7 @@ class LandingPages:
         self._mobile = mobile
         self._event = event
         self._title = title
-        self._updated_data = updated_data
+        self._updated_at = updated_at
 
     def get_jwt_safe_data(self):
         return {
