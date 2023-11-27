@@ -20,6 +20,7 @@ class LandingPagesAppService(BaseAppService):
 
     def update_landing_page(self, id, body):
         body = self._repo._repository.convert_ids_to_objectid(body)
+        body["organization_id"] = ObjectId(body["organization_id"])
         update = self._repo.update(id, body)
         return True
 

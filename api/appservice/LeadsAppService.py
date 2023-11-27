@@ -3,6 +3,7 @@ import http.cookies
 from settings import EMAIL_FIELD, NAME_FIELD
 from repository.LeadsRepository import LeadsRepository
 import json
+from flask import Flask, jsonify
 
 
 class LeadsAppService(BaseAppService):
@@ -21,6 +22,27 @@ class LeadsAppService(BaseAppService):
         if result:
             return json.loads(json.dumps(result[0].__dict__))
         return False
+
+    def parse_lead(self, res):
+        result = {}
+        for name, value in res.items():
+            if "_" not in name[0]:
+                result[name] = value
+
+        return result
+
+    def get_my_leads(self, org_id):
+        result = self._repo.get_leads_by_filter({"organization_id": org_id})
+        if result:
+            final = []
+            for i in result:
+                i = i.__dict__
+                i["data_len"] = len(i["data"])
+                i["data"] = {}
+                final.append(self.parse_lead(i))
+            return jsonify(final)
+
+        return []
 
     def get_or_insert_update_lead(self, body):
         """

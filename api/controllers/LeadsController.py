@@ -16,6 +16,12 @@ class LeadsController(Resource):
         self._events_appservice = EventsAppService()
         self._leads_appservice = LeadsAppService()
 
+    @jwt_required
+    def get_leads(self):
+        organization_id = request.headers.get("Organizationid")
+        return self._leads_appservice.get_my_leads(organization_id)
+
+    @jwt_required
     def create_lead(self):
         body = request.get_json()
         organization_id = request.headers.get("Organizationid")

@@ -21,7 +21,7 @@ function LPMenuRender({
 }) {
   async function salvar() {
     const { data } = await landing_pages.save(body);
-    console.log(data);
+    console.log(body);
   }
 
   return (

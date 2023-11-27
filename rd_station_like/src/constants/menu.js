@@ -5,6 +5,7 @@ import CreateLandingPage from "../pages/converter/landingPages/create";
 import ViewLandingPage from "../pages/converter/landingPages/viewLandingPage";
 import HomeScreen from "../pages/home";
 import Login from "../pages/login";
+import Leads from "../pages/relacionar/leads";
 
 const MENU_ITENS = [
   {
@@ -36,6 +37,15 @@ const MENU_ITENS = [
     component: <LandingPages />,
     private: true,
   },
+  {
+    text: "Landing Pages",
+    href: "/leads",
+    active: true,
+    hidden: true,
+    component: <Leads />,
+    private: true,
+  },
+
   {
     text: "Landing Pages",
     href: "/landing-pages/create",

@@ -12,6 +12,9 @@
     - route: /api/leads
       methods: ["POST"]
       endpoint: create_lead
+    - route: /api/leads
+      methods: ["GET"]
+      endpoint: get_leads
 
 - controller: controllers.LandingPagesController.LandingPagesController
   routes:

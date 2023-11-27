@@ -1,6 +1,8 @@
 from settings import DEFAULT_EVENT
 from datetime import datetime
 
+from bson.objectid import ObjectId
+
 
 class LandingPages:
     def __init__(

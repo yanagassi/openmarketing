@@ -60,13 +60,9 @@ const MenuBar = () => {
                       Relacionar{" "}
                     </DropdownToggle>
                     <DropdownMenu>
-                      <DropdownItem href="/landing-pages">
-                        Base de Leads
-                      </DropdownItem>
-                      <DropdownItem href="/landing-pages">
-                        Leads Scoring
-                      </DropdownItem>
-                      <DropdownItem href="/landing-pages">
+                      <DropdownItem href="/leads">Base de Leads</DropdownItem>
+                      <DropdownItem href="/leads">Leads Scoring</DropdownItem>
+                      <DropdownItem href="/leads">
                         Segmentação de Leads
                       </DropdownItem>
                     </DropdownMenu>

@@ -124,7 +124,7 @@ class BaseRepository:
         try:
             data["updated_data"] = datetime.now().isoformat()
             insert = self._db[collection].update_one(
-                {"_id": ObjectId(id)}, {"$set": self.class_to_json(data)}
+                {"_id": ObjectId(id)}, {"$set": data}
             )
             return insert
         except Exception as e:
