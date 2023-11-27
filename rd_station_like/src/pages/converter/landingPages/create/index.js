@@ -181,7 +181,7 @@ function CreateLandingPage() {
     setScript({
       ...script,
       properties: script.properties.map((e) => {
-        if (e.id === activeSc.id) {
+        if (e.id === activeSc?.id) {
           return {
             ...activeSc,
             items: updatedItems,

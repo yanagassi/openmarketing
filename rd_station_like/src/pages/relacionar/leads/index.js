@@ -73,7 +73,7 @@ function Leads() {
                       tabIndex="0"
                       className="landing-page-link"
                     >
-                      {e.name}
+                      {e.name && e.name != "" ? e.name : e.email}
                     </a>
                     <Badge className="status">Ativo</Badge>
                   </div>

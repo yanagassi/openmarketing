@@ -111,7 +111,7 @@ function ComponentSwitch({
               zIndex: 1,
             }}
           >
-            {element.position.x.toFixed(0)}px
+            {element.position?.x?.toFixed(0)}px
           </span>
           <span
             style={{

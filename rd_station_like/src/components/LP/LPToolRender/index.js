@@ -67,33 +67,33 @@ function LPToolRender({
     const updatedElements = activeSectionValues?.items?.map((element) => {
       if (element.id === activeElementValues?.id) {
         let final = {};
-
+        const incremetn = 1;
         switch (event) {
           case "TOP":
             final = {
-              x: element.position.x - 1,
-              y: element.position.y,
+              x: (element.position.x ?? 0) - incremetn,
+              y: element.position.y ?? 0,
             };
             break;
 
           case "DOWN":
             final = {
-              x: element.position.x + 1,
-              y: element.position.y,
+              x: (element.position.x ?? 0) + incremetn,
+              y: element.position.y ?? 0,
             };
             break;
 
           case "LEFT":
             final = {
-              x: element.position.x,
-              y: element.position.y - 1,
+              x: element.position.x ?? 0,
+              y: (element.position.y ?? 0) - incremetn,
             };
             break;
 
           case "RIGHT":
             final = {
-              x: element.position.x,
-              y: element.position.y + 1,
+              x: element.position.x ?? 0,
+              y: element.position.y + incremetn,
             };
             break;
         }

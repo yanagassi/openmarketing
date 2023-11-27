@@ -112,6 +112,9 @@ code {
 .dropdown-menu {
   font-size: 12px !important;
 }
+input {
+  height: 33px;
+}
 
 .button-mid-height {
   height: 30px;
