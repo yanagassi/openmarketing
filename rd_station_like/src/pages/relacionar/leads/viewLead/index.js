@@ -46,7 +46,7 @@ const ViewLead = () => {
                     src="https://secure.gravatar.com/avatar/b7fddc094c3875e0068ad5f8f2329115?s=210&amp;d=https://d3ndvx6e67vt0s.cloudfront.net/assets/avatar_-cc48418c0a3578157a08a9059b137c08e4c6b8de59ca931995b402e9c5a21fa8.png"
                   />
                 </Col>
-                <Col xs="8">
+                <Col xs="4">
                   <h4 id="lead-name">{lead?.name}</h4>
                   <div id="lead-lifecycle-stage">
                     <i className="lead-icon xicon-filter"></i>{" "}
@@ -63,6 +63,7 @@ const ViewLead = () => {
                 </Col>
                 <Col xs="2" className="text-right">
                   {/* Conteúdo da coluna direita ... */}
+                  {/* {JSON.stringify(lead?.data)} */}
                 </Col>
               </Row>
             </div>
@@ -88,6 +89,7 @@ const ViewLead = () => {
                         borderRadius: 0,
                         borderBottomWidth: 1,
                         borderWidth: 0,
+                        paddingBottom: 0,
                       }}
                     >
                       <small>Email</small>
@@ -96,10 +98,9 @@ const ViewLead = () => {
                       </p>
                     </div>
 
-                    <div className="list-group-item">
-                      <small>Origem do Lead</small>
-                      <p>Desconhecido</p>
-                    </div>
+                    {/* <div className="list-group-item">
+                      {JSON.stringify(lead.data)}
+                    </div> */}
 
                     <div className="list-group-item">
                       <a
@@ -201,7 +202,13 @@ const ViewLead = () => {
                       Atividades do Lead ({lead?.events?.length ?? "0"})
                     </h6>
                   </CardHeader>
-                  <CardBody style={{ width: "100%" }}>
+                  <CardBody
+                    style={{
+                      width: "100%",
+                      maxHeight: "80vh",
+                      overflowY: "auto",
+                    }}
+                  >
                     {lead.events.sort(comum.CompareDateToSortDesc).map((e) => (
                       <Row className="event-list">
                         <Col xs="8">
