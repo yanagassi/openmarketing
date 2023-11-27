@@ -11,14 +11,16 @@ class LeadsAppService(BaseAppService):
         # Inicializa o serviço de aplicativo para leads, utilizando o repositório de leads.
         self._repo = LeadsRepository()
 
-    def get_lead(self, email):
+    def get_lead(self, email, organization_id):
         """
         Obtém informações de um lead com base no endereço de e-mail.
 
         :param email: O endereço de e-mail do lead.
         :return: Dados do lead ou False se não encontrado.
         """
-        result = self._repo.get_leads_by_filter({"email": email})
+        result = self._repo.get_leads_by_filter(
+            {"email": email, "organization_id": organization_id}
+        )
         if result:
             return json.loads(json.dumps(result[0].__dict__))
         return False
@@ -60,10 +62,13 @@ class LeadsAppService(BaseAppService):
                 email = morsel.value
 
         email = body.get("email", email)
+        if "data" in body and EMAIL_FIELD in body["data"]:
+            email = body["data"].get(EMAIL_FIELD, email)
+
         if not email:
             return False, False
 
-        result = self.get_lead(email)
+        result = self.get_lead(email, body["organization_id"])
 
         if result:
             if (
@@ -90,6 +95,6 @@ class LeadsAppService(BaseAppService):
                 "data": body.get("data", {}),
             }
         )
-        result = self.get_lead(email)
+        result = self.get_lead(email, body["organization_id"])
 
         return result, True
