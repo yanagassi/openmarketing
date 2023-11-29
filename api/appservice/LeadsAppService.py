@@ -37,9 +37,10 @@ class LeadsAppService(BaseAppService):
         :return: Dados do lead ou False se não encontrado.
         """
         result = self._repo.get_leads_by_filter(
-            {"_id": ObjectId(id), "organization_id": organization_id}
+            {"_id": ObjectId(str(id)), "organization_id": organization_id}
         )
         if result:
+            result[0]._id = str(result[0]._id)
             result = self.parse_lead(json.loads(json.dumps(result[0].__dict__)))
             result["events"] = []
             for i in self._events_repo.get_by_filter({"lead_id": id}):
@@ -51,7 +52,7 @@ class LeadsAppService(BaseAppService):
         result = {}
         for name, value in res.items():
             if "_id" == name:
-                result["id"] = res["_id"]
+                result["id"] = str(res["_id"])
             if "_" not in name[0]:
                 result[name] = value
 
@@ -63,12 +64,13 @@ class LeadsAppService(BaseAppService):
             final = []
             for i in result:
                 i = i.__dict__
+                i["_id"] = str(i["_id"])
                 i["data_len"] = len(i["data"])
                 i["data"] = {}
                 final.append(self.parse_lead(i))
             return jsonify(final)
 
-        return []
+        return jsonify([])
 
     def get_leads_filter(self, org_id, filter={}, last_month=False):
         filter["organization_id"] = org_id

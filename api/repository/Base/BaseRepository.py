@@ -84,7 +84,7 @@ class BaseRepository:
                 instancia_classe = getattr(CollectionsRegister, collection.upper())[0]()
                 for chave in i:
                     if chave == "_id":
-                        i[chave] = str(i[chave])
+                        i[chave] = ObjectId(str(i[chave]))
                     setattr(instancia_classe, chave, i[chave])
                 final.append(instancia_classe)
 

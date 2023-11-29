@@ -12,6 +12,7 @@ class EventsAppService(BaseAppService):
 
     def get_events(self, organization_id, type_event, last_month=False):
         filters = {"organization_id": organization_id, "type_event": type_event}
+
         if last_month:
             data_atual = datetime.now()
             primeiro_dia_mes_anterior = datetime(
@@ -26,7 +27,7 @@ class EventsAppService(BaseAppService):
                 "$lt": ultimo_dia_mes_anterior,
             }
 
-        return self._repo.get_by_filter()
+        return self._repo.get_by_filter(filters)
 
     def register_event(self, body):
         """

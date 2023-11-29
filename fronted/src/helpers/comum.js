@@ -107,7 +107,9 @@ function ParseDate(dataString) {
   const minutos = data.getMinutes();
 
   // Formata a data e hora no formato desejado
-  const dataFormatada = `${dia}/${mes}/${ano} ${horas}:${minutos}`;
+  const dataFormatada = `${dia}/${mes}/${ano} ${
+    "0" + horas.toString().slice(-1)
+  }:${"0" + minutos.toString().slice(-1)}`;
 
   // Obtém o deslocamento de fuso horário em minutos
   const offsetMinutos = data.getTimezoneOffset();

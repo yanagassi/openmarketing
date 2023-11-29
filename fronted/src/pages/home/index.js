@@ -13,8 +13,8 @@ import leads_events from "../../models/leads_events";
 
 function HomeScreen() {
   const [dash, setDash] = useState({
-    event_len: 247,
-    leads_len: 3,
+    event_len: 0,
+    leads_len: 0,
     opportunities_len: 0,
     sales_len: 0,
   });

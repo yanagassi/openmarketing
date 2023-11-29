@@ -62,6 +62,7 @@ class LeadsController(Resource):
         organization_id = request.headers.get("Organizationid")
 
         tam_event = self._events_appservice.get_events(organization_id, ACCESS, True)
+
         leads_len = self._leads_appservice.get_leads_filter(organization_id, {})
 
         return {
