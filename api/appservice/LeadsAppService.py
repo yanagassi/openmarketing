@@ -6,6 +6,7 @@ from repository.EventsRepository import EventsRepository
 import json
 from flask import Flask, jsonify
 from bson.objectid import ObjectId
+from datetime import datetime, timedelta
 
 
 class LeadsAppService(BaseAppService):
@@ -68,6 +69,53 @@ class LeadsAppService(BaseAppService):
             return jsonify(final)
 
         return []
+
+    def get_leads_filter(self, org_id, filter={}, last_month=False):
+        filter["organization_id"] = org_id
+        result = self._repo.get_leads_by_filter()
+
+        if last_month:
+            data_atual = datetime.now()
+            primeiro_dia_mes_anterior = datetime(
+                data_atual.year, data_atual.month - 1, 1
+            )
+            ultimo_dia_mes_anterior = datetime(
+                data_atual.year, data_atual.month, 1
+            ) - timedelta(days=1)
+
+            filter["created_at"] = {
+                "$gte": primeiro_dia_mes_anterior,
+                "$lt": ultimo_dia_mes_anterior,
+            }
+
+        if result:
+            final = []
+            for i in result:
+                i = i.__dict__
+                i["data_len"] = len(i["data"])
+                i["data"] = {}
+                final.append(self.parse_lead(i))
+            return final
+
+        return []
+
+    def alter_lead(self, body, lead_id, organization_id):
+        result = self._repo.get_lead_by_id(lead_id)
+
+        if str(result.organization_id) != str(organization_id):
+            return False
+
+        if "_id" in body:
+            del body["_id"]
+
+        if "id" in body:
+            del body["id"]
+
+        if "organization_id" in body:
+            del body["organization_id"]
+
+        result = self._repo.update_lead(lead_id, body)
+        return True
 
     def get_or_insert_update_lead(self, body):
         """

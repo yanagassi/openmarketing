@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import landing_pages from "../../../models/landing_pages";
 import comum from "../../../helpers/comum";
-import { MdArrowBack, MdDoorBack, MdSave, MdVisibility } from "react-icons/md";
+import { MdArrowBack, MdSave, MdVisibility } from "react-icons/md";
 
 function LPMenuRender({
   title = "Nova LandingPage",
@@ -21,7 +21,6 @@ function LPMenuRender({
 }) {
   async function salvar() {
     const { data } = await landing_pages.save(body);
-    console.log(body);
   }
 
   return (

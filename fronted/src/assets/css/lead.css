@@ -18,3 +18,18 @@
   color: var(--gray-two);
   font-size: 12px;
 }
+
+.tag-badge {
+  font-size: x-small;
+}
+
+.tag-badge-remove {
+  cursor: pointer;
+  color: var(--white);
+  padding: 3px;
+  padding-right: 2px;
+}
+
+.tag-badge-remove:hover {
+  color: var(--gray);
+}

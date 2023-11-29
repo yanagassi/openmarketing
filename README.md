@@ -15,14 +15,24 @@ O OpenMarketing é uma plataforma Open Source abrangente de automação de marke
 Formulários Intuitivos (ROADMAP): Crie formulários personalizados e intuitivos para capturar leads de maneira eficiente.
 Integração com Fontes de Dados (ROADMAP): Importe leads de diversas fontes, como redes sociais, websites e eventos.
 
+![Pagina de Lead](/images/lead_page.png)
+Pagina de Lead (BETA)
+
 #### 2. Landing Pages
 
 Editor de Arrastar e Soltar: Desenvolva landing pages atraentes sem a necessidade de habilidades de codificação.
 Testes A/B: Otimize o desempenho das suas páginas com testes A/B para descobrir as melhores variantes.
 
-#### 3. E-mail Marketing
+![Pagina de Lead](/images/lp_edit.png)
+Ferramenta para criação de Landing Pages.
+
+![Pagina de Lead](/images/lp_result.png)
+Landing Page criada pela ferramenta.
+
+#### 3. Automação e E-mail Marketing
 
 Campanhas Segmentadas (ROADMAP): Crie campanhas de e-mail altamente segmentadas para aumentar a relevância.
+
 Automação de E-mails (ROADMAP): Configure sequências de e-mails automatizadas com base no comportamento do lead.
 
 #### 4. Lead Scoring

@@ -18,6 +18,7 @@ const MenuBar = () => {
   const { isLoggedIn, user, logout } = useContext(ApiContext);
   const [dropdownOpen1, setDropdownOpen1] = useState(false);
   const [dropdownOpen2, setDropdownOpen2] = useState(false);
+  const [dropdownOpen3, setDropdownOpen3] = useState(false);
 
   const toggleDropdown1 = () => {
     setDropdownOpen1(!dropdownOpen1);
@@ -25,6 +26,10 @@ const MenuBar = () => {
 
   const toggleDropdown2 = () => {
     setDropdownOpen2(!dropdownOpen2);
+  };
+
+  const toggleDropdown3 = () => {
+    setDropdownOpen3(!dropdownOpen3);
   };
 
   if (window?.location?.pathname?.match(/\/view\/[^&]*/)?.length > 0) {
@@ -89,16 +94,20 @@ const MenuBar = () => {
           </div>
           {isLoggedIn && (
             <div style={{ flexDirection: "row", display: "flex" }}>
-              <div className="menu-bar-profile">
-                <span style={{ color: "white" }}>{user?.name}</span>
-              </div>
-              <div
-                className="menu-bar-profile"
-                style={{ cursor: "pointer" }}
-                onClick={() => logout()}
+              <Dropdown
+                className="menu-data-items"
+                isOpen={dropdownOpen3}
+                toggle={toggleDropdown3}
               >
-                <span style={{ color: "white" }}>Sair</span>
-              </div>
+                <DropdownToggle className="menu-data-items" nav caret>
+                  {user?.name}
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem onClick={() => logout()} href="/leads">
+                    Sair
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
             </div>
           )}
         </div>

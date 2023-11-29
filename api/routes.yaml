@@ -18,6 +18,12 @@
     - route: /api/leads/<id>
       methods: ["GET"]
       endpoint: get_lead_by_id
+    - route: /api/leads/dash-home
+      methods: ["GET"]
+      endpoint: get_dash_home
+    - route: /api/leads/<id>
+      methods: ["PUT"]
+      endpoint: alter_lead
 
 - controller: controllers.LandingPagesController.LandingPagesController
   routes:

@@ -1,5 +1,6 @@
 from entities.CollectionsRegister import CollectionsRegister
 from .Base.BaseRepository import BaseRepository
+from bson.objectid import ObjectId
 
 
 class LeadsRepository:
@@ -13,7 +14,9 @@ class LeadsRepository:
         return self._repository.get_all(CollectionsRegister.LEADS[1], filter)
 
     def get_lead_by_id(self, lead_id):
-        return self._repository.get_one(CollectionsRegister.LEADS[1], {"_id": lead_id})
+        return self._repository.get_one(
+            CollectionsRegister.LEADS[1], {"_id": ObjectId(str(lead_id))}
+        )
 
     def update_lead(self, lead_id, updated_at):
         return self._repository.update_by_id(

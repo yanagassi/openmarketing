@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Row,
@@ -9,8 +9,25 @@ import {
   CardText,
   Button,
 } from "reactstrap";
+import leads_events from "../../models/leads_events";
 
 function HomeScreen() {
+  const [dash, setDash] = useState({
+    event_len: 247,
+    leads_len: 3,
+    opportunities_len: 0,
+    sales_len: 0,
+  });
+
+  async function init() {
+    const data = await leads_events.get_dash();
+    setDash(data);
+  }
+
+  useEffect(() => {
+    init();
+  }, []);
+
   return (
     <Container>
       <Row className="mt-4">
@@ -19,7 +36,7 @@ function HomeScreen() {
           <Card role="button" aria-pressed="true" tabIndex="0">
             <CardBody>
               <CardTitle tag="h5">Visitantes</CardTitle>
-              <CardText>-</CardText>
+              <CardText>{dash.event_len}</CardText>
               <CardText>0,00% (0)</CardText>
             </CardBody>
           </Card>
@@ -28,7 +45,7 @@ function HomeScreen() {
           <Card role="button" aria-pressed="false" tabIndex="0">
             <CardBody>
               <CardTitle tag="h5">Leads</CardTitle>
-              <CardText>-</CardText>
+              <CardText>{dash.leads_len}</CardText>
               <CardText>0,00% (0)</CardText>
             </CardBody>
           </Card>
@@ -37,7 +54,7 @@ function HomeScreen() {
           <Card role="button" aria-pressed="false" tabIndex="0">
             <CardBody>
               <CardTitle tag="h5">Oportunidades</CardTitle>
-              <CardText>-</CardText>
+              <CardText>{dash.opportunities_len}</CardText>
               <CardText>0</CardText>
             </CardBody>
           </Card>
@@ -46,7 +63,7 @@ function HomeScreen() {
           <Card role="button" aria-pressed="false" tabIndex="0">
             <CardBody>
               <CardTitle tag="h5">Vendas</CardTitle>
-              <CardText>-</CardText>
+              <CardText>{dash.sales_len}</CardText>
               <CardText>0</CardText>
             </CardBody>
           </Card>

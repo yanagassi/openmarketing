@@ -10,6 +10,24 @@ class EventsAppService(BaseAppService):
         # Inicializa o serviço de aplicativo para eventos, utilizando o repositório de eventos.
         self._repo = EventsRepository()
 
+    def get_events(self, organization_id, type_event, last_month=False):
+        filters = {"organization_id": organization_id, "type_event": type_event}
+        if last_month:
+            data_atual = datetime.now()
+            primeiro_dia_mes_anterior = datetime(
+                data_atual.year, data_atual.month - 1, 1
+            )
+            ultimo_dia_mes_anterior = datetime(
+                data_atual.year, data_atual.month, 1
+            ) - timedelta(days=1)
+
+            filters["event_date"] = {
+                "$gte": primeiro_dia_mes_anterior,
+                "$lt": ultimo_dia_mes_anterior,
+            }
+
+        return self._repo.get_by_filter()
+
     def register_event(self, body):
         """
         Registra um novo evento com base nas informações fornecidas no corpo da requisição.

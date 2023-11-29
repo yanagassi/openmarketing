@@ -112,8 +112,36 @@ code {
 .dropdown-menu {
   font-size: 12px !important;
 }
-input {
-  height: 33px;
+
+input,
+.select__control {
+  min-height: 33px;
+}
+
+.select__input-container {
+  padding-bottom: 0 !important;
+  padding: 0 !important;
+}
+
+.select__input {
+  /* padding: 0 !important; */
+  height: 30px !important;
+}
+.css-hlgwow,
+.select__value-container,
+.select__placeholder,
+.select__multi-value {
+  padding: 0 !important;
+  margin-top: -2px;
+  font-size: 13px !important;
+}
+
+.select__placeholder {
+  font-size: 13px !important;
+}
+.css-hlgwow,
+.select__value-container {
+  padding-left: 5px !important;
 }
 
 .button-mid-height {
@@ -123,4 +151,14 @@ input {
   padding-left: 10px;
   padding-right: 10px;
   font-weight: 600;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--gray);
+  opacity: 0.5;
+  border-radius: 1px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }

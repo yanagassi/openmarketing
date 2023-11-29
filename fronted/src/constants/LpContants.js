@@ -130,6 +130,10 @@ const FORM_LP_TYPES = {
 };
 const FORM_LP_EMAIL_TYPE = "email";
 const FORM_LP_EMAIL_NAME_ID = "emailField";
+const FORM_LP_NAME = "nameField";
+
+const FORM_LP_INPUTS = [FORM_LP_EMAIL_NAME_ID, FORM_LP_NAME];
+
 const FORM_LP_INPUT_TYPES = {
   operations: [
     "text",
@@ -221,4 +225,5 @@ export {
   KEY_VALUE,
   LP_HTML_COMPONENTS_TYPE,
   FORM_LP_EMAIL_NAME_ID,
+  FORM_LP_INPUTS,
 };

@@ -7,7 +7,8 @@ from appservice.LeadsAppService import LeadsAppService
 from appservice.EventsAppService import EventsAppService
 
 from constants.messages import LEAD_EXISTS, ERRO_NO_ORG
-from constants.event_type import CREATED
+from constants.event_type import CREATED, ACCESS
+from datetime import datetime, timedelta
 
 
 class LeadsController(Resource):
@@ -55,3 +56,27 @@ class LeadsController(Resource):
             return body, 200
         else:
             return {"msg": LEAD_EXISTS}, 203
+
+    @jwt_required
+    def get_dash_home(self):
+        organization_id = request.headers.get("Organizationid")
+
+        tam_event = self._events_appservice.get_events(organization_id, ACCESS, True)
+        leads_len = self._leads_appservice.get_leads_filter(organization_id, {})
+
+        return {
+            "event_len": len(tam_event),
+            "leads_len": len(leads_len),
+            "opportunities_len": 0,
+            "sales_len": 0,
+        }
+
+    @jwt_required
+    def alter_lead(self, id):
+        organization_id = request.headers.get("Organizationid")
+        body = request.get_json()
+        result = self._leads_appservice.alter_lead(body, id, organization_id)
+        if result:
+            return {"status": True}
+
+        return {"status": False}
