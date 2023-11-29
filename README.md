@@ -15,6 +15,9 @@ O OpenMarketing é uma plataforma Open Source abrangente de automação de marke
 Formulários Intuitivos (ROADMAP): Crie formulários personalizados e intuitivos para capturar leads de maneira eficiente.
 Integração com Fontes de Dados (ROADMAP): Importe leads de diversas fontes, como redes sociais, websites e eventos.
 
+![Funil de Vendas](/images/home_page.png)
+Funil de Vendas (BETA)
+
 ![Pagina de Lead](/images/lead_page.png)
 Pagina de Lead (BETA)
 

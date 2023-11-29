@@ -10,6 +10,7 @@ import {
   Button,
 } from "reactstrap";
 import leads_events from "../../models/leads_events";
+import { MdArrowRight, MdArrowForwardIos, MdVisibility } from "react-icons/md";
 
 function HomeScreen() {
   const [dash, setDash] = useState({
@@ -29,51 +30,65 @@ function HomeScreen() {
   }, []);
 
   return (
-    <Container>
+    <Container className="mb-1">
       <Row className="mt-4">
-        <h6>Geral:</h6>
-        <Col>
-          <Card role="button" aria-pressed="true" tabIndex="0">
-            <CardBody>
-              <CardTitle tag="h5">Visitantes</CardTitle>
-              <CardText>{dash.event_len}</CardText>
-              <CardText>0,00% (0)</CardText>
-            </CardBody>
-          </Card>
-        </Col>
-        <Col>
-          <Card role="button" aria-pressed="false" tabIndex="0">
-            <CardBody>
-              <CardTitle tag="h5">Leads</CardTitle>
-              <CardText>{dash.leads_len}</CardText>
-              <CardText>0,00% (0)</CardText>
-            </CardBody>
-          </Card>
-        </Col>
-        <Col>
-          <Card role="button" aria-pressed="false" tabIndex="0">
-            <CardBody>
-              <CardTitle tag="h5">Oportunidades</CardTitle>
-              <CardText>{dash.opportunities_len}</CardText>
-              <CardText>0</CardText>
-            </CardBody>
-          </Card>
-        </Col>
-        <Col>
-          <Card role="button" aria-pressed="false" tabIndex="0">
-            <CardBody>
-              <CardTitle tag="h5">Vendas</CardTitle>
-              <CardText>{dash.sales_len}</CardText>
-              <CardText>0</CardText>
-            </CardBody>
-          </Card>
-        </Col>
+        <h6>Funil de Vendas:</h6>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Col>
+            <Card role="button" aria-pressed="true" tabIndex="0">
+              <CardBody>
+                <CardTitle tag="h5">Visitantes</CardTitle>
+                <CardText>{dash.event_len}</CardText>
+                <CardText>0,00% (0)</CardText>
+              </CardBody>
+            </Card>
+          </Col>
+          <MdArrowRight className="funnel-icon-data" />
+
+          <Col>
+            <Card role="button" aria-pressed="false" tabIndex="0">
+              <CardBody>
+                <CardTitle tag="h5">Leads</CardTitle>
+                <CardText>{dash.leads_len}</CardText>
+                <CardText>0,00% (0)</CardText>
+              </CardBody>
+            </Card>
+          </Col>
+          <MdArrowRight className="funnel-icon-data" />
+
+          <Col>
+            <Card role="button" aria-pressed="false" tabIndex="0">
+              <CardBody>
+                <CardTitle tag="h5">Oportunidades</CardTitle>
+                <CardText>{dash.opportunities_len}</CardText>
+                <CardText>0</CardText>
+              </CardBody>
+            </Card>
+          </Col>
+          <MdArrowRight className="funnel-icon-data" />
+
+          <Col>
+            <Card role="button" aria-pressed="false" tabIndex="0">
+              <CardBody>
+                <CardTitle tag="h5">Vendas</CardTitle>
+                <CardText>{dash.sales_len}</CardText>
+                <CardText>0</CardText>
+              </CardBody>
+            </Card>
+          </Col>
+        </div>
       </Row>
 
       <Row className="mt-5">
         <h6>Oportunidades:</h6>
         <Col>
-          <Card style={{ minHeight: 380 }}>
+          <Card style={{ minHeight: 400 }}>
             <CardBody>
               <center>
                 <img
@@ -102,7 +117,7 @@ function HomeScreen() {
           </Card>
         </Col>
         <Col>
-          <Card style={{ minHeight: 380 }}>
+          <Card style={{ minHeight: 400 }}>
             <CardBody>
               <center>
                 <img

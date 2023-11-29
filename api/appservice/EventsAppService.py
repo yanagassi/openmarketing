@@ -3,6 +3,7 @@ import http.cookies
 from settings import DEFAULT_EVENT, EMAIL_FIELD
 from repository.EventsRepository import EventsRepository
 from datetime import datetime, timedelta
+from bson.objectid import ObjectId
 
 
 class EventsAppService(BaseAppService):
@@ -11,7 +12,10 @@ class EventsAppService(BaseAppService):
         self._repo = EventsRepository()
 
     def get_events(self, organization_id, type_event, last_month=False):
-        filters = {"organization_id": organization_id, "type_event": type_event}
+        filters = {
+            "organization_id": organization_id,
+            "type_event": type_event,
+        }
 
         if last_month:
             data_atual = datetime.now()
