@@ -15,6 +15,7 @@ class EventsAppService(BaseAppService):
         filters = {
             "organization_id": organization_id,
             "type_event": type_event,
+            "deleted_date": {"$exists": False},
         }
 
         if last_month:
@@ -32,6 +33,24 @@ class EventsAppService(BaseAppService):
             }
 
         return self._repo.get_by_filter(filters)
+
+    def get_events_by_email(self, organization_id, email, deleted_return=False):
+        return self._repo.get_by_filter(
+            {
+                "email": email,
+                "organization_id": organization_id,
+                "deleted_date": {"$exists": deleted_return},
+            }
+        )
+
+    def get_events_by_lead_id(self, organization_id, lead_id, deleted_return=False):
+        return self._repo.get_by_filter(
+            {
+                "lead_id": lead_id,
+                "organization_id": organization_id,
+                "deleted_date": {"$exists": deleted_return},
+            }
+        )
 
     def register_event(self, body):
         """
@@ -99,3 +118,13 @@ class EventsAppService(BaseAppService):
             insert_id = str(result)
 
         return insert_id
+
+    def delete_event(self, event_id):
+        """
+        Define a data de exclusão para o evento com o ID fornecido.
+
+        :param event_id: O ID do evento a ser excluído.
+        :return: True se a exclusão for bem-sucedida, False caso contrário.
+        """
+        res = self._repo.delete_event(event_id)
+        return True

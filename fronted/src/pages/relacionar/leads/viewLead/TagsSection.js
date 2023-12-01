@@ -48,10 +48,9 @@ const TagsSection = ({ lead }) => {
           {tags.length === 0 ? (
             <small>Este Lead não possui tags.</small>
           ) : (
-            <Row>
+            <Row style={{ display: "flex", flexDirection: "row" }}>
               {tags.map((e) => (
                 <div>
-                  {" "}
                   <Badge>
                     <span className="tag-badge">{e}</span>{" "}
                     <a
@@ -78,7 +77,7 @@ const TagsSection = ({ lead }) => {
           <Button
             className="btn btn-default btn-sm"
             role="button"
-            color="primary"
+            color={active ? "primary" : "secondary"}
             onClick={() => {
               if (!active) {
                 setActive(!active);

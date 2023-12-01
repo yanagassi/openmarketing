@@ -27,7 +27,7 @@ const ActivitiesSection = ({ lead = { events: [] } }) => {
             <Col xs="8">
               <div style={{ marginBottom: 10 }}>
                 <div>
-                  <span>
+                  <span className="convert-event">
                     {LP_LEADS_REQUEST_TYPE.CREATED != e.type_event ? (
                       <MdEmojiEvents color="gold" size={25} />
                     ) : (

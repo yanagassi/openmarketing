@@ -57,10 +57,7 @@ function ViewLandingPage() {
       };
     }
 
-    const response = await leads_events.subscription_form(
-      bodyData,
-      script.organization_id
-    );
+    const response = await leads_events.send_event(bodyData);
     // alert(response);
   }
   if (load) {

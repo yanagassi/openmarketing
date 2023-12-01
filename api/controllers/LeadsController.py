@@ -7,7 +7,7 @@ from appservice.LeadsAppService import LeadsAppService
 from appservice.EventsAppService import EventsAppService
 
 from constants.messages import LEAD_EXISTS, ERRO_NO_ORG
-from constants.event_type import CREATED, ACCESS
+from constants.event_type import CREATED, ACCESS, SALE, OPPORTUNITY
 from datetime import datetime, timedelta
 
 
@@ -62,14 +62,18 @@ class LeadsController(Resource):
         organization_id = request.headers.get("Organizationid")
 
         tam_event = self._events_appservice.get_events(organization_id, ACCESS)
+        sale_len = self._events_appservice.get_events(organization_id, SALE)
+        opportunity_len = self._events_appservice.get_events(
+            organization_id, OPPORTUNITY
+        )
 
         leads_len = self._leads_appservice.get_leads_filter(organization_id, {})
 
         return {
             "event_len": len(tam_event),
             "leads_len": len(leads_len),
-            "opportunities_len": 0,
-            "sales_len": 0,
+            "opportunities_len": len(opportunity_len),
+            "sales_len": len(sale_len),
         }
 
     @jwt_required

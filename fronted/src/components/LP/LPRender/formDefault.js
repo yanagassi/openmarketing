@@ -46,16 +46,13 @@ function FormDefaultLp({ readOnly, fin, element, organization_id }) {
       data: form,
       lp_id: route_lp_view_id,
       href: window.location.href,
-      type: LP_LEADS_REQUEST_TYPE.SUBSCRIPTION_FORM,
+      type: LP_LEADS_REQUEST_TYPE.send_event,
       cookies: document.cookie,
     };
 
     cookiesHelper.addOrUpdateCookie(EMAIL_FIELD[0].id, form[EMAIL_FIELD[0].id]);
 
-    const response = await leads_events.subscription_form(
-      objectForm,
-      organization_id
-    );
+    const response = await leads_events.send_event(objectForm);
     alert(response);
   }
 

@@ -33,3 +33,11 @@
 .tag-badge-remove:hover {
   color: var(--gray);
 }
+
+.option-lead-item {
+  cursor: pointer;
+}
+
+.convert-event {
+  font-size: 14px;
+}

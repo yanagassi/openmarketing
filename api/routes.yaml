@@ -7,6 +7,12 @@
       methods: ["POST"]
       endpoint: login
 
+- controller: controllers.EventsController.EventsController
+  routes:
+    - route: /api/events/delete/<id_event>
+      methods: ["DELETE"]
+      endpoint: delete_event
+
 - controller: controllers.LeadsController.LeadsController
   routes:
     - route: /api/leads

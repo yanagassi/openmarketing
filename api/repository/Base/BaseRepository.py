@@ -133,3 +133,14 @@ class BaseRepository:
         except Exception as e:
             print(e)
             return False
+
+    def delete(self, collection, id):
+        try:
+            insert = self._db[collection].update_one(
+                {"_id": ObjectId(id)},
+                {"$set": {"deleted_date": datetime.now().isoformat()}},
+            )
+            return insert
+        except Exception as e:
+            print(e)
+            return False

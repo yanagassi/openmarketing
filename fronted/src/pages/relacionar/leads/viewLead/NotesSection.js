@@ -25,23 +25,21 @@ const NotesSection = ({ lead }) => {
       </CardHeader>
       <form className="loading-container" method="post">
         <CardBody>
-          <div>
-            {active ? (
-              <textarea
-                rows="3"
-                className="form-control"
-                value={notes}
-                onChange={({ target }) => setNotes(target.value)}
-                style={{ maxWidth: "100%" }}
-              >
-                {notes}
-              </textarea>
-            ) : (
-              <p>{notes ?? "Não há anotações."}</p>
-            )}
-          </div>
+          {active ? (
+            <textarea
+              rows="5"
+              className="form-control"
+              value={notes}
+              onChange={({ target }) => setNotes(target.value)}
+              style={{ maxWidth: "100%", minHeight: 60 }}
+            >
+              {notes}
+            </textarea>
+          ) : (
+            <p>{notes ?? "Não há anotações."}</p>
+          )}
           <Button
-            color="primary"
+            color={active ? "primary" : "secondary"}
             className="btn btn-default btn-sm mt-2"
             onClick={() => {
               if (!active) {

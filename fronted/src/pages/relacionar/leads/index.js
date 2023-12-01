@@ -69,11 +69,11 @@ function Leads() {
                   >
                     <a
                       aria-disabled="false"
-                      href={`/leads/${e.id}`}
+                      href={`/leads/${e?.id}`}
                       tabIndex="0"
                       className="landing-page-link"
                     >
-                      {e.name && e.name != "" ? e.name : e.email}
+                      {e?.name && e?.name != "" ? e.name : e.email}
                     </a>
                     <Badge className="status">Ativo</Badge>
                   </div>

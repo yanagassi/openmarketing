@@ -1,6 +1,7 @@
 from entities.CollectionsRegister import CollectionsRegister
 from .Base.BaseRepository import BaseRepository
 from bson.objectid import ObjectId
+from datetime import datetime
 
 
 class EventsRepository:
@@ -24,4 +25,4 @@ class EventsRepository:
         )
 
     def delete_event(self, event_id):
-        return self._repository.delete(CollectionsRegister.EVENTS[1], {"_id": event_id})
+        return self._repository.delete(CollectionsRegister.EVENTS[1], event_id)

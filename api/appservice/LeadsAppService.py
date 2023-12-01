@@ -1,8 +1,10 @@
 from .Base.BaseAppService import BaseAppService
 import http.cookies
 from settings import EMAIL_FIELD, NAME_FIELD
+from constants.event_type import OPPORTUNITY, SALE
 from repository.LeadsRepository import LeadsRepository
 from repository.EventsRepository import EventsRepository
+from .EventsAppService import EventsAppService
 import json
 from flask import Flask, jsonify
 from bson.objectid import ObjectId
@@ -14,6 +16,7 @@ class LeadsAppService(BaseAppService):
         # Inicializa o serviço de aplicativo para leads, utilizando o repositório de leads.
         self._repo = LeadsRepository()
         self._events_repo = EventsRepository()
+        self._event_appservice = EventsAppService()
 
     def get_lead(self, email, organization_id):
         """
@@ -29,6 +32,30 @@ class LeadsAppService(BaseAppService):
             return json.loads(json.dumps(result[0].__dict__))
         return False
 
+    @staticmethod
+    def search_event_in_events_object(lead_events, id_event):
+        if len(lead_events) == 0:
+            return False
+
+        for evnt in lead_events:
+            if str(evnt["id"]) == str(id_event):
+                return evnt
+            elif "_id" in evnt and str(evnt["_id"]) == str(id_event):
+                return evnt
+
+        return False
+
+    def cancel_sale_or_oportunity(self, email, event_id, organization_id):
+        lead = self.get_lead(email, organization_id)
+        if lead == False or "events" not in lead:
+            return False
+
+        evnt = self.search_event_in_events_object(lead["events"], event_id)
+        if evnt == False:
+            return False
+
+        self._events_repo.delete_event(event_id)
+
     def get_lead_by_id(self, id, organization_id):
         """
         Obtém informações de um lead com base no endereço de e-mail.
@@ -36,15 +63,32 @@ class LeadsAppService(BaseAppService):
         :param id: id do lead.
         :return: Dados do lead ou False se não encontrado.
         """
-        result = self._repo.get_leads_by_filter(
-            {"_id": ObjectId(str(id)), "organization_id": organization_id}
-        )
+        result = self._repo.get_lead_by_id(id)
         if result:
-            result[0]._id = str(result[0]._id)
-            result = self.parse_lead(json.loads(json.dumps(result[0].__dict__)))
+            result = self.parse_lead(result.__dict__)
+            if str(result["organization_id"]) != str(organization_id):
+                return False
+
             result["events"] = []
-            for i in self._events_repo.get_by_filter({"lead_id": id}):
-                result["events"].append(self.parse_lead(i.__dict__))
+            result[SALE] = False
+            result[OPPORTUNITY] = False
+
+            for i in self._event_appservice.get_events_by_lead_id(organization_id, id):
+                event_parsed = self.parse_lead(i.__dict__)
+                result["events"].append(event_parsed)
+
+                # Especificando alguns eventos que eu quero preenchido.
+                # Talvez aqui seja possivel adicionar validações de novos steps de funil que venham a surgir
+                # Facilita na hora de manipular o JSON, é opcional, tendo em vista que já vem no Events, dentro do objeto.
+                # Mas vai facilitar. ;)
+
+                if i.type_event == OPPORTUNITY and i._deleted_date == False:
+                    result[OPPORTUNITY] = True
+                    result[f"{OPPORTUNITY}_ID"] = event_parsed
+                if i.type_event == SALE and i._deleted_date == False:
+                    result[SALE] = True
+                    result[f"{SALE}_ID"] = event_parsed
+
             return result
         return False
 

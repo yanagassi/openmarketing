@@ -1,3 +1,6 @@
+import LP_LEADS_REQUEST_TYPE from "../constants/LPLeadsRequestType";
+import FUNNEL_STAGES from "../constants/FunnelStageConstants";
+
 function Redirect(url, openInNewTab = false) {
   if (!url) {
     return;
@@ -134,12 +137,25 @@ const CompareDateToSortDesc = (a, b) => {
   return dateB - dateA;
 };
 
+const FunilStageCalc = (lead) => {
+  try {
+    if (lead[LP_LEADS_REQUEST_TYPE.SALE]) {
+      return FUNNEL_STAGES.SALES;
+    } else if (lead[LP_LEADS_REQUEST_TYPE.OPPORTUNITY]) {
+      return FUNNEL_STAGES.OPPORTUNYTIES;
+    } else return FUNNEL_STAGES.LEADS;
+  } catch {
+    return FUNNEL_STAGES.VISITANTES;
+  }
+};
+
 export default {
   Redirect,
   GenerateId,
   AjustarPixels,
   GerarRGBA,
   HexToRGBA,
+  FunilStageCalc,
   GetLabelData,
   CompareDateToSortDesc,
   isMobile,
