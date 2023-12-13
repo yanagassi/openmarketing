@@ -24,6 +24,11 @@ p {
   cursor: pointer;
 }
 
+select {
+  height: 30px;
+  border-color: var(--gray);
+  background-color: white !important;
+}
 @font-face {
   font-family: "Netflix Sans";
   font-weight: 100;

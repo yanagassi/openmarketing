@@ -1,7 +1,6 @@
 // LeadData.js
 import React, { useState } from "react";
 import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
-import leads from "../../../../models/leads";
 import { MdArrowDropDown } from "react-icons/md";
 
 const LeadData = ({ lead }) => {

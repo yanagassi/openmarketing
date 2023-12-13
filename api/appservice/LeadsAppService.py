@@ -116,7 +116,9 @@ class LeadsAppService(BaseAppService):
 
         return jsonify([])
 
-    def get_leads_filter(self, org_id, filter={}, last_month=False):
+    def get_leads_filter(
+        self, org_id, filter={}, last_month=False, remove_data=True, events=False
+    ):
         filter["organization_id"] = org_id
         result = self._repo.get_leads_by_filter()
 
@@ -139,7 +141,12 @@ class LeadsAppService(BaseAppService):
             for i in result:
                 i = i.__dict__
                 i["data_len"] = len(i["data"])
-                i["data"] = {}
+                if remove_data:
+                    i["data"] = {}
+                if events:
+                    i["events"] = self._event_appservice.get_events_by_lead_id(
+                        org_id, i["_id"]
+                    )
                 final.append(self.parse_lead(i))
             return final
 

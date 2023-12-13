@@ -2,6 +2,7 @@ from .Users import Users
 from .Events import Events
 from .LandingPages import LandingPages
 from .Leads import Leads
+from .Segments import Segments
 
 
 class CollectionsRegister:
@@ -12,3 +13,4 @@ class CollectionsRegister:
     EVENTS = (Events, Events.__name__)
     LEADS = (Leads, Leads.__name__)
     LANDINGPAGES = (LandingPages, LandingPages.__name__)
+    SEGMENTS = (Segments, Segments.__name__)

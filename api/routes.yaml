@@ -13,6 +13,22 @@
       methods: ["DELETE"]
       endpoint: delete_event
 
+- controller: controllers.SegmentsController.SegmentsController
+  routes:
+    - route: /api/segments/<id_event>
+      methods: ["POST"]
+      endpoint: run_segments
+    - route: /api/segments
+      methods: ["GET"]
+      endpoint: get_segments
+    - route: /api/segments/rules
+      methods: ["GET"]
+      endpoint: get_rules
+
+    - route: /api/segments/test
+      methods: ["POST"]
+      endpoint: test_run_segments
+
 - controller: controllers.LeadsController.LeadsController
   routes:
     - route: /api/leads

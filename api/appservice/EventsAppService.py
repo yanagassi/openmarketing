@@ -128,3 +128,15 @@ class EventsAppService(BaseAppService):
         """
         res = self._repo.delete_event(event_id)
         return True
+
+    def get_type_events(self, organization_id):
+        filters = {
+            "organization_id": organization_id,
+            "deleted_date": {"$exists": False},
+        }
+        res = self._repo.get_by_filter(filters)
+        final = []
+        for i in res:
+            final.append(i.type_event)
+
+        return list(set(final))

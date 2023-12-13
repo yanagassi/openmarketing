@@ -33,6 +33,9 @@ const ActivitiesSection = ({ lead = { events: [] } }) => {
                     ) : (
                       <IoIosFunnel color="var(--primary)" />
                     )}{" "}
+                    {
+                      /// Aqui eu coloquei mais como um exemplo, depois tenho que voltar a justar a nomeclatura padrão de eventos, retornando um texto por evento, e um generio caso não exista.
+                    }
                     {LP_LEADS_REQUEST_TYPE.CREATED != e.type_event
                       ? "Converteu no evento:"
                       : "Teve seu estágio no funil alterado para 'Lead'."}

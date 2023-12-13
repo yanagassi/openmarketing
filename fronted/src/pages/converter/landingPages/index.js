@@ -56,7 +56,11 @@ function LandingPages() {
   return (
     <Container>
       <Col className="mt-4">
-        <h4 className="mb-4">Landing Pages</h4>
+        <h4 className="mb-4">
+          Landing Pages
+          <span style={{ fontWeight: "200" }}>({lps?.length})</span>
+        </h4>
+
         <div className="sm-1">
           <Col md={2}>
             <Input

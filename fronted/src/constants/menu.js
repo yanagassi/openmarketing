@@ -7,6 +7,8 @@ import HomeScreen from "../pages/home";
 import Login from "../pages/login";
 import Leads from "../pages/relacionar/leads";
 import ViewLead from "../pages/relacionar/leads/viewLead";
+import Segments from "../pages/relacionar/segments";
+import SegmentView from "../pages/relacionar/segments/view.js";
 
 const MENU_ITENS = [
   {
@@ -16,6 +18,27 @@ const MENU_ITENS = [
     component: <HomeScreen />,
     private: true,
   },
+
+  {
+    text: "Segmentos Visualizar",
+    href: "/segments",
+    active: true,
+    hidden: true,
+    hideMenu: true,
+    component: <Segments />,
+    private: true,
+  },
+
+  {
+    text: "Segmentos",
+    href: "/segments/:id_segment",
+    active: true,
+    hidden: true,
+    hideMenu: true,
+    component: <SegmentView />,
+    private: true,
+  },
+
   {
     text: "Atrair",
     href: "/atrair",
@@ -71,7 +94,7 @@ const MENU_ITENS = [
     hidden: true,
     hideMenu: true,
     component: <CreateLandingPage />,
-    private: false,
+    private: true,
   },
 
   {
@@ -81,7 +104,7 @@ const MENU_ITENS = [
     hidden: true,
     hideMenu: true,
     component: <ViewLandingPage />,
-    private: false,
+    private: true,
   },
 
   {

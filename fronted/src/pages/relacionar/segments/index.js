@@ -4,15 +4,14 @@ import comum from "../../../helpers/comum";
 import "../../../assets/css/LPPage.css";
 import landing_pages from "../../../models/landing_pages";
 import { MdVisibility, MdCopyAll } from "react-icons/md";
-import leads from "../../../models/leads";
+import segments from "../../../models/segments";
 
-function Leads() {
-  const [my_leads, setmy_leads] = useState([]);
+function Segments() {
+  const [my_segments, setmy_segments] = useState([]);
 
   async function init() {
-    const data = await leads.get_leads();
-    setmy_leads(data);
-    console.log(data);
+    const data = await segments.get_segments();
+    setmy_segments(data);
   }
 
   useEffect(() => {
@@ -23,7 +22,8 @@ function Leads() {
     <Container>
       <Col className="mt-4">
         <h4 className="mb-4">
-          Leads <span style={{ fontWeight: "200" }}>({my_leads?.length})</span>
+          Segmentação de Leads{" "}
+          <span style={{ fontWeight: "200" }}>({my_segments?.length})</span>
         </h4>
         <div className="sm-1">
           <Col md={2}>
@@ -36,7 +36,7 @@ function Leads() {
           bordered
           responsive
           striped
-          summary="Lista de Leads"
+          summary="Segmentação de Leads"
         >
           <thead>
             <tr>
@@ -59,7 +59,7 @@ function Leads() {
             </tr>
           </thead>
           <tbody>
-            {my_leads?.map((e) => (
+            {my_segments?.map((e) => (
               <tr>
                 <td>
                   <div
@@ -71,18 +71,15 @@ function Leads() {
                   >
                     <a
                       aria-disabled="false"
-                      href={`/leads/${e?.id}`}
+                      href={`/segments/${e?.id}`}
                       tabIndex="0"
                       className="landing-page-link"
                     >
-                      {e?.name && e?.name != "" ? e.name : e.email}
+                      {e?.name}
                     </a>
-                    <Badge className="status">Ativo</Badge>
                   </div>
                 </td>
-                {/* <td className="col-1">
-                  <center>{e.data_len ?? "0"}</center>
-                </td> */}
+
                 <td className="col-3">
                   <div className="date">
                     <p>{comum.ParseDate(e.updated_at ?? e.created_at)}</p>
@@ -109,4 +106,4 @@ function Leads() {
   );
 }
 
-export default Leads;
+export default Segments;

@@ -66,10 +66,10 @@ const MenuBar = () => {
                     </DropdownToggle>
                     <DropdownMenu>
                       <DropdownItem href="/leads">Base de Leads</DropdownItem>
-                      <DropdownItem href="/leads">Leads Scoring</DropdownItem>
-                      <DropdownItem href="/leads">
+                      <DropdownItem href="/segments">
                         Segmentação de Leads
                       </DropdownItem>
+                      <DropdownItem href="/leads">Leads Scoring</DropdownItem>
                     </DropdownMenu>
                   </Dropdown>
 
