@@ -14,7 +14,7 @@ import {
 import comum from "../../../helpers/comum";
 import { MdDelete } from "react-icons/md";
 
-function DynamicForm() {
+function DynamicForm({ onDataChange }) {
   const [rules, setRules] = useState([]);
   const [form, setForm] = useState([]);
   const [values, setValues] = useState({
@@ -24,6 +24,10 @@ function DynamicForm() {
   useEffect(() => {
     init();
   }, []);
+
+  useEffect(() => {
+    runTestSegment();
+  }, [values]);
 
   async function init() {
     const data = await segments.get_rules();
@@ -72,9 +76,9 @@ function DynamicForm() {
     return dins.length === 0;
   }
 
-  async function test() {
+  async function runTestSegment() {
     const data = await segments.run_test(form, values);
-    console.log(data);
+    onDataChange(data);
   }
 
   return (
@@ -93,13 +97,7 @@ function DynamicForm() {
           </Form>
         </Col>
         <Col xs={1}>
-          <Button
-            onClick={() => {
-              test();
-            }}
-          >
-            Salvar
-          </Button>
+          <Button onClick={() => {}}>Salvar</Button>
         </Col>
       </Row>
 

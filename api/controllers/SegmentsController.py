@@ -39,4 +39,4 @@ class SegmentsController(Resource):
             organization_id, body.get("filters", []), body.get("values", {})
         )
 
-        return res
+        return jsonify(res)

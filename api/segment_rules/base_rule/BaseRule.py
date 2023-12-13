@@ -8,11 +8,11 @@ class BaseRule:
         """
         raise NotImplementedError("Subclasses devem implementar o método run")
 
-    def params(self, lead_data=""):
+    def params(self, lead_data):
         """
         Método estático a ser implementado por subclasses para fornecer parâmetros ou configurações adicionais para a regra.
 
-        :param lead_data: Dados adicionais do lead (opcional). Ele é utilizado em casos de options de campos, nos quais necessitam de listas de landing_pages, eventos e outras logicas.
+        :param lead_data: Dados adicionais do lead. Ele é utilizado em casos de options de campos, nos quais necessitam de listas de landing_pages, eventos e outras lógicas.
         :raise NotImplementedError: Deve ser levantada para indicar que este método deve ser implementado por subclasses.
         """
         raise NotImplementedError("Subclasses devem implementar o método params")

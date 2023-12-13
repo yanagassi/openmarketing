@@ -34,6 +34,14 @@ class LeadsAppService(BaseAppService):
 
     @staticmethod
     def search_event_in_events_object(lead_events, id_event):
+        """
+        Procura um evento dentro do objeto de eventos.
+
+        :param lead_events: Lista de eventos do lead.
+        :param id_event: ID do evento a ser procurado.
+        :return: O evento se encontrado, False caso contrário.
+        """
+
         if len(lead_events) == 0:
             return False
 
@@ -46,6 +54,14 @@ class LeadsAppService(BaseAppService):
         return False
 
     def cancel_sale_or_oportunity(self, email, event_id, organization_id):
+        """
+        Cancela uma venda ou oportunidade para um lead.
+
+        :param email: O endereço de e-mail do lead.
+        :param event_id: O ID do evento a ser cancelado.
+        :param organization_id: O ID da organização.
+        :return: True se o evento foi cancelado, False caso contrário.
+        """
         lead = self.get_lead(email, organization_id)
         if lead == False or "events" not in lead:
             return False
@@ -93,6 +109,12 @@ class LeadsAppService(BaseAppService):
         return False
 
     def parse_lead(self, res):
+        """
+        Analisa e converte uma entidade de lead.
+
+        :param res: Dicionário representando uma entidade de lead.
+        :return: Dicionário convertido da entidade de lead.
+        """
         result = {}
         for name, value in res.items():
             if "_id" == name:
@@ -103,6 +125,12 @@ class LeadsAppService(BaseAppService):
         return result
 
     def get_my_leads(self, org_id):
+        """
+        Obtém os leads pertencentes a uma organização.
+
+        :param org_id: O ID da organização.
+        :return: Lista de leads pertencentes à organização.
+        """
         result = self._repo.get_leads_by_filter({"organization_id": org_id})
         if result:
             final = []
@@ -119,6 +147,16 @@ class LeadsAppService(BaseAppService):
     def get_leads_filter(
         self, org_id, filter={}, last_month=False, remove_data=True, events=False
     ):
+        """
+        Obtém leads filtrados com base em critérios fornecidos.
+
+        :param org_id: O ID da organização.
+        :param filter: Filtros adicionais a serem aplicados.
+        :param last_month: Flag para filtrar leads do mês passado.
+        :param remove_data: Flag para remover dados dos leads.
+        :param events: Flag para incluir eventos dos leads.
+        :return: Lista de leads filtrados.
+        """
         filter["organization_id"] = org_id
         result = self._repo.get_leads_by_filter()
 
@@ -153,6 +191,14 @@ class LeadsAppService(BaseAppService):
         return []
 
     def alter_lead(self, body, lead_id, organization_id):
+        """
+        Altera informações de um lead.
+
+        :param body: Dados a serem alterados no lead.
+        :param lead_id: ID do lead a ser alterado.
+        :param organization_id: O ID da organização.
+        :return: True se o lead foi alterado com sucesso, False caso contrário.
+        """
         result = self._repo.get_lead_by_id(lead_id)
 
         if str(result.organization_id) != str(organization_id):
@@ -167,7 +213,7 @@ class LeadsAppService(BaseAppService):
         if "organization_id" in body:
             del body["organization_id"]
 
-        result = self._repo.update_lead(lead_id, body)
+        self._repo.update_lead(lead_id, body)
         return True
 
     def get_or_insert_update_lead(self, body):
@@ -214,7 +260,7 @@ class LeadsAppService(BaseAppService):
         if ("data" in body) and (NAME_FIELD in body["data"]):
             fic_name = body["data"][NAME_FIELD]
 
-        result_id = self._repo.insert_lead(
+        self._repo.insert_lead(
             {
                 "email": email,
                 "organization_id": body["organization_id"],

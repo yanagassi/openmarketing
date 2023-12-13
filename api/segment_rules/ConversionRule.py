@@ -15,18 +15,15 @@ class ConversionRule(BaseRule):
 
     def run(self, lead_data, values={}):
         form = self.params(lead_data)[0]
-        response = []
-        for i in form:
-            res = False
-            if i["id"] == CONVERT_FIELD_ID:
-                res = self.verify_convert(i, lead_data, values)
+        response = [
+            self.verify_convert(form[0], lead_data, values),
+            self.verify_form_cov(form[1], lead_data, values),
+        ]
+        result = all(response)
+        return result
 
-            response.append(lead_data)
-
-        return response
-
-    def verify_convert(self, form, lead_data, values):
-        actual_value = values.get(form["id"], "___ERRO___")
+    def verify_form_cov(self, form, lead_data, values):
+        actual_value = values.get(CONVERT_FIELD_ID, "___ERRO___")
         for i in lead_data.get("events", []):
             if (
                 i.type_event == values[CONVERT_TYPE_ID]
@@ -40,11 +37,18 @@ class ConversionRule(BaseRule):
                 return False
         return False
 
+    def verify_convert(self, form, lead_data, values):
+        for i in lead_data.get("events", []):
+            if i.type_event == values[CONVERT_TYPE_ID]:
+                return True
+            if i.type_event == values[CONVERT_TYPE_ID]:
+                return False
+        return False
+
     def params(self, lead_data):
         events_types = self._appservice_events.get_type_events(
             lead_data["organization_id"]
         )
-
         return (
             [
                 {
