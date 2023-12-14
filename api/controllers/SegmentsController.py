@@ -61,3 +61,14 @@ class SegmentsController(Resource):
         res = self._segments_appservice.get_segment_by_id(organization_id, id_segment)
 
         return jsonify(res)
+
+    @jwt_required
+    def create_new_segment(self):
+        organization_id = request.headers.get("Organizationid")
+        body = request.get_json()
+
+        res = self._segments_appservice.create_new_segment(
+            organization_id, body.get("name", "")
+        )
+
+        return jsonify({"id": str(res)})

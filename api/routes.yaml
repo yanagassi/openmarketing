@@ -37,6 +37,10 @@
       methods: ["GET"]
       endpoint: get_segment
 
+    - route: /api/segments/create
+      methods: ["post"]
+      endpoint: create_new_segment
+
 - controller: controllers.LeadsController.LeadsController
   routes:
     - route: /api/leads

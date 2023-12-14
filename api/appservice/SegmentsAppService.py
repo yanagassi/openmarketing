@@ -127,3 +127,8 @@ class SegmentsAppService(BaseAppService):
 
     def save_segment(self, organization_id, ids, form, values):
         return self._repo.update_segment(ids, {"form": form, "values": values})
+
+    def create_new_segment(self, organization_id, name):
+        return self._repo.insert_segment(
+            {"organization_id": organization_id, "name": name}
+        )

@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Container, Input, Table } from "reactstrap";
+import { Button, Col, Container, Input, Row, Table } from "reactstrap";
 import comum from "../../../helpers/comum";
 import "../../../assets/css/LPPage.css";
 import { MdVisibility } from "react-icons/md";
 import segments from "../../../models/segments";
+import { FaPlus } from "react-icons/fa";
+import NewSegmentModal from "./NewSegmentModal";
 
 function Segments() {
   const [my_segments, setmy_segments] = useState([]);
+  const [modal, setModal] = useState(false);
 
   async function init() {
     const data = await segments.get_segments();
@@ -20,10 +23,21 @@ function Segments() {
   return (
     <Container>
       <Col className="mt-4">
-        <h4 className="mb-4">
-          Segmentação de Leads{" "}
-          <span style={{ fontWeight: "200" }}>({my_segments?.length})</span>
-        </h4>
+        <Row>
+          <Col xs={11}>
+            <h4 className="mb-4">
+              Segmentação de Leads{" "}
+              <span style={{ fontWeight: "200" }}>({my_segments?.length})</span>
+            </h4>
+          </Col>
+
+          <Col xs={1}>
+            {" "}
+            <Button onClick={() => setModal(!modal)}>
+              <FaPlus /> Novo
+            </Button>
+          </Col>
+        </Row>
         <div className="sm-1">
           <Col md={2}>
             <Input type="text" placeholder="Buscar Lead" className="mb-2" />
@@ -101,6 +115,7 @@ function Segments() {
           </tbody>
         </Table>
       </Col>
+      <NewSegmentModal modal={modal} setModal={setModal} />
     </Container>
   );
 }

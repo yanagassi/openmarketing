@@ -45,4 +45,20 @@ async function get_segment(id) {
   }
 }
 
-export default { get_segments, get_rules, run_test, save, get_segment };
+async function create_segment(body) {
+  try {
+    const { data } = await api.post(`/api/segments/create`, body);
+    return data;
+  } catch {
+    return false;
+  }
+}
+
+export default {
+  get_segments,
+  get_rules,
+  run_test,
+  save,
+  get_segment,
+  create_segment,
+};

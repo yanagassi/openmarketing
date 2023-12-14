@@ -8,6 +8,11 @@ class SegmentsRepository:
         self._repository = BaseRepository()
 
     def insert_segment(self, segment_data):
+        if "organization_id" in segment_data:
+            segment_data["organization_id"] = ObjectId(
+                str(segment_data["organization_id"])
+            )
+
         return self._repository.insert(CollectionsRegister.SEGMENTS[1], segment_data)
 
     def get_segments_by_filter(self, filter={}):
