@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from "react";
 import segments from "../../../models/segments";
-import {
-  Col,
-  Row,
-  Card,
-  CardBody,
-  Form,
-  Input,
-  Label,
-  CardTitle,
-  Button,
-} from "reactstrap";
+import { Col, Row, Card, CardBody, Form, Input, Button } from "reactstrap";
 import comum from "../../../helpers/comum";
 import { MdDelete } from "react-icons/md";
+import { useParams } from "react-router-dom";
+import { FaPlus } from "react-icons/fa";
 
 function DynamicForm({ onDataChange }) {
   const [rules, setRules] = useState([]);
@@ -21,18 +13,33 @@ function DynamicForm({ onDataChange }) {
     operation: "and", /// and | or
   });
 
+  const { id_segment } = useParams();
+
+  const [ruleActive, setRuleActive] = useState(false);
+
   useEffect(() => {
     init();
+    getSegment();
   }, []);
 
   useEffect(() => {
-    runTestSegment();
+    if (form?.length > 0) {
+      runTestSegment();
+    }
   }, [values]);
+
+  async function getSegment() {
+    const data = await segments.get_segment(id_segment);
+    if (data) {
+      setValues(data.values);
+      setForm(data.form);
+    }
+  }
 
   async function init() {
     const data = await segments.get_rules();
     setRules(data);
-    if (form.length == 0 && data.length > 0) {
+    if (form?.length === 0 && data.length > 0) {
       addRule(data[0].group, data);
     }
   }
@@ -54,6 +61,7 @@ function DynamicForm({ onDataChange }) {
         restrict: selectedRule?.restrict ?? [],
       },
     ]);
+    setRuleActive(false);
   }
 
   function onChange(id, value) {
@@ -81,29 +89,42 @@ function DynamicForm({ onDataChange }) {
     onDataChange(data);
   }
 
+  async function save() {
+    const data = await segments.save(id_segment, form, values);
+  }
+
   return (
     <div>
       <Row style={{ alignItems: "center" }}>
         <Col>
           <Form>
-            <select value="" onChange={({ target }) => addRule(target.value)}>
-              <option />
-              {rules.map((e) => (
-                <option key={e.group} value={e.group}>
-                  {e.group}
-                </option>
-              ))}
-            </select>
+            {ruleActive ? (
+              <select value="" onChange={({ target }) => addRule(target.value)}>
+                <option />
+                {rules.map((e) => (
+                  <option key={e.group} value={e.group}>
+                    {e.group}
+                  </option>
+                ))}
+              </select>
+            ) : null}{" "}
+            <Button
+              onClick={() => {
+                setRuleActive(!ruleActive);
+              }}
+            >
+              <FaPlus size={12} />
+            </Button>
           </Form>
         </Col>
         <Col xs={1}>
-          <Button onClick={() => {}}>Salvar</Button>
+          <Button onClick={() => save()}>Salvar</Button>
         </Col>
       </Row>
 
       <br />
       <div>
-        {form.map((group, groupIndex) => (
+        {form?.map((group, groupIndex) => (
           <>
             <Card key={groupIndex} className="mb-2">
               <CardBody>
@@ -126,6 +147,7 @@ function DynamicForm({ onDataChange }) {
                                     onChange(filter.id, target.value)
                                   }
                                   style={{ width: "100%" }}
+                                  value={values?.[filter.id]}
                                 >
                                   <option value="" disabled selected>
                                     {filter.name}
@@ -156,7 +178,7 @@ function DynamicForm({ onDataChange }) {
                 </Row>
               </CardBody>
             </Card>
-            {groupIndex != form.length - 1 ? (
+            {groupIndex != form?.length - 1 ? (
               <div className="mb-2">
                 <center>
                   <select

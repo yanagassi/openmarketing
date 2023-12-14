@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Badge, Button, Col, Container, Input, Row, Table } from "reactstrap";
+import { Button, Col, Container, Input, Table } from "reactstrap";
 import comum from "../../../helpers/comum";
 import "../../../assets/css/LPPage.css";
-import landing_pages from "../../../models/landing_pages";
-import { MdVisibility, MdCopyAll } from "react-icons/md";
+import { MdVisibility } from "react-icons/md";
 import segments from "../../../models/segments";
 
 function Segments() {

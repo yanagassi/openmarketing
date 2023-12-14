@@ -27,4 +27,22 @@ async function run_test(filters, values) {
   }
 }
 
-export default { get_segments, get_rules, run_test };
+async function save(id, form, values) {
+  try {
+    const { data } = await api.post(`/api/segments/save`, { id, form, values });
+    return data;
+  } catch {
+    return false;
+  }
+}
+
+async function get_segment(id) {
+  try {
+    const { data } = await api.get(`/api/segments/${id}`);
+    return data;
+  } catch {
+    return { values: {}, form: [] };
+  }
+}
+
+export default { get_segments, get_rules, run_test, save, get_segment };

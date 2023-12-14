@@ -29,6 +29,14 @@
       methods: ["POST"]
       endpoint: test_run_segments
 
+    - route: /api/segments/save
+      methods: ["POST"]
+      endpoint: save_segment
+
+    - route: /api/segments/<id_segment>
+      methods: ["GET"]
+      endpoint: get_segment
+
 - controller: controllers.LeadsController.LeadsController
   routes:
     - route: /api/leads

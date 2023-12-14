@@ -91,6 +91,11 @@ class SegmentsAppService(BaseAppService):
         res = [self.parse_segment(i.__dict__) for i in list(res)]
         return res
 
+    def get_segment_by_id(self, organization_id, id_seg):
+        res = self._repo.get_segment_by_id(id_seg)
+
+        return self.parse_segment(res.__dict__)
+
     def teste_segments(self, organization_id, forms=[], values={}):
         """
         Testa os segmentos com base nas regras fornecidas.
@@ -119,3 +124,6 @@ class SegmentsAppService(BaseAppService):
                 unique_results.append(item)
 
         return unique_results
+
+    def save_segment(self, organization_id, ids, form, values):
+        return self._repo.update_segment(ids, {"form": form, "values": values})

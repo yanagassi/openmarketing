@@ -40,3 +40,24 @@ class SegmentsController(Resource):
         )
 
         return jsonify(res)
+
+    @jwt_required
+    def save_segment(self):
+        organization_id = request.headers.get("Organizationid")
+        body = request.get_json()
+
+        res = self._segments_appservice.save_segment(
+            organization_id,
+            body.get("id", ""),
+            body.get("form", []),
+            body.get("values", {}),
+        )
+
+        return jsonify(res)
+
+    @jwt_required
+    def get_segment(self, id_segment):
+        organization_id = request.headers.get("Organizationid")
+        res = self._segments_appservice.get_segment_by_id(organization_id, id_segment)
+
+        return jsonify(res)
