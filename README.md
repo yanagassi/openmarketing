@@ -91,6 +91,14 @@ E outras ações relevantes
 ![Pagina de Lead](/images/lead_scoring_perfil.png)
 **_Ao definir notas (de 1 a 10) para os termos mais eficazes das principais propriedades dos Leads, sua base será automaticamente dividida em quatro grupos: A. B. C e D. sendo os Leads do grupo "A" aqueles com melhor perfil para vendas._**
 
+![Pagina de Lead](/images/lead_scoring_perfil_page.png)
+
+**Configuração de Interesse**:
+
+![Pagina de Lead](/images/lead_scoring_interesse.png)
+
+**Cada vez que um Lead realiza ações específicas, como fazer o download de conteúdo, abrir uma campanha de e-mail ou concluir um fluxo de automação, é possível atribuir um valor ao seu score. Isso possibilita a avaliação do nível de interesse desse Lead em relação aos seus produtos ou serviços. Organize essas ações em grupos, associando o mesmo valor a materiais de conversão, campanhas ou fluxos de automação semelhantes.**
+
 ## 4. Automação (workflow) e E-mail Marketing
 
 Campanhas Segmentadas (ROADMAP): Crie campanhas de e-mail altamente segmentadas para aumentar a relevância.
