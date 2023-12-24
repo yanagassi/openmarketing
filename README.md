@@ -40,7 +40,7 @@ Identifique leads qualificados que demonstram sinais de interesse significativo.
 **Venda**:
 No estágio final, converta oportunidades em vendas bem-sucedidas. Utilize automações, campanhas personalizadas e insights do Funil de Vendas para fechar negócios de maneira eficiente.
 
-### Pagina do Lead
+### Lead
 
 ![Pagina de Lead](/images/lead_page.png)
 
