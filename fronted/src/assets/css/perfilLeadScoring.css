@@ -1,0 +1,32 @@
+.peso_item {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+
+  font-size: 14px;
+  padding-top: 2%;
+}
+
+.peso_item-input {
+  width: 85%;
+}
+
+.perfil_lead-action {
+  width: 20px;
+  text-align: center;
+}
+
+.perfil-lead-scoring-text-1 {
+  color: var(--black);
+}
+
+.perfil-lead-scoring-text {
+  text-align: justify !important;
+}
+
+.perfil-lead-scoring-volume-text {
+  margin-left: 5px;
+  font-weight: bold;
+}

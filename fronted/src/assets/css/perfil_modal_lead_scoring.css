@@ -1,0 +1,31 @@
+.perfil-modal-lead-scoring-terms-container {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  gap: 2%;
+}
+
+.perfil-modal-lead-scoring-terms {
+  padding: 5px;
+}
+
+.perfil-modal-lead-scoring-operation-container {
+  padding: 5px;
+  padding-top: 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.perfil-modal-lead-scoring-delete {
+  font-size: 16px;
+  padding: 0px;
+  width: 16px;
+  margin-right: -5px;
+
+  /* background-color: red; */
+}
+
+.perfil-modal-lead-scoring-terms-empyt {
+  font-size: x-small;
+  font-weight: 200;
+}

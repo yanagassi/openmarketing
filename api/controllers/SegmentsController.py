@@ -53,7 +53,7 @@ class SegmentsController(Resource):
             body.get("values", {}),
         )
 
-        return jsonify(res)
+        return jsonify({"status": True})
 
     @jwt_required
     def get_segment(self, id_segment):

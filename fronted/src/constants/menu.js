@@ -5,6 +5,7 @@ import CreateLandingPage from "../pages/converter/landingPages/create";
 import ViewLandingPage from "../pages/converter/landingPages/viewLandingPage";
 import HomeScreen from "../pages/home";
 import Login from "../pages/login";
+import LeadScoring from "../pages/relacionar/lead_scoring/index.js";
 import Leads from "../pages/relacionar/leads";
 import ViewLead from "../pages/relacionar/leads/viewLead";
 import Segments from "../pages/relacionar/segments";
@@ -69,6 +70,7 @@ const MENU_ITENS = [
     component: <Leads />,
     private: true,
   },
+
   {
     text: "Landing Pages",
     href: "/leads/:id_lead",
@@ -78,6 +80,14 @@ const MENU_ITENS = [
     private: true,
   },
 
+  {
+    text: "Lead Scoring",
+    href: "/lead-scoring",
+    active: true,
+    hidden: true,
+    component: <LeadScoring />,
+    private: true,
+  },
   {
     text: "Landing Pages",
     href: "/landing-pages/create",

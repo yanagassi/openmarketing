@@ -40,7 +40,7 @@ function DynamicForm({ onDataChange }) {
     const data = await segments.get_rules();
     setRules(data);
     if (form?.length === 0 && data.length > 0) {
-      addRule(data[0].group, data);
+      // addRule(data[0].group, data);
     }
   }
 
@@ -99,7 +99,10 @@ function DynamicForm({ onDataChange }) {
         <Col>
           <Form>
             {ruleActive ? (
-              <select value="" onChange={({ target }) => addRule(target.value)}>
+              <select
+                value={form.name}
+                onChange={({ target }) => addRule(target.value)}
+              >
                 <option />
                 {rules.map((e) => (
                   <option key={e.group} value={e.group}>

@@ -86,6 +86,11 @@ Conversão em páginas de captura
 Visitas em páginas ou conclusão de fluxo de automação
 E outras ações relevantes
 
+**Configurações de Perfil**:
+
+![Pagina de Lead](/images/lead_scoring_perfil.png)
+**_Ao definir notas (de 1 a 10) para os termos mais eficazes das principais propriedades dos Leads, sua base será automaticamente dividida em quatro grupos: A. B. C e D. sendo os Leads do grupo "A" aqueles com melhor perfil para vendas._**
+
 ## 4. Automação (workflow) e E-mail Marketing
 
 Campanhas Segmentadas (ROADMAP): Crie campanhas de e-mail altamente segmentadas para aumentar a relevância.

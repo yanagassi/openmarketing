@@ -69,7 +69,9 @@ const MenuBar = () => {
                       <DropdownItem href="/segments">
                         Segmentação de Leads
                       </DropdownItem>
-                      <DropdownItem href="/leads">Leads Scoring</DropdownItem>
+                      <DropdownItem href="/lead-scoring">
+                        Lead Scoring
+                      </DropdownItem>
                     </DropdownMenu>
                   </Dropdown>
 
