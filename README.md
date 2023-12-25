@@ -88,14 +88,31 @@ E outras ações relevantes
 
 **Configurações de Perfil**:
 
-![Pagina de Lead](/images/lead_scoring_perfil.png)
+![Lead Scoring Perfil](/images/lead_scoring_perfil.png)
 **_Ao definir notas (de 1 a 10) para os termos mais eficazes das principais propriedades dos Leads, sua base será automaticamente dividida em quatro grupos: A. B. C e D. sendo os Leads do grupo "A" aqueles com melhor perfil para vendas._**
 
-![Pagina de Lead](/images/lead_scoring_perfil_page.png)
+![Lead Scoring Perfil](/images/lead_scoring_perfil_page.png)
+
+O funcionamento do perfil é intuitivo. Consideremos um exemplo de média ponderada aplicada ao Lead Yan, cujos atributos são **calculados de acordo com a configuração do usuário**:
+
+| Atributo                | Nota do Termo | Peso da Propriedade |
+| ----------------------- | ------------- | ------------------- |
+| Cargo                   | 5             | 30%                 |
+| Renda                   | 7             | 20%                 |
+| Download de Landingpage | 10            | 50%                 |
+
+**Aplicando uma média ponderada**:
+
+    (5×0.3)+(7×0.2)+(10×0.5) / 0.3+0.2+0.5
+    = 1.5+1.4+5 / 1
+    = 7.9/1.0
+    = 7.9
+
+Portanto, o Lead Yan terá uma pontuação de 7.9, refletindo as notas configuradas pelo usuário no sistema. Este processo simplificado permite uma avaliação clara e personalizada com base nos critérios estabelecidos.
 
 **Configuração de Interesse**:
 
-![Pagina de Lead](/images/lead_scoring_interesse.png)
+![Lead Scoring Interesse](/images/lead_scoring_interesse.png)
 
 **Cada vez que um Lead realiza ações específicas, como fazer o download de conteúdo, abrir uma campanha de e-mail ou concluir um fluxo de automação, é possível atribuir um valor ao seu score. Isso possibilita a avaliação do nível de interesse desse Lead em relação aos seus produtos ou serviços. Organize essas ações em grupos, associando o mesmo valor a materiais de conversão, campanhas ou fluxos de automação semelhantes.**
 

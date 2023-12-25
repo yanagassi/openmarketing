@@ -119,7 +119,7 @@ function PerfilLeadScoring({}) {
                         }
                       />{" "}
                       <span className="perfil-lead-scoring-volume-text">
-                        ({perf.peso})
+                        ({perf.peso}%)
                       </span>
                     </div>
                   </td>
