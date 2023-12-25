@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Input,
   Label,
   Modal,
   ModalBody,
+  ModalFooter,
   ModalHeader,
   Util,
 } from "reactstrap";
 import StarRating from "../../../components/StarRating";
-import { MdClose, MdDelete } from "react-icons/md";
+import { MdAdd, MdClose, MdDelete, MdPlusOne } from "react-icons/md";
 
 import "../../../assets/css/perfil_modal_lead_scoring.css";
 import comum from "../../../helpers/comum";
@@ -27,9 +28,18 @@ const INIT_OBEJCT = (name = "") => {
   };
 };
 
-function PerfilModalLeadScoring({ visible, toggle }) {
-  const [operation, setOperation] = useState(OPERATION_TYPES.exato);
-  const [terms, setTerms] = useState([INIT_OBEJCT("Diretor")]);
+function PerfilModalLeadScoring({ visible, toggle, onSave, data }) {
+  const [operation, setOperation] = useState(
+    data?.operation ?? OPERATION_TYPES.exato
+  );
+  const [terms, setTerms] = useState(data?.terms);
+  const [nameTerm, setName] = useState(data?.name);
+
+  useEffect(() => {
+    if (data?.terms) setTerms(data?.terms);
+    if (data?.operation) setOperation(data?.operation);
+    if (data?.name) setName(data?.name);
+  }, [visible]);
 
   function deleteTerm(id) {
     const final = terms.filter((e) => e.id !== id);
@@ -37,7 +47,7 @@ function PerfilModalLeadScoring({ visible, toggle }) {
   }
 
   function changeValue(id, key, value) {
-    const final = terms.map((e) => {
+    const final = terms?.map((e) => {
       if (e.id == id) {
         return {
           ...e,
@@ -49,10 +59,26 @@ function PerfilModalLeadScoring({ visible, toggle }) {
     setTerms(final);
   }
 
+  function save() {
+    if (onSave) {
+      onSave({ ...data, operation, terms, name: nameTerm });
+    }
+  }
+
   return (
     <Modal size="lg" toggle={toggle} isOpen={visible}>
       <ModalHeader>Propriedade Cargo de decisão</ModalHeader>
       <ModalBody>
+        <div className="mb-4">
+          <div className="mb-2">
+            <span>Nome</span>
+          </div>
+          <Input
+            value={nameTerm}
+            onChange={({ target }) => setName(target.value)}
+            className="w-100"
+          />
+        </div>
         <div className="mb-2">
           <span>
             <b>Método de busca do termo na propriedade</b>
@@ -93,18 +119,18 @@ function PerfilModalLeadScoring({ visible, toggle }) {
           </div>
         </div>
         <div className="mt-4">
-          <div className={terms.length === 0 ? "" : "mb-2"}>
+          <div className={terms?.length === 0 ? "" : "mb-2"}>
             <span>
               <b>Adicione termos e atribua uma nota para cada um deles.</b>
             </span>
           </div>
           <div className="perfil-modal-lead-scoring-terms">
-            {terms.length === 0 ? (
+            {terms?.length === 0 ? (
               <span className="perfil-modal-lead-scoring-terms-empyt">
                 <b>Não há termos configurados.</b>
               </span>
             ) : null}
-            {terms.map((term) => (
+            {terms?.map((term) => (
               <div className="perfil-modal-lead-scoring-terms-container mb-2">
                 <Button
                   onClick={() => deleteTerm(term.id)}
@@ -126,14 +152,24 @@ function PerfilModalLeadScoring({ visible, toggle }) {
                 />
               </div>
             ))}
-            <div className="mt-4">
-              <Button onClick={() => setTerms([...terms, INIT_OBEJCT()])}>
-                Novo Termo
+            <div className="mt-3">
+              <Button
+                color="primary"
+                onClick={() => setTerms([...(terms ?? []), INIT_OBEJCT()])}
+              >
+                <MdAdd /> Novo Termo
               </Button>
             </div>
           </div>
         </div>
       </ModalBody>
+
+      <ModalFooter>
+        <Button onClick={() => toggle()}>Cancelar</Button>
+        <Button color="primary" onClick={() => save()}>
+          Salvar
+        </Button>
+      </ModalFooter>
     </Modal>
   );
 }

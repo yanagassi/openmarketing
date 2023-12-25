@@ -96,6 +96,7 @@ body {
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: rgba(6, 6, 6, 0.86);
 }
 
 code {
@@ -118,6 +119,11 @@ code {
 .form-select,
 .dropdown-menu {
   font-size: 12px !important;
+}
+
+.form-control::-webkit-inner-spin-button {
+  font-size: 8px !important;
+  margin-top: 2px;
 }
 
 .select__control {

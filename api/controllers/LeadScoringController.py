@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from helpers.comun import verify_json
-from flask import jsonify
+from flask import jsonify, request
 from constants.messages import ERRO_LOGIN
 from middlewares.jwt_middleware import jwt_required
 import json
@@ -9,10 +9,26 @@ import json
 from appservice.LeadScoringAppService import LeadScoringAppService
 
 
-class LeadScoringAppService(Resource):
+class LeadScoringController(Resource):
     def __init__(self):
         self._appservice = LeadScoringAppService()
 
-    def save(self):
-        res = self._appservice.save()
+    def create_perfil(self):
+        body = request.get_json()
+        body["organization_id"] = request.headers.get("Organizationid")
+        if "id" in body:
+            del body["id"]
+
+        res = self._appservice.save_perfil(body)
+        return jsonify({"id": str(res)})
+
+    def update_perfil(self):
+        body = request.get_json()
+        body["organization_id"] = request.headers.get("Organizationid")
+        res = self._appservice.save_perfil(body)
+        return jsonify(res)
+
+    def list_all_perfil(self):
+        organization_id = request.headers.get("Organizationid")
+        res = self._appservice.list_all(organization_id)
         return jsonify(res)

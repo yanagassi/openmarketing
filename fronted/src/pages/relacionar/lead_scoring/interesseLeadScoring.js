@@ -1,31 +1,52 @@
 import { useState } from "react";
 import { Button, Col, Row, Table } from "reactstrap";
+import InteresseModalLeadScoring from "./interesseModalLeadScoring";
+import comum from "../../../helpers/comum";
+import lead_scoring from "../../../models/lead_scoring";
+import { MdAdd } from "react-icons/md";
 
 function InteresseLeadScoring({}) {
+  const [edit, setEdit] = useState(null);
   const [interesses, setInteresses] = useState([
     {
-      id: "asdmlaskmd2",
+      id: comum.GenerateId(),
       name: "Participantes do Evento",
       pts: 10,
+      events: [],
     },
     {
-      id: "23121312r5d2",
+      id: comum.GenerateId(),
       name: "Download E-book",
       pts: 30,
+      events: [],
     },
 
     {
-      id: "d21e1d12d`1",
+      id: comum.GenerateId(),
       name: "Comprou",
       pts: 50,
+      events: [],
     },
 
     {
-      id: "d21e1d12d`1",
+      id: comum.GenerateId(),
       name: "Black List",
       pts: -150,
+      events: [],
     },
   ]);
+
+  async function onSave(id, edit) {
+    const final = interesses.map((e) => {
+      if (e.id === id) {
+        return edit;
+      }
+      return e;
+    });
+    setInteresses(final);
+    await lead_scoring.save_interesse(final.filter((e) => e.id === id)[0]);
+    setEdit(null);
+  }
 
   return (
     <div>
@@ -70,7 +91,7 @@ function InteresseLeadScoring({}) {
                     <span className="fs-5">{e.pts}</span> <span>pontos</span>
                   </td>
                   <td>
-                    <Button color="primary">
+                    <Button color="primary" onClick={() => setEdit(e)}>
                       <b>Editar</b>
                     </Button>
                   </td>
@@ -78,8 +99,22 @@ function InteresseLeadScoring({}) {
               ))}
             </tbody>
           </Table>
+
+          <Button
+            onClick={() => setEdit({ id: comum.GenerateId() })}
+            color="primary"
+          >
+            <MdAdd /> Nova propriedade
+          </Button>
         </Col>
       </Row>
+
+      <InteresseModalLeadScoring
+        visible={edit !== null}
+        toggle={() => setEdit(null)}
+        data={edit}
+        onSave={onSave}
+      />
     </div>
   );
 }

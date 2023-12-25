@@ -1,10 +1,77 @@
-import React, { useState } from "react";
-import { Button, Card, CardBody, Col, Row, Table } from "reactstrap";
+import React, { useEffect, useState } from "react";
+import { Button, Col, Row, Table } from "reactstrap";
 import "../../../assets/css/perfilLeadScoring.css";
 import PerfilModalLeadScoring from "./perfilModalLeadScoring";
+import { MdAdd } from "react-icons/md";
+import comum from "../../../helpers/comum";
+import lead_scoring from "../../../models/lead_scoring";
 
 function PerfilLeadScoring({}) {
   const [edit, setEdit] = useState(null);
+  const [perfil, setPerfil] = useState([
+    // {
+    //   id: "o2eon1o2eno12oino",
+    //   name: "Propriedade 2",
+    //   peso: 25,
+    //   terms: [],
+    //   operation: "exato",
+    // },
+    // {
+    //   id: "2EJO1J2J1OJ12IJO",
+    //   name: "Propriedade 1",
+    //   peso: 12,
+    //   terms: [],
+    //   operation: "contem",
+    // },
+  ]);
+
+  useEffect(() => {
+    init();
+  }, []);
+
+  async function init() {
+    const data = await lead_scoring.list_perfil();
+    setPerfil(data);
+  }
+
+  async function save(body) {
+    const final = perfil.map((e) => {
+      if (e.id === body.id) {
+        return {
+          ...e,
+          ...body,
+        };
+      }
+      return e;
+    });
+    setPerfil(final);
+    setEdit(null);
+    if (body.id) {
+      await lead_scoring.edit_perfil(body);
+    } else {
+      await lead_scoring.save_perfil(body);
+    }
+    init();
+  }
+
+  async function changeVolume(id, value) {
+    const final = perfil.map((e) => {
+      if (e.id === id) {
+        return {
+          ...e,
+          peso: value,
+        };
+      }
+      return e;
+    });
+    setPerfil(final);
+
+    await lead_scoring.edit_perfil({
+      id,
+      peso: value,
+    });
+  }
+
   return (
     <div>
       <Row>
@@ -34,38 +101,50 @@ function PerfilLeadScoring({}) {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Propriedade 1</td>
-                <td>
-                  <div className="peso_item">
-                    <input
-                      className="peso_item-input perfil-lead-scoring-volume-input"
-                      type="range"
-                      id="volume"
-                      name="volume"
-                      min="0"
-                      max="100"
-                      value={10}
-                    />{" "}
-                    <span className="perfil-lead-scoring-volume-text">
-                      {" "}
-                      (10)
-                    </span>
-                  </div>
-                </td>
-                <td>
-                  <Button color="primary" onClick={() => setEdit({})}>
-                    <b>Editar</b>
-                  </Button>
-                </td>
-              </tr>
+              {perfil.map((perf) => (
+                <tr>
+                  <td>{perf.name}</td>
+                  <td>
+                    <div className="peso_item">
+                      <input
+                        className="peso_item-input perfil-lead-scoring-volume-input"
+                        type="range"
+                        id="volume"
+                        name="volume"
+                        min="0"
+                        max="100"
+                        value={perf.peso}
+                        onChange={({ target }) =>
+                          changeVolume(perf.id, target.value)
+                        }
+                      />{" "}
+                      <span className="perfil-lead-scoring-volume-text">
+                        ({perf.peso})
+                      </span>
+                    </div>
+                  </td>
+                  <td>
+                    <Button color="primary" onClick={() => setEdit(perf)}>
+                      <b>Editar</b>
+                    </Button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </Table>
+          <Button
+            onClick={() => setEdit({ id: null, peso: 0 })}
+            color="primary"
+          >
+            <MdAdd /> Nova propriedade
+          </Button>
         </Col>
       </Row>
       <PerfilModalLeadScoring
         toggle={() => setEdit(null)}
         visible={edit !== null}
+        onSave={(body) => save(body)}
+        data={edit}
       />
     </div>
   );

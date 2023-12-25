@@ -22,7 +22,7 @@ const ActivitiesSection = ({ lead = { events: [] } }) => {
           overflowY: "auto",
         }}
       >
-        {lead.events?.sort(comum.CompareDateToSortDesc).map((e) => (
+        {lead.events?.sort(comum.CompareDateToSortDesc).map((e, index) => (
           <Row className="event-list mt-1">
             <Col xs="8">
               <div style={{ marginBottom: 10 }}>
@@ -50,10 +50,12 @@ const ActivitiesSection = ({ lead = { events: [] } }) => {
             <Col>
               <p className="event-date">{comum.ParseDate(e.event_date)}</p>
             </Col>
-            <div
-              className="divider"
-              style={{ marginLeft: 40, width: "calc(100% - 45px)" }}
-            ></div>
+            {index != lead.events.length - 1 ? (
+              <div
+                className="divider"
+                style={{ marginLeft: 40, width: "calc(100% - 45px)" }}
+              ></div>
+            ) : null}
           </Row>
         ))}
       </CardBody>

@@ -9,9 +9,24 @@
 
 - controller: controllers.EventsController.EventsController
   routes:
+    - route: /api/events
+      methods: ["GET"]
+      endpoint: list_event
     - route: /api/events/delete/<id_event>
       methods: ["DELETE"]
       endpoint: delete_event
+
+- controller: controllers.LeadScoringController.LeadScoringController
+  routes:
+    - route: /api/lead-scoring
+      methods: ["GET"]
+      endpoint: list_all_perfil
+    - route: /api/lead-scoring
+      methods: ["POST"]
+      endpoint: create_perfil
+    - route: /api/lead-scoring
+      methods: ["PUT"]
+      endpoint: update_perfil
 
 - controller: controllers.SegmentsController.SegmentsController
   routes:

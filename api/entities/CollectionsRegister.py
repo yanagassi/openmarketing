@@ -3,6 +3,7 @@ from .Events import Events
 from .LandingPages import LandingPages
 from .Leads import Leads
 from .Segments import Segments
+from .LeadScoringPerfil import LeadScoringPerfil
 
 
 class CollectionsRegister:
@@ -14,3 +15,5 @@ class CollectionsRegister:
     LEADS = (Leads, Leads.__name__)
     LANDINGPAGES = (LandingPages, LandingPages.__name__)
     SEGMENTS = (Segments, Segments.__name__)
+
+    LEADSCORINGPERFIL = (LeadScoringPerfil, LeadScoringPerfil.__name__)

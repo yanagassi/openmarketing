@@ -4,6 +4,7 @@ from settings import DEFAULT_EVENT, EMAIL_FIELD
 from repository.EventsRepository import EventsRepository
 from datetime import datetime, timedelta
 from bson.objectid import ObjectId
+from helpers.comun import parse_entity
 
 
 class EventsAppService(BaseAppService):
@@ -140,3 +141,15 @@ class EventsAppService(BaseAppService):
             final.append(i.type_event)
 
         return list(set(final))
+
+    def list_all(self, organization_id):
+        filters = {
+            "organization_id": organization_id,
+            "deleted_date": {"$exists": False},
+        }
+        res = self._repo.get_by_filter(filters)
+        final = []
+        for i in res:
+            final.append(parse_entity(i.__dict__))
+
+        return final

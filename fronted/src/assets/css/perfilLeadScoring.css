@@ -14,8 +14,7 @@
 }
 
 .perfil_lead-action {
-  width: 20px;
-  text-align: center;
+  width: 8%;
 }
 
 .perfil-lead-scoring-text-1 {
@@ -28,5 +27,6 @@
 
 .perfil-lead-scoring-volume-text {
   margin-left: 5px;
-  font-weight: bold;
+  margin-top: -5px;
+  font-weight: 300;
 }

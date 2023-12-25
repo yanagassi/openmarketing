@@ -29,3 +29,16 @@
   font-size: x-small;
   font-weight: 200;
 }
+
+.interesse-modal-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.interesse-modal-footer-action-two {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}

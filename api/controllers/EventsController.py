@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from helpers.comun import verify_json
-from flask import jsonify
+from flask import jsonify, request
 from constants.messages import ERRO_LOGIN
 from middlewares.jwt_middleware import jwt_required
 import json
@@ -15,4 +15,9 @@ class EventsController(Resource):
 
     def delete_event(self, id_event):
         res = self._appservice.delete_event(id_event)
+        return jsonify(res)
+
+    def list_event(self):
+        organization_id = request.headers.get("Organizationid")
+        res = self._appservice.get_type_events(organization_id)
         return jsonify(res)
