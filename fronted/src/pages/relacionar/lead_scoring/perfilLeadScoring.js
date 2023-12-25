@@ -8,22 +8,7 @@ import lead_scoring from "../../../models/lead_scoring";
 
 function PerfilLeadScoring({}) {
   const [edit, setEdit] = useState(null);
-  const [perfil, setPerfil] = useState([
-    // {
-    //   id: "o2eon1o2eno12oino",
-    //   name: "Propriedade 2",
-    //   peso: 25,
-    //   terms: [],
-    //   operation: "exato",
-    // },
-    // {
-    //   id: "2EJO1J2J1OJ12IJO",
-    //   name: "Propriedade 1",
-    //   peso: 12,
-    //   terms: [],
-    //   operation: "contem",
-    // },
-  ]);
+  const [perfil, setPerfil] = useState([]);
 
   useEffect(() => {
     init();
@@ -35,43 +20,52 @@ function PerfilLeadScoring({}) {
   }
 
   async function save(body) {
-    const final = perfil.map((e) => {
-      if (e.id === body.id) {
-        return {
-          ...e,
-          ...body,
-        };
-      }
-      return e;
-    });
-    setPerfil(final);
+    const updatedPerfil = perfil.map((e) =>
+      e.id === body.id ? { ...e, ...body } : e
+    );
+
+    setPerfil(updatedPerfil);
     setEdit(null);
+
     if (body.id) {
       await lead_scoring.edit_perfil(body);
     } else {
       await lead_scoring.save_perfil(body);
     }
+
     init();
   }
 
-  async function changeVolume(id, value) {
-    const final = perfil.map((e) => {
-      if (e.id === id) {
-        return {
-          ...e,
-          peso: value,
-        };
+  async function changePeso(id, value) {
+    value = parseInt(value);
+    const updatedPerfil = perfil.map((e) =>
+      e.id === id ? { ...e, peso: value } : e
+    );
+    const sums = updatedPerfil.reduce((ac, i) => ac + parseInt(i.peso ?? 0), 0);
+
+    const diff = 100 - sums;
+
+    const updatedPerfilDistributed = updatedPerfil.map((e) => {
+      if (e.id !== id) {
+        const proportionalDiff = (parseInt(e.peso ?? 0) / sums) * diff;
+        return { ...e, peso: parseInt(e.peso ?? 0) + proportionalDiff };
       }
       return e;
     });
-    setPerfil(final);
+
+    const updatedPerfilAdjusted = updatedPerfilDistributed.map((e) => ({
+      ...e,
+      peso: Math.min(100, parseInt(e.peso ?? 0)),
+    }));
+
+    updatedPerfilAdjusted.sort((a, b) => (a.peso ?? 0) - (b.peso ?? 0));
+    setPerfil(updatedPerfilAdjusted);
 
     await lead_scoring.edit_perfil({
       id,
       peso: value,
     });
   }
-
   return (
     <div>
       <Row>
@@ -102,7 +96,7 @@ function PerfilLeadScoring({}) {
             </thead>
             <tbody>
               {perfil.map((perf) => (
-                <tr>
+                <tr key={perf.id}>
                   <td>{perf.name}</td>
                   <td>
                     <div className="peso_item">
@@ -115,11 +109,11 @@ function PerfilLeadScoring({}) {
                         max="100"
                         value={perf.peso}
                         onChange={({ target }) =>
-                          changeVolume(perf.id, target.value)
+                          changePeso(perf.id, target.value)
                         }
                       />{" "}
                       <span className="perfil-lead-scoring-volume-text">
-                        ({perf.peso}%)
+                        ({Math.round(perf.peso ?? 0)}%)
                       </span>
                     </div>
                   </td>
