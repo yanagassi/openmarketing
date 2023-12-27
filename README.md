@@ -95,6 +95,8 @@ E outras ações relevantes
 
 O funcionamento do perfil é intuitivo. Consideremos um exemplo de média ponderada aplicada ao Lead Yan, cujos atributos são **calculados de acordo com a configuração do usuário**:
 
+**Funcionamento**:
+
 | Atributo                | Nota do Termo | Peso da Propriedade |
 | ----------------------- | ------------- | ------------------- |
 | Cargo                   | 5             | 30%                 |
@@ -112,9 +114,28 @@ Portanto, o Lead Yan terá uma pontuação de 7.9, refletindo as notas configura
 
 **Configuração de Interesse**:
 
+O algoritmo é projetado para calcular o interesse de um usuário ("lead") com base em um conjunto de regras predefinidas. Cada regra tem associada uma pontuação ("pts").
+
 ![Lead Scoring Interesse](/images/lead_scoring_interesse.png)
 
-**Cada vez que um Lead realiza ações específicas, como fazer o download de conteúdo, abrir uma campanha de e-mail ou concluir um fluxo de automação, é possível atribuir um valor ao seu score. Isso possibilita a avaliação do nível de interesse desse Lead em relação aos seus produtos ou serviços. Organize essas ações em grupos, associando o mesmo valor a materiais de conversão, campanhas ou fluxos de automação semelhantes.**
+**Funcionamento**:
+
+- Eventos do Usuário:
+  O algoritmo começa coletando os tipos de eventos que o usuário realizou. Isso é feito percorrendo a lista de eventos do usuário e armazenando os tipos de eventos ("type_event") em uma lista.
+
+- Percorrendo as Regras:
+  Em seguida, o algoritmo percorre cada regra presente na lista de regras fornecida como entrada ("rules").
+
+- Comparação com Eventos da Regra:
+  Para cada regra, ele obtém a pontuação associada ("pts") e percorre os eventos especificados pela regra ("events").
+  Ele verifica se algum dos eventos associados à regra está presente na lista de eventos do usuário.
+
+- Atribuindo Pontos:
+  Se um evento da regra for encontrado nos eventos do usuário, a pontuação da regra é adicionada à pontuação total do usuário ("total_pts").
+  Isso significa que o usuário recebe pontos por cumprir as condições especificadas em uma ou mais regras.
+
+- Pontuação Final:
+  O resultado final é a soma de todos os pontos obtidos pelas regras que o usuário satisfez.
 
 ## 4. Automação (workflow) e E-mail Marketing
 
