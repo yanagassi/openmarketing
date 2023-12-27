@@ -100,17 +100,47 @@ const ViewLead = () => {
                   }
                 >
                   <h4 id="lead-name">{lead?.name}</h4>
-                  <div id="lead-lifecycle-stage">
+                  <div
+                    id="lead-lifecycle-stage"
+                    className="lead-lifecycle-stage"
+                  >
                     <i className="lead-icon xicon-filter"></i>{" "}
                     <strong>Estágio do funil:</strong>{" "}
                     <span id="stage_name">{comum.FunilStageCalc(lead)}</span>
                   </div>
+
                   <div id="lead-owner" className="js-lead-owner">
                     <i className="lead-icon xicon-user"></i>{" "}
                     <strong>Dono do Lead:</strong>
                     <span>
                       <span> Sem dono</span>
                     </span>
+                  </div>
+                  <div
+                    id="lead-lifecycle-stage"
+                    className="lead-lifecycle-stage"
+                  >
+                    <i className="lead-icon xicon-filter"></i>{" "}
+                    <strong>Lead Score:</strong>{" "}
+                    <span id="stage_name">
+                      {`${lead.lead_scoring_interesse?.toFixed(1)}`.replace(
+                        ".",
+                        ","
+                      )}
+                    </span>
+                  </div>
+                  <div
+                    className="lead-lifecycle-stage"
+                    style={{ display: "flex", alignContent: "center" }}
+                  >
+                    <span>
+                      {" "}
+                      {`${lead.lead_scoring_perfil?.toFixed(1)}`.replace(
+                        ".",
+                        ","
+                      )}{" "}
+                    </span>
+                    <MdStar size={18} color="var(--yellow)" />
                   </div>
                 </Col>
                 <Col className="text-right mt-auto">

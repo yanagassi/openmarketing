@@ -1,4 +1,8 @@
-import { AiOutlineLaptop, AiOutlineMobile } from "react-icons/ai";
+import {
+  AiOutlineLaptop,
+  AiOutlineMobile,
+  AiOutlineReload,
+} from "react-icons/ai";
 import {
   Button,
   FormGroup,
@@ -18,6 +22,7 @@ function LPMenuRender({
   isMobile,
   body,
   id_lp = null,
+  renewMobile,
 }) {
   async function salvar() {
     const { data } = await landing_pages.save(body);
@@ -49,6 +54,13 @@ function LPMenuRender({
               </FormGroup>
               <AiOutlineMobile color={isMobile ? "var(--primary)" : ""} />
             </div>
+            {isMobile ? (
+              <div style={{ paddingTop: 2 }}>
+                <Button color="default" onClick={() => renewMobile()}>
+                  <AiOutlineReload size={15} />
+                </Button>
+              </div>
+            ) : null}
           </Nav>
         </div>
         <div className="menu-bar-profile">

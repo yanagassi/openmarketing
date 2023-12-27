@@ -67,7 +67,7 @@ function PerfilModalLeadScoring({ visible, toggle, onSave, data }) {
 
   return (
     <Modal size="lg" toggle={toggle} isOpen={visible}>
-      <ModalHeader>Propriedade Cargo de decisão</ModalHeader>
+      <ModalHeader>Propriedades</ModalHeader>
       <ModalBody>
         <div className="mb-4">
           <div className="mb-2">
@@ -165,10 +165,17 @@ function PerfilModalLeadScoring({ visible, toggle, onSave, data }) {
       </ModalBody>
 
       <ModalFooter>
-        <Button onClick={() => toggle()}>Cancelar</Button>
-        <Button color="primary" onClick={() => save()}>
-          Salvar
-        </Button>
+        <div className="interesse-modal-footer">
+          <div>
+            <Button color="danger">Remover</Button>
+          </div>
+          <div>
+            <Button onClick={() => toggle()}>Cancelar</Button>{" "}
+            <Button color="primary" onClick={() => save()}>
+              Salvar
+            </Button>
+          </div>
+        </div>
       </ModalFooter>
     </Modal>
   );

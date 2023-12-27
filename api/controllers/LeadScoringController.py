@@ -32,3 +32,23 @@ class LeadScoringController(Resource):
         organization_id = request.headers.get("Organizationid")
         res = self._appservice.list_all(organization_id)
         return jsonify(res)
+
+    def create_interesse(self):
+        body = request.get_json()
+        body["organization_id"] = request.headers.get("Organizationid")
+        if "id" in body:
+            del body["id"]
+
+        res = self._appservice.save_interesse(body)
+        return jsonify({"id": str(res)})
+
+    def update_interesse(self):
+        body = request.get_json()
+        body["organization_id"] = request.headers.get("Organizationid")
+        res = self._appservice.save_interesse(body)
+        return jsonify(res)
+
+    def list_all_interesse(self):
+        organization_id = request.headers.get("Organizationid")
+        res = self._appservice.list_all_interesse(organization_id)
+        return jsonify(res)

@@ -41,7 +41,7 @@ const TagsSection = ({ lead }) => {
   return (
     <Card className="mt-2">
       <CardHeader>
-        <h6 className="panel-title">Tags</h6>
+        <span className="panel-title">Tags</span>
       </CardHeader>
       <CardBody>
         <p>
@@ -77,7 +77,7 @@ const TagsSection = ({ lead }) => {
           <Button
             className="btn btn-default btn-sm"
             role="button"
-            color={active ? "primary" : "secondary"}
+            color="primary"
             onClick={() => {
               if (!active) {
                 setActive(!active);

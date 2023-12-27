@@ -2,13 +2,28 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Row, Table } from "reactstrap";
 import "../../../assets/css/perfilLeadScoring.css";
 import PerfilModalLeadScoring from "./perfilModalLeadScoring";
-import { MdAdd } from "react-icons/md";
+import { MdAdd, MdEqualizer } from "react-icons/md";
 import comum from "../../../helpers/comum";
 import lead_scoring from "../../../models/lead_scoring";
 
 function PerfilLeadScoring({}) {
   const [edit, setEdit] = useState(null);
-  const [perfil, setPerfil] = useState([]);
+  const [perfil, setPerfil] = useState([
+    // {
+    //   id: "o2eon1o2eno12oino",
+    //   name: "Propriedade 2",
+    //   peso: 25,
+    //   terms: [],
+    //   operation: "exato",
+    // },
+    // {
+    //   id: "2EJO1J2J1OJ12IJO",
+    //   name: "Propriedade 1",
+    //   peso: 12,
+    //   terms: [],
+    //   operation: "contem",
+    // },
+  ]);
 
   useEffect(() => {
     init();
@@ -20,52 +35,73 @@ function PerfilLeadScoring({}) {
   }
 
   async function save(body) {
-    const updatedPerfil = perfil.map((e) =>
-      e.id === body.id ? { ...e, ...body } : e
-    );
-
-    setPerfil(updatedPerfil);
+    const final = perfil.map((e) => {
+      if (e.id === body.id) {
+        return {
+          ...e,
+          ...body,
+        };
+      }
+      return e;
+    });
+    setPerfil(final);
     setEdit(null);
-
     if (body.id) {
       await lead_scoring.edit_perfil(body);
     } else {
       await lead_scoring.save_perfil(body);
     }
-
     init();
   }
 
   async function changePeso(id, value) {
+    console.log(perfil);
     value = parseInt(value);
-    const updatedPerfil = perfil.map((e) =>
-      e.id === id ? { ...e, peso: value } : e
-    );
-    const sums = updatedPerfil.reduce((ac, i) => ac + parseInt(i.peso ?? 0), 0);
+    const sums = perfil.reduce((ac, i) => ac + parseInt(i.peso ?? 0));
+    console.log(sums + value);
+    if (sums + value > 100) {
+      return null;
+    }
 
-    const diff = 100 - sums;
-
-    const updatedPerfilDistributed = updatedPerfil.map((e) => {
-      if (e.id !== id) {
-        const proportionalDiff = (parseInt(e.peso ?? 0) / sums) * diff;
-        return { ...e, peso: parseInt(e.peso ?? 0) + proportionalDiff };
+    const final = perfil.map((e) => {
+      if (e.id === id) {
+        return {
+          ...e,
+          peso: value,
+        };
       }
       return e;
     });
-
-    const updatedPerfilAdjusted = updatedPerfilDistributed.map((e) => ({
-      ...e,
-      peso: Math.min(100, parseInt(e.peso ?? 0)),
-    }));
-
-    updatedPerfilAdjusted.sort((a, b) => (a.peso ?? 0) - (b.peso ?? 0));
-    setPerfil(updatedPerfilAdjusted);
+    setPerfil(final);
 
     await lead_scoring.edit_perfil({
       id,
       peso: value,
     });
   }
+
+  async function equalizeWeights() {
+    const numProperties = perfil.length;
+    const equalWeight = Math.floor(100 / numProperties);
+
+    const equalizedPerfil = perfil.map((e) => ({
+      ...e,
+      peso: equalWeight,
+    }));
+
+    setPerfil(equalizedPerfil);
+
+    // Atualiza os pesos no backend
+    await Promise.all(
+      equalizedPerfil.map((prop) =>
+        lead_scoring.edit_perfil({
+          id: prop.id,
+          peso: equalWeight,
+        })
+      )
+    );
+  }
+
   return (
     <div>
       <Row>
@@ -96,7 +132,7 @@ function PerfilLeadScoring({}) {
             </thead>
             <tbody>
               {perfil.map((perf) => (
-                <tr key={perf.id}>
+                <tr>
                   <td>{perf.name}</td>
                   <td>
                     <div className="peso_item">
@@ -113,7 +149,7 @@ function PerfilLeadScoring({}) {
                         }
                       />{" "}
                       <span className="perfil-lead-scoring-volume-text">
-                        ({Math.round(perf.peso ?? 0)}%)
+                        ({perf.peso}%)
                       </span>
                     </div>
                   </td>
@@ -126,12 +162,17 @@ function PerfilLeadScoring({}) {
               ))}
             </tbody>
           </Table>
-          <Button
-            onClick={() => setEdit({ id: null, peso: 0 })}
-            color="primary"
-          >
-            <MdAdd /> Nova propriedade
-          </Button>
+          <div>
+            <Button
+              onClick={() => setEdit({ id: null, peso: 0 })}
+              color="primary"
+            >
+              <MdAdd /> Nova propriedade
+            </Button>{" "}
+            <Button onClick={() => equalizeWeights()} color="primary">
+              <MdEqualizer /> Equalizar Pesos
+            </Button>
+          </div>
         </Col>
       </Row>
       <PerfilModalLeadScoring

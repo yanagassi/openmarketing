@@ -27,6 +27,15 @@
     - route: /api/lead-scoring
       methods: ["PUT"]
       endpoint: update_perfil
+    - route: /api/lead-scoring/interesse
+      methods: ["GET"]
+      endpoint: list_all_interesse
+    - route: /api/lead-scoring/interesse
+      methods: ["POST"]
+      endpoint: create_interesse
+    - route: /api/lead-scoring/interesse
+      methods: ["PUT"]
+      endpoint: update_interesse
 
 - controller: controllers.SegmentsController.SegmentsController
   routes:

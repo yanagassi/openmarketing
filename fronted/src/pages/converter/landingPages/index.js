@@ -36,7 +36,7 @@ function LandingPages() {
           </p>
           <div className="mt-5">
             <Button
-              color="dark"
+              color="primary"
               href="/landing-pages/create"
               target="_blank"
               disabled={true}
@@ -45,7 +45,7 @@ function LandingPages() {
             >
               Veja como fazer
             </Button>{" "}
-            <Button color="dark" href="/landing-pages/create" tabIndex="0">
+            <Button color="primary" href="/landing-pages/create" tabIndex="0">
               Criar Landing Page
             </Button>
           </div>
@@ -112,7 +112,9 @@ function LandingPages() {
                     >
                       {e.title}
                     </a>
-                    <Badge className="status">Publicada</Badge>
+                    <Badge color="success" style={{ paddingTop: 5 }}>
+                      Publicada
+                    </Badge>
                   </div>
                 </td>
                 <td className="col-3">
@@ -124,12 +126,13 @@ function LandingPages() {
                   <center>
                     <Button
                       type="button"
+                      color="primary"
                       className="statistics-button"
                       onClick={() => comum.Redirect(`/view/${e.id}`, true)}
                     >
                       <MdVisibility /> <span>Ver</span>
                     </Button>{" "}
-                    <Button type="button" className="statistics-button">
+                    <Button color="primary" className="statistics-button">
                       <MdCopyAll /> <span>Copiar link</span>
                     </Button>
                   </center>

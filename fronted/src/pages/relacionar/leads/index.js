@@ -77,7 +77,9 @@ function Leads() {
                     >
                       {e?.name && e?.name != "" ? e.name : e.email}
                     </a>
-                    <Badge className="status">Ativo</Badge>
+                    <Badge color="success" style={{ paddingTop: 5 }}>
+                      Ativo
+                    </Badge>
                   </div>
                 </td>
                 {/* <td className="col-1">
@@ -92,6 +94,7 @@ function Leads() {
                 <td className="col-1">
                   <center>
                     <Button
+                      color="primary"
                       type="button"
                       className="statistics-button"
                       onClick={() => comum.Redirect(`/view/${e._id}`, true)}

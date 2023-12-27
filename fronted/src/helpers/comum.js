@@ -149,6 +149,60 @@ const FunilStageCalc = (lead) => {
   }
 };
 
+const applyRuleOfThree = (value, oldReference, newReference) => {
+  if (!value) return;
+  return (value * newReference) / oldReference;
+};
+
+const applyFunctionToXY = (data, oldReference, newReferenceWidth) => {
+  const newReferenceHeight = 1000;
+
+  return data.properties.map((section) => {
+    const adjustedSection = {
+      ...section,
+      items: section.items.map((item) => {
+        const width = applyRuleOfThree(
+          item.content.width,
+          oldReference,
+          newReferenceWidth
+        );
+        const height = applyRuleOfThree(
+          item.content.height,
+          oldReference,
+          newReferenceWidth
+        );
+
+        const posX = applyRuleOfThree(
+          item.position.x,
+          oldReference,
+          newReferenceWidth
+        );
+        const posY = applyRuleOfThree(
+          item.position.y,
+          oldReference,
+          newReferenceHeight
+        );
+
+        return {
+          ...item,
+          content: {
+            ...item.content,
+            width: width,
+            height: height,
+          },
+
+          position: {
+            x: posX,
+            y: posY,
+          },
+        };
+      }),
+    };
+
+    return adjustedSection;
+  });
+};
+
 export default {
   Redirect,
   GenerateId,
@@ -160,4 +214,6 @@ export default {
   CompareDateToSortDesc,
   isMobile,
   ParseDate,
+
+  applyFunctionToXY,
 };

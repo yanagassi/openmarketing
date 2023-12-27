@@ -11,6 +11,7 @@ import {
 } from "reactstrap";
 import leads_events from "../../models/leads_events";
 import { MdArrowRight, MdArrowForwardIos, MdVisibility } from "react-icons/md";
+import "../../assets/css/home.css";
 
 function HomeScreen() {
   const [dash, setDash] = useState({
@@ -45,7 +46,6 @@ function HomeScreen() {
               <CardBody>
                 <CardTitle tag="h5">Visitantes</CardTitle>
                 <CardText>{dash.event_len}</CardText>
-                <CardText>0,00% (0)</CardText>
               </CardBody>
             </Card>
           </Col>
@@ -56,7 +56,6 @@ function HomeScreen() {
               <CardBody>
                 <CardTitle tag="h5">Leads</CardTitle>
                 <CardText>{dash.leads_len}</CardText>
-                <CardText>0,00% (0)</CardText>
               </CardBody>
             </Card>
           </Col>
@@ -67,7 +66,6 @@ function HomeScreen() {
               <CardBody>
                 <CardTitle tag="h5">Oportunidades</CardTitle>
                 <CardText>{dash.opportunities_len}</CardText>
-                <CardText>0</CardText>
               </CardBody>
             </Card>
           </Col>
@@ -78,14 +76,13 @@ function HomeScreen() {
               <CardBody>
                 <CardTitle tag="h5">Vendas</CardTitle>
                 <CardText>{dash.sales_len}</CardText>
-                <CardText>0</CardText>
               </CardBody>
             </Card>
           </Col>
         </div>
       </Row>
 
-      <Row className="mt-5">
+      <Row className="mt-4">
         <h6>Oportunidades:</h6>
         <Col>
           <Card style={{ minHeight: 400 }}>

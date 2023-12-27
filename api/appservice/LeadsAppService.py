@@ -5,6 +5,7 @@ from constants.event_type import OPPORTUNITY, SALE
 from repository.LeadsRepository import LeadsRepository
 from repository.EventsRepository import EventsRepository
 from .EventsAppService import EventsAppService
+from .LeadScoringAppService import LeadScoringAppService
 import json
 from flask import Flask, jsonify
 from bson.objectid import ObjectId
@@ -17,6 +18,7 @@ class LeadsAppService(BaseAppService):
         self._repo = LeadsRepository()
         self._events_repo = EventsRepository()
         self._event_appservice = EventsAppService()
+        self._lead_scoring_appservice = LeadScoringAppService()
 
     def get_lead(self, email, organization_id):
         """
@@ -89,6 +91,10 @@ class LeadsAppService(BaseAppService):
             result[SALE] = False
             result[OPPORTUNITY] = False
 
+            rules_perfil = self._lead_scoring_appservice.list_all(organization_id)
+            rules_interesse = self._lead_scoring_appservice.list_all_interesse(
+                organization_id
+            )
             for i in self._event_appservice.get_events_by_lead_id(organization_id, id):
                 event_parsed = self.parse_lead(i.__dict__)
                 result["events"].append(event_parsed)
@@ -104,6 +110,15 @@ class LeadsAppService(BaseAppService):
                 if i.type_event == SALE and i._deleted_date == False:
                     result[SALE] = True
                     result[f"{SALE}_ID"] = event_parsed
+
+                result[
+                    "lead_scoring_perfil"
+                ] = self._lead_scoring_appservice.calcule_perfil(result, rules_perfil)
+                result[
+                    "lead_scoring_interesse"
+                ] = self._lead_scoring_appservice.calcule_interesse(
+                    result, rules_interesse
+                )
 
             return result
         return False
