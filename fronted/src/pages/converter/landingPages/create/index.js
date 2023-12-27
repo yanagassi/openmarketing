@@ -28,6 +28,7 @@ function CreateLandingPage() {
   // Auxiliares para o funcionamento do sistema.
   const [sectionActive, setSectionActive] = useState(null); //ID
   const [elementActive, setElementActive] = useState(null); //ID
+
   const [activeSectionValues, setActiveSectionValues] = useState(null);
   const [activeElementValues, setActiveElementsValues] = useState(null);
 
@@ -61,6 +62,13 @@ function CreateLandingPage() {
     setLoad(false);
   }
 
+  function renewMobile(e) {
+    const final = comum.applyFunctionToXY(desktopScript, 1000, 350);
+    const res = { ...mobileScript, properties: final };
+
+    setScript(res);
+  }
+
   function setScript(e) {
     if (isMobile) setMobileScript(e);
     else setDesktopScript(e);
@@ -70,6 +78,7 @@ function CreateLandingPage() {
   function handleScript() {
     const to = !isMobile;
     _setIsMobile(to);
+
     setScriptMain(to ? mobileScript : desktopScript);
   }
 
@@ -212,9 +221,11 @@ function CreateLandingPage() {
       }),
     });
   }
+
   if (load) {
     return <></>;
   }
+
   return (
     <div className="main-create-render">
       <LPMenuRender
@@ -223,6 +234,7 @@ function CreateLandingPage() {
         body={{ ...metaData, mobile: mobileScript, desktop: desktopScript }}
         handleScript={handleScript}
         id_lp={id_lp}
+        renewMobile={renewMobile}
       />
 
       <div
@@ -255,7 +267,6 @@ function CreateLandingPage() {
             onActive={setSectionActive}
           />
         </div>
-        {/* <Col className="col-not-padding"> */}
         <div style={{ width: "75vw", overflowX: "auto" }}>
           <LPRender
             script={script}
@@ -270,7 +281,6 @@ function CreateLandingPage() {
             addNewElement={addNewElement}
           />
         </div>
-        {/* </Col> */}
       </div>
     </div>
   );

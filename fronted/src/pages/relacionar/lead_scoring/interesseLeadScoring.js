@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Row, Table } from "reactstrap";
 import InteresseModalLeadScoring from "./interesseModalLeadScoring";
 import comum from "../../../helpers/comum";
@@ -7,34 +7,16 @@ import { MdAdd } from "react-icons/md";
 
 function InteresseLeadScoring({}) {
   const [edit, setEdit] = useState(null);
-  const [interesses, setInteresses] = useState([
-    {
-      id: comum.GenerateId(),
-      name: "Participantes do Evento",
-      pts: 10,
-      events: [],
-    },
-    {
-      id: comum.GenerateId(),
-      name: "Download E-book",
-      pts: 30,
-      events: [],
-    },
+  const [interesses, setInteresses] = useState([]);
 
-    {
-      id: comum.GenerateId(),
-      name: "Comprou",
-      pts: 50,
-      events: [],
-    },
+  useEffect(() => {
+    init();
+  }, []);
 
-    {
-      id: comum.GenerateId(),
-      name: "Black List",
-      pts: -150,
-      events: [],
-    },
-  ]);
+  async function init() {
+    const data = await lead_scoring.list_interesse();
+    setInteresses(data);
+  }
 
   async function onSave(id, edit) {
     const final = interesses.map((e) => {
@@ -44,8 +26,14 @@ function InteresseLeadScoring({}) {
       return e;
     });
     setInteresses(final);
-    await lead_scoring.save_interesse(final.filter((e) => e.id === id)[0]);
+    if (!edit.id) {
+      await lead_scoring.save_interesse(edit);
+    } else {
+      await lead_scoring.edit_interesse(edit);
+    }
+
     setEdit(null);
+    init();
   }
 
   return (
@@ -101,7 +89,7 @@ function InteresseLeadScoring({}) {
           </Table>
 
           <Button
-            onClick={() => setEdit({ id: comum.GenerateId() })}
+            onClick={() => setEdit({ id: null, events: [] })}
             color="primary"
           >
             <MdAdd /> Nova propriedade

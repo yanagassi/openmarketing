@@ -2,12 +2,19 @@
   border-radius: 0;
   border-bottom-width: 1px !important;
   border-width: 0;
+  font-size: 13px;
 }
 
 .main-content-view-leads {
   padding: 8%;
   padding-top: 0;
   padding-bottom: 0;
+}
+
+.js-lead-owner,
+.lead-lifecycle-stage,
+.lead-lifecycle-stage {
+  font-size: 14px;
 }
 
 .event-list {

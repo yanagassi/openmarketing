@@ -21,7 +21,7 @@ const NotesSection = ({ lead }) => {
   return (
     <Card className="mt-2">
       <CardHeader>
-        <h6 className="panel-title">Anotações</h6>
+        <span className="panel-title">Anotações</span>
       </CardHeader>
       <form className="loading-container" method="post">
         <CardBody>
@@ -39,7 +39,7 @@ const NotesSection = ({ lead }) => {
             <p>{notes ?? "Não há anotações."}</p>
           )}
           <Button
-            color={active ? "primary" : "secondary"}
+            color="primary"
             className="btn btn-default btn-sm mt-2"
             onClick={() => {
               if (!active) {

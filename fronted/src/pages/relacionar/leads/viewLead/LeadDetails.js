@@ -6,7 +6,7 @@ const LeadDetails = ({ lead }) => {
   return (
     <Card id="lead-details">
       <CardHeader>
-        <h6 className="panel-title">Detalhes do Lead</h6>
+        <span className="panel-title">Detalhes do Lead</span>
       </CardHeader>
       <CardBody className="list-group list-group-info" style={{ padding: 0 }}>
         <div

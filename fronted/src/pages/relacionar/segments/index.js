@@ -24,18 +24,20 @@ function Segments() {
     <Container>
       <Col className="mt-4">
         <Row>
-          <Col xs={11}>
+          <Col xs={10}>
             <h4 className="mb-4">
               Segmentação de Leads{" "}
               <span style={{ fontWeight: "200" }}>({my_segments?.length})</span>
             </h4>
           </Col>
 
-          <Col xs={1}>
-            {" "}
-            <Button onClick={() => setModal(!modal)}>
-              <FaPlus /> Novo
-            </Button>
+          <Col xs={2}>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div></div>
+              <Button color="primary" onClick={() => setModal(!modal)}>
+                <FaPlus /> Novo
+              </Button>
+            </div>
           </Col>
         </Row>
         <div className="sm-1">
@@ -103,6 +105,7 @@ function Segments() {
                   <center>
                     <Button
                       type="button"
+                      color="primary"
                       className="statistics-button"
                       onClick={() => comum.Redirect(`/view/${e._id}`, true)}
                     >

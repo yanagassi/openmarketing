@@ -23,6 +23,6 @@
 .star-rating-container-text {
   margin-top: 2.5px;
   color: var(--black);
-  font-weight: bold;
+  font-weight: 300;
   margin-left: 5px;
 }

@@ -60,7 +60,7 @@ function InteresseModalLeadScoring({ visible, toggle, data, onSave }) {
 
   return (
     <Modal size="lg" toggle={toggle} isOpen={visible}>
-      <ModalHeader>Propriedade Cargo de decisão</ModalHeader>
+      <ModalHeader>Propriedade</ModalHeader>
       <ModalBody>
         <div className="p-2">
           <Row>

@@ -14,7 +14,7 @@ const LeadData = ({ lead }) => {
       >
         <Row>
           <Col>
-            <h6 className="panel-title">Outros Dados</h6>
+            <span className="panel-title">Outros Dados</span>
           </Col>
           <Col xs="2">
             <MdArrowDropDown size={20} style={{ marginTop: -10 }} />
@@ -25,7 +25,7 @@ const LeadData = ({ lead }) => {
         <CardBody>
           {Object.entries(lead?.data ?? {})?.map(([label, value]) => (
             <div>
-              <span>
+              <span style={{ fontSize: 13 }}>
                 <b>{label}</b>: {value}
               </span>
             </div>
