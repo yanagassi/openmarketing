@@ -11,7 +11,6 @@ function LandingPages() {
   async function init() {
     const data = await landing_pages.get_lps_by_organization();
     setLps(data);
-    console.log(data);
   }
 
   useEffect(() => {

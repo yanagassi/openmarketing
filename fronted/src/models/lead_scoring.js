@@ -27,9 +27,15 @@ async function edit_perfil(body) {
   }
 }
 
-async function list_perfil() {
+async function list_perfil(organization_id = "") {
   try {
-    const { data } = await api.get(`/api/lead-scoring`);
+    let headers = {};
+    if (organization_id != "") {
+      headers = {
+        Organizationid: organization_id,
+      };
+    }
+    const { data } = await api.get(`/api/lead-scoring`, { headers });
     return data;
   } catch {
     return [];

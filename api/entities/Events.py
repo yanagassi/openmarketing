@@ -10,6 +10,7 @@ class Events:
         data={},
         cookies=[],
         href="",
+        lp_data={},
         type_event=DEFAULT_EVENT,
         event_date=datetime.now(),
         deleted_date=False,
@@ -21,6 +22,7 @@ class Events:
         self._id = id
         self._type_event = type_event
         self._event_date = event_date
+        self._lp_data = lp_data
         self._href = href
         self._organization_id = organization_id
         self._deleted_date = deleted_date
@@ -36,4 +38,5 @@ class Events:
             "event_date": self._event_date,
             "organization_id": self._organization_id,
             "deleted_date": self._deleted_date,
+            "lp_data": self._lp_data,
         }

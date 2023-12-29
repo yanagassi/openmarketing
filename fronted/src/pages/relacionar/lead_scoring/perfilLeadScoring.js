@@ -55,10 +55,8 @@ function PerfilLeadScoring({}) {
   }
 
   async function changePeso(id, value) {
-    console.log(perfil);
     value = parseInt(value);
     const sums = perfil.reduce((ac, i) => ac + parseInt(i.peso ?? 0));
-    console.log(sums + value);
     if (sums + value > 100) {
       return null;
     }

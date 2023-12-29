@@ -1,3 +1,4 @@
+import React from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 import { LP_HTML_COMPONENTS_TYPE } from "../../../constants/LpContants";
 import comum from "../../../helpers/comum";
@@ -8,42 +9,53 @@ function EspecificalOptions({
   updateItemByKey,
   elementActive,
 }) {
+  const renderFormOrInput = (inputKey, inputType, inputValue) => {
+    const inputData = comum.GetLabelData(inputKey);
+
+    if (LP_HTML_COMPONENTS_TYPE.form_list === inputData.type) {
+      return (
+        <FormOptions
+          activeElementValues={activeElementValues}
+          updateItemByKey={updateItemByKey}
+          elementActive={elementActive}
+          className="mt-4 mb-4"
+        />
+      );
+    }
+
+    return (
+      <div key={inputKey} className="mt-2">
+        <Label for="exampleEmail">{inputData.label}</Label>
+        <Input
+          value={inputValue}
+          type={inputData.type}
+          onChange={({ target }) => {
+            updateItemByKey(elementActive, inputKey, target.value);
+          }}
+        >
+          {inputData?.options?.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </Input>
+      </div>
+    );
+  };
+
   return (
-    <>
-      {Object.keys(activeElementValues?.content ?? {}).map((i) => {
-        const inputData = comum.GetLabelData(i);
-        if (LP_HTML_COMPONENTS_TYPE.form_list === inputData.type) {
-          return (
-            <FormOptions
-              activeElementValues={activeElementValues}
-              updateItemByKey={updateItemByKey}
-              elementActive={elementActive}
-            />
-          );
+    <div className="mt-2">
+      {Object.entries(activeElementValues?.content ?? {}).map(
+        ([key, value]) => {
+          return renderFormOrInput(key, "text", value);
         }
-        return (
-          <FormGroup>
-            <Label for="exampleEmail">{inputData.label}</Label>
-            <Input
-              value={activeElementValues?.content?.[i]}
-              type={inputData.type}
-              onChange={({ target }) => {
-                updateItemByKey(elementActive, i, target.value);
-              }}
-            >
-              {inputData?.options?.map((e) => (
-                <option value={e}>{e}</option>
-              ))}
-            </Input>
-          </FormGroup>
-        );
-      })}
+      )}
 
-      <FormGroup>
+      <FormGroup className="mt-2">
         <Label>Distância Vertical</Label>
-
         <Input
           value={activeElementValues?.position?.x?.toFixed(0)}
+          type="number"
           onChange={({ target }) => {
             updateItemByKey(
               elementActive,
@@ -54,10 +66,12 @@ function EspecificalOptions({
           }}
         />
       </FormGroup>
+
       <FormGroup>
         <Label>Distância Horizontal</Label>
         <Input
           value={activeElementValues?.position?.y?.toFixed(0)}
+          type="number"
           onChange={({ target }) => {
             updateItemByKey(
               elementActive,
@@ -68,7 +82,7 @@ function EspecificalOptions({
           }}
         />
       </FormGroup>
-    </>
+    </div>
   );
 }
 

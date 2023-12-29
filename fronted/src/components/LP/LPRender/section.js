@@ -11,6 +11,7 @@ const Section = ({
   styles,
   onActive,
   onActiveElement,
+  onRemove,
   script,
   addNewSection,
   elementActive,
@@ -89,7 +90,7 @@ const Section = ({
           <a>
             <MdAddBox color="var(--blue)" onClick={() => setModal(true)} />
           </a>
-          <a>
+          <a onClick={() => onRemove(id)}>
             <MdDelete color="var(--blue)" />
           </a>
         </div>
@@ -103,6 +104,7 @@ const Section = ({
             ? styles?.sectionOpacity / 100
             : undefined,
           backgroundColor: styles?.backgroundSectionColor,
+          minHeight: 100,
         }}
         onClick={() => {
           onActive(id);

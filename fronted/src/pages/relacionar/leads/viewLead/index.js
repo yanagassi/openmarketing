@@ -118,24 +118,26 @@ const ViewLead = () => {
                   </div>
                   <div
                     id="lead-lifecycle-stage"
-                    className="lead-lifecycle-stage"
+                    className="lead-lifecycle-stage mt-2"
                   >
                     <i className="lead-icon xicon-filter"></i>{" "}
                     <strong>Lead Score:</strong>{" "}
                     <span id="stage_name">
-                      {`${lead.lead_scoring_interesse?.toFixed(1)}`.replace(
-                        ".",
-                        ","
-                      )}
+                      {`${(lead.lead_scoring_interesse ?? 0)?.toFixed(
+                        0
+                      )}`.replace(".", ",")}
+                      pts
                     </span>
                   </div>
                   <div
-                    className="lead-lifecycle-stage"
+                    className="lead-lifecycle-stage mt-1"
                     style={{ display: "flex", alignContent: "center" }}
                   >
                     <span>
-                      {" "}
-                      {`${lead.lead_scoring_perfil?.toFixed(1)}`.replace(
+                      <strong>Perfil Score: </strong>
+                    </span>
+                    <span style={{ marginLeft: 3 }}>
+                      {`${(lead.lead_scoring_perfil ?? 0).toFixed(1)}`.replace(
                         ".",
                         ","
                       )}{" "}

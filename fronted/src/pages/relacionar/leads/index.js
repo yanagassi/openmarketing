@@ -12,7 +12,6 @@ function Leads() {
   async function init() {
     const data = await leads.get_leads();
     setmy_leads(data);
-    console.log(data);
   }
 
   useEffect(() => {
