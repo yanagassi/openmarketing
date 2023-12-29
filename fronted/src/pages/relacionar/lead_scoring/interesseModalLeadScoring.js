@@ -47,7 +47,6 @@ function InteresseModalLeadScoring({ visible, toggle, data, onSave }) {
   }
 
   function updateActivity(id, value) {
-    console.log(id, value);
     const final = editData?.events.map((e) => {
       if (e.id === id) {
         return { ...e, eventId: value };

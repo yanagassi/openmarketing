@@ -25,6 +25,7 @@
   padding: 5px;
   background: var(--white) !important;
   min-width: 25px;
+  border-radius: 1px;
 }
 
 .section-active-variant {
@@ -44,24 +45,19 @@
   flex-direction: row;
   justify-content: space-between;
   overflow-y: hidden;
+  z-index: 1 !important;
 }
 
 .add-section {
-  z-index: 2 !important;
   font-size: 15px;
   color: var(--blue);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  position: relative;
-  height: 1px;
+  height: 5px;
 }
 
 .add-section > a {
-  /* text-align: center; */
-  margin-top: -2px;
   z-index: 2;
+  position: relative;
+  top: -15px;
 }
 
 .section-tool-bar {

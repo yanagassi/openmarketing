@@ -114,28 +114,28 @@ Portanto, o Lead Yan terá uma pontuação de 7.9, refletindo as notas configura
 
 **Configuração de Interesse**:
 
-O algoritmo é projetado para calcular o interesse de um usuário ("lead") com base em um conjunto de regras predefinidas. Cada regra tem associada uma pontuação ("pts").
+O algoritmo é projetado para calcular o interesse de um lead com base em um conjunto de regras predefinidas. Cada regra tem associada uma pontuação ("pts").
 
 ![Lead Scoring Interesse](/images/lead_scoring_interesse.png)
 
 **Funcionamento**:
 
-- Eventos do Usuário:
-  O algoritmo começa coletando os tipos de eventos que o usuário realizou. Isso é feito percorrendo a lista de eventos do usuário e armazenando os tipos de eventos ("type_event") em uma lista.
+- Eventos do Lead:
+  O algoritmo começa coletando os tipos de eventos que o lead realizou. Isso é feito percorrendo a lista de eventos do lead e armazenando os tipos de eventos ("type_event") em uma lista.
 
 - Percorrendo as Regras:
   Em seguida, o algoritmo percorre cada regra presente na lista de regras fornecida como entrada ("rules").
 
 - Comparação com Eventos da Regra:
   Para cada regra, ele obtém a pontuação associada ("pts") e percorre os eventos especificados pela regra ("events").
-  Ele verifica se algum dos eventos associados à regra está presente na lista de eventos do usuário.
+  Ele verifica se algum dos eventos associados à regra está presente na lista de eventos do lead.
 
 - Atribuindo Pontos:
-  Se um evento da regra for encontrado nos eventos do usuário, a pontuação da regra é adicionada à pontuação total do usuário ("total_pts").
-  Isso significa que o usuário recebe pontos por cumprir as condições especificadas em uma ou mais regras.
+  Se um evento da regra for encontrado nos eventos do lead, a pontuação da regra é adicionada à pontuação total do lead ("total_pts").
+  Isso significa que o lead recebe pontos por cumprir as condições especificadas em uma ou mais regras.
 
 - Pontuação Final:
-  O resultado final é a soma de todos os pontos obtidos pelas regras que o usuário satisfez.
+  O resultado final é a soma de todos os pontos obtidos pelas regras que o lead satisfez.
 
 ## 4. Automação (workflow) e E-mail Marketing
 

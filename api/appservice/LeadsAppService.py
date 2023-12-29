@@ -6,7 +6,10 @@ from repository.LeadsRepository import LeadsRepository
 from repository.EventsRepository import EventsRepository
 from .EventsAppService import EventsAppService
 from .LeadScoringAppService import LeadScoringAppService
+from .LandingPagesAppService import LandingPagesAppService
 import json
+
+from helpers.comun import parse_entity
 from flask import Flask, jsonify
 from bson.objectid import ObjectId
 from datetime import datetime, timedelta
@@ -19,6 +22,8 @@ class LeadsAppService(BaseAppService):
         self._events_repo = EventsRepository()
         self._event_appservice = EventsAppService()
         self._lead_scoring_appservice = LeadScoringAppService()
+
+        self._landing_pages_appservice = LandingPagesAppService()
 
     def get_lead(self, email, organization_id):
         """
@@ -74,7 +79,7 @@ class LeadsAppService(BaseAppService):
 
         self._events_repo.delete_event(event_id)
 
-    def get_lead_by_id(self, id, organization_id):
+    def get_lead_by_id(self, id, organization_id, for_frontend=False):
         """
         Obtém informações de um lead com base no endereço de e-mail.
 
@@ -95,8 +100,25 @@ class LeadsAppService(BaseAppService):
             rules_interesse = self._lead_scoring_appservice.list_all_interesse(
                 organization_id
             )
+
+            result[
+                "data"
+            ] = self._lead_scoring_appservice.get_especifico_campo_formulario(
+                organization_id, result["data"], for_frontend
+            )
+
             for i in self._event_appservice.get_events_by_lead_id(organization_id, id):
+                if "lp_id" in i.data:
+                    lp = self._landing_pages_appservice.get_landing_pages(
+                        i.data["lp_id"]
+                    )
+                    lp.mobile = {}
+                    lp.desktop = {}
+                    lp.organization_id = str(lp.organization_id)
+                    i.lp_data = parse_entity(lp.__dict__)
+
                 event_parsed = self.parse_lead(i.__dict__)
+
                 result["events"].append(event_parsed)
 
                 # Especificando alguns eventos que eu quero preenchido.
@@ -107,6 +129,7 @@ class LeadsAppService(BaseAppService):
                 if i.type_event == OPPORTUNITY and i._deleted_date == False:
                     result[OPPORTUNITY] = True
                     result[f"{OPPORTUNITY}_ID"] = event_parsed
+
                 if i.type_event == SALE and i._deleted_date == False:
                     result[SALE] = True
                     result[f"{SALE}_ID"] = event_parsed
@@ -146,14 +169,17 @@ class LeadsAppService(BaseAppService):
         :param org_id: O ID da organização.
         :return: Lista de leads pertencentes à organização.
         """
+
         result = self._repo.get_leads_by_filter({"organization_id": org_id})
         if result:
             final = []
             for i in result:
                 i = i.__dict__
+
                 i["_id"] = str(i["_id"])
                 i["data_len"] = len(i["data"])
                 i["data"] = {}
+
                 final.append(self.parse_lead(i))
             return jsonify(final)
 

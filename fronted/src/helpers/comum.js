@@ -72,7 +72,7 @@ function HexToRGBA(hex, opacity) {
 }
 
 function GetLabelData(key) {
-  const { KEY_VALUE } = require("../constants/LpContants");
+  const { KEY_VALUE, FORM_LP_INPUT_TYPES } = require("../constants/LpContants");
   const final = Object.keys(KEY_VALUE).filter((e) => {
     if (e === key) {
       return e;
@@ -203,6 +203,20 @@ const applyFunctionToXY = (data, oldReference, newReferenceWidth) => {
   });
 };
 
+const VerifyTypeForm = (array, searchString) => {
+  const valid = array.includes(searchString);
+  if (valid) {
+    return {
+      type: "default",
+      key: searchString,
+    };
+  }
+  return {
+    type: "modify",
+    key: "select",
+  };
+};
+
 export default {
   Redirect,
   GenerateId,
@@ -216,4 +230,5 @@ export default {
   ParseDate,
 
   applyFunctionToXY,
+  VerifyTypeForm,
 };

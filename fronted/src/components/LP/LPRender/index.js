@@ -17,6 +17,7 @@ function LPRender({
   elementActive = () => {},
   addNewElement = () => {},
   deleteElement = () => {},
+  onRemove = () => {},
   addNewSection = () => {},
 }) {
   const LP_PX = isMobile ? configs.LP_PX_TAM_MOBILE : configs.LP_PX_TAM;
@@ -32,7 +33,6 @@ function LPRender({
           >
             <div
               style={{
-                // width: LP_PX,
                 overflowY: "hidden",
               }}
             >
@@ -51,11 +51,15 @@ function LPRender({
                 onActiveElement={onActiveElement}
                 addNewSection={addNewSection}
                 addNewElement={addNewElement}
+                onRemove={onRemove}
               />
 
               {e.id === activeId ? (
                 <div className="add-section">
-                  <a onClick={addNewSection}>
+                  <a
+                    onClick={addNewSection}
+                    style={{ left: `calc(${LP_PX / 2}px - 15px)` }}
+                  >
                     <MdAddBox className="md-add-icons" />
                   </a>
                 </div>

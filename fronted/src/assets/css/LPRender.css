@@ -20,3 +20,17 @@
 .form-edit-lp-inputs-container > input {
   margin-bottom: 5px;
 }
+
+.form-edit-inputgroup {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.form-edit-lp-inputs-container {
+  width: 100%;
+}
+.form-edit-inputgroup-btn {
+  height: 30px !important;
+  padding-top: 4px;
+}

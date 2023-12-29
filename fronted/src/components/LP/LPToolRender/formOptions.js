@@ -1,106 +1,140 @@
-import { MdAddBox, MdDelete } from "react-icons/md";
-import { FormGroup, Input, Label } from "reactstrap";
+import React, { useCallback, useEffect, useState } from "react";
+import { MdAdd, MdAddBox, MdDelete, MdMicNone } from "react-icons/md";
+import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
 import {
   FORM_LP_INPUT_TYPES,
   FORM_LP_TYPES,
 } from "../../../constants/LpContants";
 import comum from "../../../helpers/comum";
+import lead_scoring from "../../../models/lead_scoring";
 
-function FormOptions({ activeElementValues, updateItemByKey, elementActive }) {
-  function removeElementForm(id) {
+function FormOptions({
+  activeElementValues,
+  updateItemByKey,
+  elementActive,
+  className = "",
+}) {
+  const [perfisOptions, setPefisOptions] = useState([]);
+
+  const removeElementForm = (id) => {
     if (!id) return;
-    const final = activeElementValues?.content?.fields?.filter((e) => {
-      if (e.id != id) {
-        return e;
-      }
-    });
-    updateItemByKey(elementActive, "fields", final);
-  }
+    const updatedFields = activeElementValues?.content?.fields?.filter(
+      (field) => field.id !== id
+    );
+    updateItemByKey(elementActive, "fields", updatedFields);
+  };
 
-  function addElementForm() {
-    const final = [
+  const addElementForm = () => {
+    const newField = {
+      ...FORM_LP_TYPES.text,
+      id: comum.GenerateId().toString(),
+    };
+    const updatedFields = [
       ...(activeElementValues?.content?.fields ?? []),
-      { ...FORM_LP_TYPES.text, id: comum.GenerateId().toString() },
+      newField,
     ];
-    updateItemByKey(elementActive, "fields", final);
-  }
+    updateItemByKey(elementActive, "fields", updatedFields);
+  };
 
-  function changeElementForm(id, key, value) {
+  const changeElementForm = (id, key, value) => {
     if (!id) return;
-    debugger;
-    const final = activeElementValues?.content?.fields?.map((e) => {
-      if (e.id === id) {
-        return {
-          ...e,
-          [key]: value,
-        };
+    const updatedFields = (activeElementValues?.content?.fields ?? []).map(
+      (field) => {
+        return field.id === id ? { ...field, [key]: value } : field;
       }
-      return e;
-    });
+    );
 
-    updateItemByKey(elementActive, "fields", final);
-  }
+    updateItemByKey(elementActive, "fields", updatedFields);
+  };
+
+  useEffect(() => {
+    getPerfilOptions();
+  }, []);
+
+  const getPerfilOptions = async () => {
+    const data = await lead_scoring.list_perfil();
+    setPefisOptions(data);
+  };
 
   return (
-    <div style={{ marginTop: 30 }}>
+    <div className={className}>
       <span>Formulário:</span>
-      {activeElementValues?.content?.fields?.map((e, i) => (
-        <FormGroup className="form-edit-input-group">
-          <Label>Campo {i + 1}</Label>
-          <div className="form-edit-lp-input">
-            <div className="form-edit-lp-inputs-container">
-              <Input
-                onChange={({ target }) =>
-                  changeElementForm(e.id, "label", target.value)
-                }
-                value={e.label}
-              >
-                {e.content?.options?.map((e) => (
-                  <option value={e}>{e}</option>
-                ))}
-              </Input>
+      <div style={{ padding: 10 }}>
+        {activeElementValues?.content?.fields?.map((field, index) => (
+          <FormGroup className="form-edit-input-group mb-4" key={field.id}>
+            <div className="form-edit-lp-input">
+              <div className="form-edit-lp-inputs-container">
+                {/* <Label>{`Campo ${index + 1}`}</Label> */}
+                <Input
+                  onChange={({ target }) =>
+                    changeElementForm(field.id, "label", target.value)
+                  }
+                  value={field.label}
+                >
+                  {field.content?.options?.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </Input>
 
-              <Input
-                onChange={({ target }) =>
-                  changeElementForm(e.id, "color", target.value)
-                }
-                value={e.color}
-                type="color"
-              >
-                {e.content?.options?.map((e) => (
-                  <option value={e}>{e}</option>
-                ))}
-              </Input>
+                <Input
+                  onChange={({ target }) =>
+                    changeElementForm(field.id, "color", target.value)
+                  }
+                  value={field.color}
+                  type="color"
+                >
+                  {field.content?.options?.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </Input>
 
-              <Input
-                onChange={({ target }) =>
-                  changeElementForm(e.id, "type", target.value)
-                }
-                value={e.type ?? "text"}
-                type="select"
-              >
-                {FORM_LP_INPUT_TYPES.operations.map((e) => (
-                  <option value={e}>{e}</option>
-                ))}
-              </Input>
-            </div>
-            <div className="lp-form-icons-action">
-              <div
-                className="lp-form-delete-icon"
-                onClick={({}) => removeElementForm(e.id)}
-              >
-                <MdDelete />
+                <div className="form-edit-inputgroup">
+                  <Input
+                    className="form-edit-inputgroup-input"
+                    onChange={({ target }) =>
+                      changeElementForm(field.id, "type", target.value)
+                    }
+                    value={field.type ?? "text"}
+                    type="select"
+                  >
+                    {perfisOptions.map((option) => (
+                      <option key={option.id} value={option.id}>
+                        <span style={{ fontSize: 10 }}>[Lead Scoring]</span>{" "}
+                        <span style={{ color: "red" }}>{option.name}</span>
+                      </option>
+                    ))}
+
+                    {FORM_LP_INPUT_TYPES.operations.map((operation) => (
+                      <option key={operation} value={operation}>
+                        {operation}
+                      </option>
+                    ))}
+                  </Input>
+
+                  <div xs={1}>
+                    <Button
+                      color="danger"
+                      className="form-edit-inputgroup-btn"
+                      onClick={() => removeElementForm(field.id)}
+                    >
+                      <MdDelete />
+                    </Button>
+                  </div>
+                </div>
               </div>
-              <div
-                className="lp-form-delete-icon"
-                onClick={({}) => addElementForm()}
-              >
-                <MdAddBox />
-              </div>
             </div>
-          </div>
-        </FormGroup>
-      ))}
+          </FormGroup>
+        ))}
+        <div>
+          <Button color="primary" onClick={addElementForm}>
+            <MdAdd /> Novo Campo
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

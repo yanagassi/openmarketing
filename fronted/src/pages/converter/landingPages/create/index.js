@@ -222,6 +222,14 @@ function CreateLandingPage() {
     });
   }
 
+  function onRemove(id) {
+    const properties = script.properties.filter((e) => e.id !== id);
+    setScript({
+      ...script,
+      properties: properties,
+    });
+  }
+
   if (load) {
     return <></>;
   }
@@ -279,6 +287,7 @@ function CreateLandingPage() {
             addNewSection={addNewSection}
             onActiveElement={setElementActive}
             addNewElement={addNewElement}
+            onRemove={onRemove}
           />
         </div>
       </div>

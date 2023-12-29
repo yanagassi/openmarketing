@@ -23,6 +23,11 @@ const KEY_VALUE = {
     type: "color",
     label: "Cor",
   },
+
+  height: {
+    type: "number",
+    label: "Altura",
+  },
   colorTilte: {
     type: "color",
     label: "Cor do Titulo",
