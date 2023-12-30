@@ -4,6 +4,7 @@
 
 .menu-bar {
   height: 60px;
+  z-index: 99999 !important;
 }
 .nav-link {
   border-radius: 0 !important;
@@ -24,11 +25,16 @@
   width: 100%;
   padding-left: 20px;
   padding-right: 20px;
-  z-index: 1000;
+  z-index: 10 !important;
 }
+
 .menu-bar-profile {
   padding: 10px;
   padding-right: 25px;
+}
+.dropdown-menu,
+.menu-data-items {
+  z-index: 99999999 !important;
 }
 
 .menu-bar-container {
@@ -36,7 +42,7 @@
   height: 60px;
   left: 0;
   right: 0;
-  z-index: 999;
+  z-index: 30 !important;
 }
 
 .menu-bar-variant {

@@ -2,11 +2,13 @@ import React, { useCallback, useEffect, useState } from "react";
 import { MdAdd, MdAddBox, MdDelete, MdMicNone } from "react-icons/md";
 import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
 import {
+  FORM_LP_INPUTS,
   FORM_LP_INPUT_TYPES,
   FORM_LP_TYPES,
 } from "../../../constants/LpContants";
 import comum from "../../../helpers/comum";
 import lead_scoring from "../../../models/lead_scoring";
+import textConstants from "../../../constants/textConstants";
 
 function FormOptions({
   activeElementValues,
@@ -36,11 +38,16 @@ function FormOptions({
     updateItemByKey(elementActive, "fields", updatedFields);
   };
 
-  const changeElementForm = (id, key, value) => {
+  const changeElementForm = (id, key, value, optionForm = false) => {
     if (!id) return;
     const updatedFields = (activeElementValues?.content?.fields ?? []).map(
       (field) => {
-        return field.id === id ? { ...field, [key]: value } : field;
+        let finalVi = { ...field, [key]: value };
+
+        if (optionForm && FORM_LP_INPUTS.indexOf(value) !== -1) {
+          finalVi = { ...field, [key]: value, id: value };
+        }
+        return field.id === id ? finalVi : field;
       }
     );
 
@@ -96,7 +103,7 @@ function FormOptions({
                   <Input
                     className="form-edit-inputgroup-input"
                     onChange={({ target }) =>
-                      changeElementForm(field.id, "type", target.value)
+                      changeElementForm(field.id, "type", target.value, true)
                     }
                     value={field.type ?? "text"}
                     type="select"
@@ -110,7 +117,7 @@ function FormOptions({
 
                     {FORM_LP_INPUT_TYPES.operations.map((operation) => (
                       <option key={operation} value={operation}>
-                        {operation}
+                        {textConstants.translate_type(operation)}
                       </option>
                     ))}
                   </Input>

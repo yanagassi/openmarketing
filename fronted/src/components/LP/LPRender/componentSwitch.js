@@ -138,7 +138,12 @@ function ComponentSwitch({
   return (
     <div onKeyDownCapture={(e) => {}}>
       {renderActiveOverlay()}
-      <div style={{ width: element?.content?.width }}>{getObject()}</div>
+      <div
+        className="section-element"
+        style={{ width: element?.content?.width }}
+      >
+        {getObject()}
+      </div>
       <div style={elementStyle}>
         {elementActive === element.id &&
         element.type !== LP_HTML_COMPONENTS_TYPE.form ? (

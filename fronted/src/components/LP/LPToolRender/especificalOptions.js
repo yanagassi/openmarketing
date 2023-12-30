@@ -3,6 +3,7 @@ import { FormGroup, Input, Label } from "reactstrap";
 import { LP_HTML_COMPONENTS_TYPE } from "../../../constants/LpContants";
 import comum from "../../../helpers/comum";
 import FormOptions from "./formOptions";
+import textConstants from "../../../constants/textConstants";
 
 function EspecificalOptions({
   activeElementValues,
@@ -35,7 +36,7 @@ function EspecificalOptions({
         >
           {inputData?.options?.map((option) => (
             <option key={option} value={option}>
-              {option}
+              {textConstants.translate_type(option)}
             </option>
           ))}
         </Input>

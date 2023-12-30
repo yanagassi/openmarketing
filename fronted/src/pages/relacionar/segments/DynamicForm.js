@@ -6,6 +6,8 @@ import { MdDelete } from "react-icons/md";
 import { useParams } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 
+import "../../../assets/css/dynamic_form.css";
+
 function DynamicForm({ onDataChange }) {
   const [rules, setRules] = useState([]);
   const [form, setForm] = useState([]);
@@ -95,35 +97,35 @@ function DynamicForm({ onDataChange }) {
 
   return (
     <div>
-      <Row style={{ alignItems: "center" }}>
-        <Col>
-          <Form>
-            {ruleActive ? (
-              <select
-                value={form.name}
-                onChange={({ target }) => addRule(target.value)}
-              >
-                <option />
-                {rules.map((e) => (
-                  <option key={e.group} value={e.group}>
-                    {e.group}
-                  </option>
-                ))}
-              </select>
-            ) : null}{" "}
-            <Button
-              onClick={() => {
-                setRuleActive(!ruleActive);
-              }}
+      <div className="dynamic-form-container">
+        <Form>
+          {ruleActive ? (
+            <select
+              className="dynamic-form-container-select"
+              value={form.name}
+              onChange={({ target }) => addRule(target.value)}
             >
-              <FaPlus size={12} />
-            </Button>
-          </Form>
-        </Col>
-        <Col xs={1}>
+              <option />
+              {rules.map((e) => (
+                <option key={e.group} value={e.group}>
+                  {e.group}
+                </option>
+              ))}
+            </select>
+          ) : null}
+          <Button
+            className="dynamic-form-container-btn1 button-mid-height"
+            onClick={() => {
+              setRuleActive(!ruleActive);
+            }}
+          >
+            <FaPlus size={12} />
+          </Button>
+        </Form>
+        <div>
           <Button onClick={() => save()}>Salvar</Button>
-        </Col>
-      </Row>
+        </div>
+      </div>
 
       <br />
       <div>
@@ -140,7 +142,7 @@ function DynamicForm({ onDataChange }) {
                   <Col>
                     <Row>
                       {group?.filters?.map((filter) => (
-                        <Col xs={4} key={filter.id}>
+                        <Col key={filter.id}>
                           {validateRestrict(filter?.restrict) ? (
                             <div>
                               {filter.type === "select" ? (
