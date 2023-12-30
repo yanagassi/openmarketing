@@ -8,3 +8,6 @@ EMAIL_FIELD = "emailField"
 NAME_FIELD = "nameField"
 
 DEFAULT_EVENT = "UNDEFINED_EVENT"
+
+
+RULES_SEED = 1222  # Utilizado para gerar os mesmos IDS de rules

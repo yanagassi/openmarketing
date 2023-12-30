@@ -1,4 +1,7 @@
 import json
+from settings import RULES_SEED
+import random
+import hashlib
 
 
 def verify_json(jsonRes, field):
@@ -22,3 +25,7 @@ def parse_entity(res):
             result[name] = value
 
     return result
+
+
+def hash_gen_seed(item_name):
+    return str(hashlib.md5(f"{RULES_SEED}-{item_name}".encode("utf-8")).hexdigest())

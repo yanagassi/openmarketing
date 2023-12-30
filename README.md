@@ -6,6 +6,8 @@ Bem-vindo ao OpenMarketing - Solução de Automação de Marketing Open Source
 
 **Videos de Desenvolvimento**:
 
+- [Roadmap do Projeto](ROADMAP.md)
+- [Primeiros Passos](USEME.md)
 - [Playlist do Youtube - Live Programing](https://www.youtube.com/playlist?list=PL0gLAlYtCg8BVv2m1fL6qO9New2ufpvxi)
 
 ## Visão Geral

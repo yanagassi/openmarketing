@@ -4,7 +4,7 @@ function DefaultOptions({ updateSectionStyles, activeSectionValues }) {
   return (
     <>
       <FormGroup>
-        <Label for="exampleEmail">Color</Label>
+        <Label for="exampleEmail">Cor de Fundo</Label>
         <Input
           value={activeSectionValues?.styles?.backgroundSectionColor}
           onChange={({ target }) =>
@@ -15,7 +15,7 @@ function DefaultOptions({ updateSectionStyles, activeSectionValues }) {
       </FormGroup>
 
       <FormGroup>
-        <Label for="exampleEmail">Altura</Label>
+        <Label for="exampleEmail">Altura da Pagina</Label>
         <Input
           type="number"
           value={activeSectionValues?.styles?.height}
@@ -24,7 +24,7 @@ function DefaultOptions({ updateSectionStyles, activeSectionValues }) {
       </FormGroup>
 
       <FormGroup>
-        <Label for="exampleEmail">Opacity</Label>
+        <Label for="exampleEmail">Opacidade da Pagina</Label>
         <Input
           type="number"
           value={activeSectionValues?.styles?.sectionOpacity}

@@ -30,6 +30,9 @@ function SegmentView() {
           <h6 className="mb-3">Leads filtrados:</h6>
           <Card>
             <div style={{ overflowX: "auto", minHeight: "70vh" }}>
+              {dataView.length === 0 ? (
+                <span className="m-1">Nenhum lead encontrado.</span>
+              ) : null}
               <Table striped hover style={{ width: 400, overflow: "auto" }}>
                 <thead>
                   <tr>

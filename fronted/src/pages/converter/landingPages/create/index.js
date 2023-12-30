@@ -10,6 +10,8 @@ import comum from "../../../../helpers/comum";
 import { useParams } from "react-router-dom";
 import landing_pages from "../../../../models/landing_pages";
 
+import { toast } from "react-toastify";
+
 function CreateLandingPage() {
   const { id_lp = null } = useParams();
   const [load, setLoad] = useState(id_lp != null ? true : false);
@@ -223,6 +225,10 @@ function CreateLandingPage() {
   }
 
   function onRemove(id) {
+    if (script.properties.length === 1) {
+      toast.error("Não é possivel remover seção única.");
+      return;
+    }
     const properties = script.properties.filter((e) => e.id !== id);
     setScript({
       ...script,
