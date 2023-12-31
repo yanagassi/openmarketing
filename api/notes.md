@@ -32,15 +32,26 @@
 
 - Toda véz que há um novo valor de calculo, deve-se verificar se há alguma automação (wf a disparar).
 
-# Possibilidades de disparos
+# Emails
 
-- Autmoações (WF):
-  - Todo update lead ou event disparado.
-  - Quando o lead cai em um segmento
-  - Lead scoring?
+- Destinatários
+- Assunto
+- Remetente (nome e email)
+- Editor de conteudo
+  - Apos analise vi que o mercado usa: `*|SEPARADOR|* `, vou utilizar para facilitar o usuario na configuração do seu email.
 
-# Premissas:
+Penso em fazer o envio de emails da seguinte maneira:
 
-- Ser o mais economico possivel: Infra e APIs externas
-- Sempre tentar achar alternativa gratuita para tudo
-- Deve ser simples de subir e test
+- Todo email disparado deve ser salvo em banco, talvez vale adicionar uma flag no settings, onde o sistema salva o arquivo bruto do envio de email ou não (Creio fazer sentido para auditoria, até pq os emais vão automaticamente por fluxo). De qualquer forma deve ser criado o registro, pois nele que será dado o check.
+
+- Tendo um editor tela dividida entre CODIGO | Visualização, acho que vale ser modal. Pois além do body, header e footer do email.
+
+- Imagem de 1px que vem da API backend:
+  - a imagem tem uma propriedade na url tipo ?id={ID_EMAIL}
+  - quando o usuário abre o email ele abre a imagem de um pixel fazendo uma requisição GET para pegar essa imagem, sendo assim, é só receber isso em uma api não autenticada e retornar a imagem de um pixel.
+  - Uma vez recebido essa request é só dar check no email enviado.
+
+# Workflow
+
+Basicamente um workflow simples onde utiliza das ferramentas já presentes no sistema para automatizar as tarefas.
+xe

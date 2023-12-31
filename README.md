@@ -139,7 +139,39 @@ O algoritmo é projetado para calcular o interesse de um lead com base em um con
 - Pontuação Final:
   O resultado final é a soma de todos os pontos obtidos pelas regras que o lead satisfez.
 
-## 4. Fluxos de Automação e E-mail Marketing (In Dev)
+## 4. E-mail Marketing:
+
+### Contém:
+
+- **Destinatários**: Defina os destinatários do seu e-mail, podendo ser leads específicos, segmentos de leads ou listas personalizadas.
+
+- **Assunto**: Informe o assunto do e-mail para capturar a atenção dos destinatários.
+
+- **Remetente (Nome e Email)**: Configure o remetente do e-mail, fornecendo um nome e um endereço de e-mail reconhecível.
+
+### Editor de Conteúdo:
+
+- **Divisão de Tela (Modal)**: Utilizamos um editor dividido em duas partes, permitindo a edição simultânea no modo de código e visualização. Essa abordagem oferece flexibilidade aos usuários, permitindo edições diretas em HTML ou por meio de uma interface gráfica.
+- **Código**: Oferece a opção de inserir código HTML diretamente para usuários avançados que desejam personalizar detalhes específicos do e-mail.
+- **Visualização**: Permite visualizar o e-mail conforme é desenvolvido, garantindo que as edições reflitam o layout desejado.
+- **Separador Dinâmico (`*|SEPARADOR|*`)**: Facilita a configuração do conteúdo variável, proporcionando uma experiência intuitiva ao usuário durante a personalização.
+
+### Envio de E-mails:
+
+- Cada e-mail enviado será registrado no banco de dados, garantindo transparência e possibilitando auditoria. Uma flag no settings controla se o sistema salva o arquivo bruto do envio de e-mail.
+
+### Confirmação Aberturas de E-mails: (In Dev)
+
+- Integramos uma imagem de 1px à API do backend para rastreamento de aberturas de e-mail.
+  - **URL da Imagem**: A URL inclui um parâmetro `id={ID_EMAIL}`, permitindo identificar exclusivamente cada envio.
+  - Quando o e-mail é aberto, a imagem de 1px é solicitada por meio de uma requisição GET, registrando a abertura.
+  - A resposta da API, ao receber essa solicitação, retorna a imagem de 1px.
+
+### Auditoria:
+
+- Todos os envios podem ser registrados mediante a flag no settings, criando um histórico completo para fins de auditoria. Isso inclui informações detalhadas sobre destinatários, assunto, remetente e conteúdo do e-mail.
+
+## 5. Fluxos de Automação: (In Dev)
 
 **Automação de E-mails**:
 
@@ -148,10 +180,12 @@ Os fluxos de automação e e-mail marketing foram meticulosamente projetados par
 #### Entradas:
 
 - Defina diversos gatilhos para identificar novos leads e diferenciá-los dos existentes na base:
+
+  - Convertidos em evento (Landingpage, forms poup-ups e Apis)
   - Leads recém-segmentados
-  - Baseado em um campo específico do lead
-  - Convertidos em evento
+  - Campo do Lead (Dados de Leads)
   - Marcados como oportunidade
+  - WebHook de dispáro [**despriorizado**]
 
 #### Operações:
 
@@ -186,6 +220,6 @@ Os fluxos de automação e e-mail marketing foram meticulosamente projetados par
   - Notifique internamente por email, enviando detalhes específicos do lead
   - Notifique o responsável pelo lead
 
-## 5. IA Generativa + Campanhas
+## 6. IA Generativa + Campanhas
 
 (Roadmap - Draft)
