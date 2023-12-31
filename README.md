@@ -70,11 +70,11 @@ Crie landing pages impressionantes sem complicações com a nossa Ferramenta de 
 
 **Responsividade**: Adaptação perfeita em diversos dispositivos para uma experiência consistente.
 
-## 3. Lead Scoring
+## 3. Lead Scoring & Lead Tracking
 
 Dê pontos para ações realizadas pelos seus contatos e saiba automaticamente quem está mais interessado.
 
-##### O que é o Lead Scoring:
+##### O que é o Lead Scoring & Lead Tracking:
 
 Sua empresa gera leads, mas tem dificuldade em identificar quais têm mais chances de avançar no funil de vendas? O Lead Scoring possibilita dar pontos automaticamente para cada ação de seus contatos, definindo quem priorizar em suas ações de marketing e vendas por estar mais interessado em seu serviço ou produto.
 
@@ -88,12 +88,12 @@ Conversão em páginas de captura
 Visitas em páginas ou conclusão de fluxo de automação
 E outras ações relevantes
 
-**Configurações de Perfil**:
+**Lead Tracking - Configurações de Perfil**:
 
-![Lead Scoring Perfil](/images/lead_scoring_perfil.png)
+![Lead Tracking](/images/lead_scoring_perfil.png)
 **_Ao definir notas (de 1 a 10) para os termos mais eficazes das principais propriedades dos Leads, sua base será automaticamente dividida em quatro grupos: A. B. C e D. sendo os Leads do grupo "A" aqueles com melhor perfil para vendas._**
 
-![Lead Scoring Perfil](/images/lead_scoring_perfil_page.png)
+![Lead Tracking](/images/lead_scoring_perfil_page.png)
 
 O funcionamento do perfil é intuitivo. Consideremos um exemplo de média ponderada aplicada ao Lead Yan, cujos atributos são **calculados de acordo com a configuração do usuário**:
 
@@ -114,11 +114,11 @@ O funcionamento do perfil é intuitivo. Consideremos um exemplo de média ponder
 
 Portanto, o Lead Yan terá uma pontuação de 7.9, refletindo as notas configuradas pelo usuário no sistema. Este processo simplificado permite uma avaliação clara e personalizada com base nos critérios estabelecidos.
 
-**Configuração de Interesse**:
+**Lead Scoring - Configuração de Interesse**:
 
 O algoritmo é projetado para calcular o interesse de um lead com base em um conjunto de regras predefinidas. Cada regra tem associada uma pontuação ("pts").
 
-![Lead Scoring Interesse](/images/lead_scoring_interesse.png)
+![Lead Scoring](/images/lead_scoring_interesse.png)
 
 **Funcionamento**:
 
@@ -139,7 +139,7 @@ O algoritmo é projetado para calcular o interesse de um lead com base em um con
 - Pontuação Final:
   O resultado final é a soma de todos os pontos obtidos pelas regras que o lead satisfez.
 
-## 4. E-mail Marketing:
+## 4. E-mail Marketing (In Dev):
 
 ### Contém:
 
@@ -160,16 +160,35 @@ O algoritmo é projetado para calcular o interesse de um lead com base em um con
 
 - Cada e-mail enviado será registrado no banco de dados, garantindo transparência e possibilitando auditoria. Uma flag no settings controla se o sistema salva o arquivo bruto do envio de e-mail.
 
-### Confirmação Aberturas de E-mails: (In Dev)
+### Confirmação de Aberturas de E-mails:
 
-- Integramos uma imagem de 1px à API do backend para rastreamento de aberturas de e-mail.
-  - **URL da Imagem**: A URL inclui um parâmetro `id={ID_EMAIL}`, permitindo identificar exclusivamente cada envio.
-  - Quando o e-mail é aberto, a imagem de 1px é solicitada por meio de uma requisição GET, registrando a abertura.
-  - A resposta da API, ao receber essa solicitação, retorna a imagem de 1px.
+Para confirmar a abertura de e-mails, implementamos uma imagem de 1px integrada à API do backend para rastreamento. O processo é detalhado da seguinte forma:
 
-### Auditoria:
+- **URL da Imagem:**
 
-- Todos os envios podem ser registrados mediante a flag no settings, criando um histórico completo para fins de auditoria. Isso inclui informações detalhadas sobre destinatários, assunto, remetente e conteúdo do e-mail.
+  - A URL inclui um parâmetro `id={ID_EMAIL}`, permitindo identificar exclusivamente cada envio.
+
+- **Quando o E-mail é Aberto:**
+  - Quando o destinatário abre o e-mail, a imagem de 1px é solicitada por meio de uma requisição GET.
+
+### Rastreamento de Links:
+
+Para implementar o rastreamento de links, utilizaremos um processo que insere redirecionamentos nos URLs fornecidos pelo usuário. Isso permitirá que cada clique seja registrado para análise. Aqui está a explicação do procedimento:
+
+- **Usuário Adiciona Link:**
+
+  - O usuário inclui um link, por exemplo, "google.com".
+
+- **Salvando o Email Editado:**
+
+  - Ao salvar o e-mail editado, o sistema utiliza o BeautifulSoup para analisar o HTML em busca de todos os links (`<a>`).
+
+- **Adição de Redirecionamento:**
+  - Para cada link encontrado, o sistema substitui o `href` original pelo seguinte esquema de redirecionamento:
+    - De: `[google.com](http://google.com)`
+    - Para: `[api.openmarketing.meu-dns.com/redirect?id={ID_EMAIL}&url=google.com](http://api.openmarketing.meu-dns.com/redirect?id={ID_EMAIL}&url=google.com)`
+
+Dessa forma, quando o destinatário do e-mail clicar no link "Acessar Google", ele será redirecionado através do serviço de rastreamento, permitindo que o sistema registre a interação. Isso proporciona uma maneira eficaz de rastrear todos os links acessados pelo usuário.
 
 ## 5. Fluxos de Automação: (In Dev)
 

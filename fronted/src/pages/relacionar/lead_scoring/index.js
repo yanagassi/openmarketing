@@ -15,8 +15,11 @@ import PerfilLeadScoring from "./perfilLeadScoring";
 import InteresseLeadScoring from "./interesseLeadScoring";
 
 function LeadScoring() {
+  const isLeadScoring = window.location.pathname === "/lead-scoring";
   const [my_leads, setMyLeads] = useState([]);
-  const [activeTab, setActiveTab] = useState("perfil");
+  const [activeTab, setActiveTab] = useState(
+    isLeadScoring ? "perfil" : "interesse"
+  );
 
   async function init() {
     const data = await leads.get_leads();
@@ -37,28 +40,31 @@ function LeadScoring() {
     <Container>
       <Col className="mt-4">
         <h4 className="mb-4">
-          Lead Scoring{" "}
+          Lead {isLeadScoring ? "Scoring" : "Tracking"}{" "}
           <span style={{ fontWeight: "200" }}>({my_leads?.length})</span>
         </h4>
       </Col>
 
       <Nav tabs className="mb-3">
-        <NavItem>
-          <NavLink
-            className={classnames({ active: activeTab === "perfil" })}
-            onClick={() => toggleTab("perfil")}
-          >
-            Perfil
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink
-            className={classnames({ active: activeTab === "interesse" })}
-            onClick={() => toggleTab("interesse")}
-          >
-            Interesse
-          </NavLink>
-        </NavItem>
+        {isLeadScoring ? (
+          <NavItem>
+            <NavLink
+              className={classnames({ active: activeTab === "perfil" })}
+              onClick={() => toggleTab("perfil")}
+            >
+              Perfil
+            </NavLink>
+          </NavItem>
+        ) : (
+          <NavItem>
+            <NavLink
+              className={classnames({ active: activeTab === "interesse" })}
+              onClick={() => toggleTab("interesse")}
+            >
+              Interesse
+            </NavLink>
+          </NavItem>
+        )}
       </Nav>
 
       <TabContent activeTab={activeTab}>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Row, Table } from "reactstrap";
 import "../../../assets/css/perfilLeadScoring.css";
 import PerfilModalLeadScoring from "./perfilModalLeadScoring";
-import { MdAdd, MdEqualizer } from "react-icons/md";
+import { MdAdd, MdDelete, MdEdit, MdEqualizer } from "react-icons/md";
 import comum from "../../../helpers/comum";
 import lead_scoring from "../../../models/lead_scoring";
 
@@ -123,9 +123,9 @@ function PerfilLeadScoring({}) {
           >
             <thead>
               <tr>
-                <th> Propriedade</th>
+                <th className="w-50"> Propriedade</th>
                 <th className="w-25">Peso</th>
-                <th className="perfil_lead-action"></th>
+                <th style={{ width: "12%" }}></th>
               </tr>
             </thead>
             <tbody>
@@ -152,9 +152,16 @@ function PerfilLeadScoring({}) {
                     </div>
                   </td>
                   <td>
-                    <Button color="primary" onClick={() => setEdit(perf)}>
-                      <b>Editar</b>
-                    </Button>
+                    <Row>
+                      <center>
+                        <Button color="danger" onClick={() => {}}>
+                          <MdDelete />
+                        </Button>{" "}
+                        <Button color="primary" onClick={() => setEdit(perf)}>
+                          <MdEdit />
+                        </Button>
+                      </center>
+                    </Row>
                   </td>
                 </tr>
               ))}

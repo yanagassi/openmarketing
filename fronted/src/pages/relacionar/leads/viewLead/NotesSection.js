@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Card, CardHeader, CardBody, Button } from "reactstrap";
 import leads from "../../../../models/leads";
+import { MdEdit, MdSave } from "react-icons/md";
 
 const NotesSection = ({ lead }) => {
   const [active, setActive] = useState(false);
@@ -51,7 +52,7 @@ const NotesSection = ({ lead }) => {
               }
             }}
           >
-            {active ? "Salvar" : "Editar"}
+            {active ? <MdSave /> : <MdEdit />}
           </Button>{" "}
           {active ? (
             <Button

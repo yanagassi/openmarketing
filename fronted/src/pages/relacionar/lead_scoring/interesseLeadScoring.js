@@ -3,7 +3,7 @@ import { Button, Col, Row, Table } from "reactstrap";
 import InteresseModalLeadScoring from "./interesseModalLeadScoring";
 import comum from "../../../helpers/comum";
 import lead_scoring from "../../../models/lead_scoring";
-import { MdAdd } from "react-icons/md";
+import { MdAdd, MdDelete, MdEdit } from "react-icons/md";
 
 function InteresseLeadScoring({}) {
   const [edit, setEdit] = useState(null);
@@ -68,7 +68,7 @@ function InteresseLeadScoring({}) {
               <tr>
                 <th>Grupos de Atividades</th>
                 <th className="w-25"></th>
-                <th className="perfil_lead-action"></th>
+                <th style={{ width: "15%" }}></th>
               </tr>
             </thead>
             <tbody>
@@ -79,9 +79,16 @@ function InteresseLeadScoring({}) {
                     <span className="fs-5">{e.pts}</span> <span>pontos</span>
                   </td>
                   <td>
-                    <Button color="primary" onClick={() => setEdit(e)}>
-                      <b>Editar</b>
-                    </Button>
+                    <Row>
+                      <center>
+                        <Button color="danger" onClick={() => setEdit(e)}>
+                          <MdDelete />
+                        </Button>{" "}
+                        <Button color="primary" onClick={() => setEdit(e)}>
+                          <MdEdit />
+                        </Button>
+                      </center>
+                    </Row>
                   </td>
                 </tr>
               ))}

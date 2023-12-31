@@ -19,6 +19,7 @@ const MenuBar = () => {
   const [dropdownOpen1, setDropdownOpen1] = useState(false);
   const [dropdownOpen2, setDropdownOpen2] = useState(false);
   const [dropdownOpen3, setDropdownOpen3] = useState(false);
+  const [dropdownOpen4, setDropdownOpen4] = useState(false);
 
   const toggleDropdown1 = () => {
     setDropdownOpen1(!dropdownOpen1);
@@ -30,6 +31,10 @@ const MenuBar = () => {
 
   const toggleDropdown3 = () => {
     setDropdownOpen3(!dropdownOpen3);
+  };
+
+  const toggleDropdown4 = () => {
+    setDropdownOpen4(!dropdownOpen4);
   };
 
   if (window?.location?.pathname?.match(/\/view\/[^&]*/)?.length > 0) {
@@ -56,25 +61,20 @@ const MenuBar = () => {
               {isLoggedIn && (
                 <>
                   <Dropdown
-                    className="menu-data-items"
+                    className="menu-data-items "
                     nav
-                    isOpen={dropdownOpen1}
-                    toggle={toggleDropdown1}
+                    isOpen={dropdownOpen4}
+                    toggle={toggleDropdown4}
                   >
                     <DropdownToggle className="menu-data-items" nav caret>
-                      Relacionar{" "}
+                      Atrair{" "}
                     </DropdownToggle>
                     <DropdownMenu>
-                      <DropdownItem href="/leads">Base de Leads</DropdownItem>
-                      <DropdownItem href="/segments">
-                        Segmentação de Leads
-                      </DropdownItem>
-                      <DropdownItem href="/lead-scoring">
-                        Lead Scoring
+                      <DropdownItem href="/otimizacao-seo">
+                        Otimização de Páginas (SEO)
                       </DropdownItem>
                     </DropdownMenu>
                   </Dropdown>
-
                   <Dropdown
                     className="menu-data-items"
                     nav
@@ -90,6 +90,31 @@ const MenuBar = () => {
                       </DropdownItem>
                     </DropdownMenu>
                   </Dropdown>
+                  <Dropdown
+                    className="menu-data-items "
+                    nav
+                    isOpen={dropdownOpen1}
+                    toggle={toggleDropdown1}
+                  >
+                    <DropdownToggle className="menu-data-items" nav caret>
+                      Relacionar{" "}
+                    </DropdownToggle>
+                    <DropdownMenu>
+                      <DropdownItem href="/leads">Base de Leads</DropdownItem>
+                      <DropdownItem href="/lead-scoring">
+                        Lead Scoring
+                      </DropdownItem>
+                      <DropdownItem href="/lead-tracking">
+                        Lead Tracker
+                      </DropdownItem>
+                      <DropdownItem href="/segments">
+                        Segmentação de Leads
+                      </DropdownItem>
+                      <DropdownItem href="/email">Email</DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
+
+              
                 </>
               )}
             </Nav>

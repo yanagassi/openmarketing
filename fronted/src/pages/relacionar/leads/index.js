@@ -3,7 +3,7 @@ import { Badge, Button, Col, Container, Input, Row, Table } from "reactstrap";
 import comum from "../../../helpers/comum";
 import "../../../assets/css/LPPage.css";
 import landing_pages from "../../../models/landing_pages";
-import { MdVisibility, MdCopyAll } from "react-icons/md";
+import { MdVisibility, MdCopyAll, MdDelete } from "react-icons/md";
 import leads from "../../../models/leads";
 
 function Leads() {
@@ -92,13 +92,16 @@ function Leads() {
 
                 <td className="col-1">
                   <center>
+                    <Button color="danger">
+                      <MdDelete />
+                    </Button>{" "}
                     <Button
                       color="primary"
                       type="button"
                       className="statistics-button"
                       onClick={() => comum.Redirect(`/view/${e._id}`, true)}
                     >
-                      <MdVisibility /> <span>Ver</span>
+                      <MdVisibility />
                     </Button>{" "}
                   </center>
                 </td>

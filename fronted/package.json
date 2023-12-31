@@ -19,6 +19,7 @@
     "react-dnd-html5-backend": "^16.0.1",
     "react-dnd-touch-backend": "^16.0.1",
     "react-dom": "^18.2.0",
+    "react-email-editor": "^1.7.9",
     "react-icons": "^4.9.0",
     "react-router-dom": "^6.12.1",
     "react-scripts": "5.0.1",

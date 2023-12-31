@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Navigate,
+  useParams,
 } from "react-router-dom";
 import MENU_ITEMS from "../constants/menu";
 import { useContext } from "react";

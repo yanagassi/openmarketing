@@ -19,7 +19,7 @@
         caso AND: todos devem ser True
         caso OR: um item do array deve ser True
 
-# LeadScoring
+# Lead Scoring & Lead Tracking
 
 - É a primeira coisa a se fazer quando entra na plataforma
 
@@ -34,11 +34,12 @@
 
 # Emails
 
-- Destinatários
-- Assunto
-- Remetente (nome e email)
-- Editor de conteudo
-  - Apos analise vi que o mercado usa: `*|SEPARADOR|* `, vou utilizar para facilitar o usuario na configuração do seu email.
+- Contem
+  - Destinatários
+  - Assunto
+  - Remetente (nome e email)
+  - Editor de conteudo
+    - Apos analise vi que o mercado usa: `*|SEPARADOR|* `, vou utilizar para facilitar o usuario na configuração do seu email.
 
 Penso em fazer o envio de emails da seguinte maneira:
 
@@ -47,9 +48,17 @@ Penso em fazer o envio de emails da seguinte maneira:
 - Tendo um editor tela dividida entre CODIGO | Visualização, acho que vale ser modal. Pois além do body, header e footer do email.
 
 - Imagem de 1px que vem da API backend:
+
   - a imagem tem uma propriedade na url tipo ?id={ID_EMAIL}
   - quando o usuário abre o email ele abre a imagem de um pixel fazendo uma requisição GET para pegar essa imagem, sendo assim, é só receber isso em uma api não autenticada e retornar a imagem de um pixel.
   - Uma vez recebido essa request é só dar check no email enviado.
+
+- Para track de links é o mesmo principio, a diferença é na hr de salvar o email editado, o sistema tem que vasculhar o html (provavelmente, usando BeautifullSoup) para achar os links e adicionar um esquema de redirecionamento em todos eles, exemplo:
+  - O usuario adiciona um botão "Acessar Google" e adiciona o link do google.com.
+  - Quando salvar, o sistema vai entrar em todos hrefs (açoes) de cada link alterando para um redirect da ferramenta:
+    - Dê: google.com
+    - Para: api.openmarketing.meu-dns.com/redirect?id={ID_EMAIL}url=google.com
+  - Nesse caso eu consigo trackear todos os links que o usuario acessou.
 
 # Workflow
 

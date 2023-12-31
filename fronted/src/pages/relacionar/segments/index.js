@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Input, Row, Table } from "reactstrap";
 import comum from "../../../helpers/comum";
 import "../../../assets/css/LPPage.css";
-import { MdVisibility } from "react-icons/md";
+import { MdDelete, MdEdit, MdVisibility } from "react-icons/md";
 import segments from "../../../models/segments";
 import { FaPlus } from "react-icons/fa";
 import NewSegmentModal from "./NewSegmentModal";
@@ -103,14 +103,12 @@ function Segments() {
 
                 <td className="col-1">
                   <center>
-                    <Button
-                      type="button"
-                      color="primary"
-                      className="statistics-button"
-                      onClick={() => comum.Redirect(`/view/${e._id}`, true)}
-                    >
-                      <MdVisibility /> <span>Ver</span>
+                    <Button color="danger">
+                      <MdDelete />
                     </Button>{" "}
+                    <Button type="button" color="primary">
+                      <MdEdit />
+                    </Button>
                   </center>
                 </td>
               </tr>

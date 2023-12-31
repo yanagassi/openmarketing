@@ -13,6 +13,7 @@ class LandingPagesController(Resource):
     def __init__(self):
         self._appservice = LandingPagesAppService()
 
+    @jwt_required
     def parse_lp(self, res):
         res = res.__dict__
 

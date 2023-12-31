@@ -129,7 +129,7 @@ function LandingPages() {
                       className="statistics-button"
                       onClick={() => comum.Redirect(`/view/${e.id}`, true)}
                     >
-                      <MdVisibility /> <span>Ver</span>
+                      <MdVisibility />
                     </Button>{" "}
                     <Button color="primary" className="statistics-button">
                       <MdCopyAll /> <span>Copiar link</span>

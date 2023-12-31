@@ -16,6 +16,18 @@
       methods: ["DELETE"]
       endpoint: delete_event
 
+- controller: controllers.EmailController.EmailController
+  routes:
+    - route: /api/email
+      methods: ["GET"]
+      endpoint: list_all
+    - route: /api/email
+      methods: ["POST"]
+      endpoint: create
+    - route: /api/email/<id>
+      methods: ["DELETE"]
+      endpoint: delete_email
+
 - controller: controllers.LeadScoringController.LeadScoringController
   routes:
     - route: /api/lead-scoring

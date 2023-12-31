@@ -16,6 +16,16 @@
   z-index: 99999 !important;
   margin-right: 5px;
 }
+
+.dropdown-item {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.dropdown-menu {
+  margin-top: 15px;
+}
+
 .menu-bar-main {
   position: fixed;
   display: flex;

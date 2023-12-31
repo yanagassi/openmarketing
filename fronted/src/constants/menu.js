@@ -5,6 +5,9 @@ import CreateLandingPage from "../pages/converter/landingPages/create";
 import ViewLandingPage from "../pages/converter/landingPages/viewLandingPage";
 import HomeScreen from "../pages/home";
 import Login from "../pages/login";
+import EmailPage from "../pages/relacionar/email/index.js";
+import EmailEditor from "../pages/relacionar/email/EmailEditor.js";
+
 import LeadScoring from "../pages/relacionar/lead_scoring/index.js";
 import Leads from "../pages/relacionar/leads";
 import ViewLead from "../pages/relacionar/leads/viewLead";
@@ -63,7 +66,25 @@ const MENU_ITENS = [
     private: true,
   },
   {
-    text: "Landing Pages",
+    text: "Email",
+    href: "/email",
+    active: true,
+    hidden: true,
+    component: <EmailPage />,
+    private: true,
+  },
+
+  {
+    text: "Email",
+    href: "/email/:id_email",
+    active: true,
+    hidden: true,
+    component: <EmailEditor />,
+    private: true,
+  },
+
+  {
+    text: "Leads",
     href: "/leads",
     active: true,
     hidden: true,
@@ -72,7 +93,7 @@ const MENU_ITENS = [
   },
 
   {
-    text: "Landing Pages",
+    text: "Lead",
     href: "/leads/:id_lead",
     active: true,
     hidden: true,
@@ -83,6 +104,14 @@ const MENU_ITENS = [
   {
     text: "Lead Scoring",
     href: "/lead-scoring",
+    active: true,
+    hidden: true,
+    component: <LeadScoring />,
+    private: true,
+  },
+  {
+    text: "Lead Tracking",
+    href: "/lead-tracking",
     active: true,
     hidden: true,
     component: <LeadScoring />,
