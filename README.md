@@ -139,11 +139,52 @@ O algoritmo é projetado para calcular o interesse de um lead com base em um con
 - Pontuação Final:
   O resultado final é a soma de todos os pontos obtidos pelas regras que o lead satisfez.
 
-## 4. Automação (workflow) e E-mail Marketing
+## 4. Fluxos de Automação e E-mail Marketing (In Dev)
 
-Campanhas Segmentadas (ROADMAP): Crie campanhas de e-mail altamente segmentadas para aumentar a relevância.
+**Automação de E-mails**:
 
-Automação de E-mails (ROADMAP): Configure sequências de e-mails automatizadas com base no comportamento do lead.
+Os fluxos de automação e e-mail marketing foram meticulosamente projetados para potencializar a interação com leads, proporcionando uma abordagem personalizada e eficaz.
+
+#### Entradas:
+
+- Defina diversos gatilhos para identificar novos leads e diferenciá-los dos existentes na base:
+  - Leads recém-segmentados
+  - Baseado em um campo específico do lead
+  - Convertidos em evento
+  - Marcados como oportunidade
+
+#### Operações:
+
+- **Comunicação:**
+
+  - Envie Emails
+  - Enviar Whatsapp
+
+- **Espera:**
+
+  - Aguarde um horário específico (+X horas)
+  - Estabeleça um intervalo de tempo para retornar
+
+- **Caminho do Lead:**
+
+  - Adicione/Remova o lead de outros fluxos
+  - Envie dados para integração através de WebHook
+  - Valide se o lead clicou no email (condicional IF/ELSE)
+  - Verifique se faz parte de um segmento específico (condicional IF/ELSE)
+  - Unifique diferentes caminhos em uma Ação do Fluxo
+
+- **Gerenciar Lead:**
+
+  - Adicione ou remova Tags relevantes
+  - Marque ou desmarque como uma oportunidade
+  - Marque ou desmarque como uma possível venda
+
+- **Notificação (para o usuário do sistema):**
+
+  - Altere o responsável pelos Leads
+  - Distribua leads entre os responsáveis
+  - Notifique internamente por email, enviando detalhes específicos do lead
+  - Notifique o responsável pelo lead
 
 ## 5. IA Generativa + Campanhas
 
