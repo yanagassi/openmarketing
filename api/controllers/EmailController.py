@@ -36,3 +36,20 @@ class EmailController(Resource):
             return jsonify(res)
         else:
             return False, 500
+
+    @jwt_required
+    def get_email(self, id, email_data=True):
+        organization_id = request.headers.get("Organizationid")
+        res = self._appservice.get_email(organization_id, id, email_data)
+        if res:
+            return jsonify(res)
+        else:
+            return False, 500
+
+    @jwt_required
+    def update_by_id(self, id):
+        organization_id = request.headers.get("Organizationid")
+        body = request.get_json()
+
+        res = self._appservice.update_email(organization_id, id, body)
+        return jsonify(res)

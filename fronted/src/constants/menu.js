@@ -13,7 +13,9 @@ import Leads from "../pages/relacionar/leads";
 import ViewLead from "../pages/relacionar/leads/viewLead";
 import Segments from "../pages/relacionar/segments";
 import SegmentView from "../pages/relacionar/segments/view.js";
+import EmailOptions from "../pages/relacionar/email/EmailOptions.js";
 
+///TODO: Tirar isso daqui....
 const MENU_ITENS = [
   {
     text: "Início",
@@ -71,6 +73,15 @@ const MENU_ITENS = [
     active: true,
     hidden: true,
     component: <EmailPage />,
+    private: true,
+  },
+
+  {
+    text: "Email",
+    href: "/email/options/:id_email",
+    active: true,
+    hidden: true,
+    component: <EmailOptions />,
     private: true,
   },
 

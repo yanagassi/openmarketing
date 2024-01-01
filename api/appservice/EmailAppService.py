@@ -23,12 +23,32 @@ class EmailAppService(BaseAppService):
 
         return res
 
-    def get_email(self, id):
-        return self._repo.get_by_id(id)
+    def get_email(self, organization_id, id, email_data):
+        res = self._repo.get_by_id(id)
+        if res != None and str(res.organization_id) == organization_id:
+            res = parse_entity(res.__dict__)
+
+            res["exists_html"] = res["html"] != ""
+
+            if str(email_data).lower() == "false":
+                del res["html"]
+                if "design" in res:
+                    del res["design"]
+
+            return res
+
+        return False
 
     def delete(self, organization_id, id):
         res = self.get_email(id)
         if res != None and str(res.organization_id) == organization_id:
-            res = self._repo.delete_email(id)
+            self._repo.delete_email(id)
             return True
         return False
+
+    def update_email(self, organization_id, id, body):
+        if self.get_email(organization_id, id) == False:
+            return False
+
+        res = self._repo.update(id, body)
+        return True

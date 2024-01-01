@@ -21,9 +21,15 @@
     - route: /api/email
       methods: ["GET"]
       endpoint: list_all
+    - route: /api/email/<id>/<email_data>
+      methods: ["GET"]
+      endpoint: get_email
     - route: /api/email
       methods: ["POST"]
       endpoint: create
+    - route: /api/email/<id>
+      methods: ["PUT"]
+      endpoint: update_by_id
     - route: /api/email/<id>
       methods: ["DELETE"]
       endpoint: delete_email

@@ -27,8 +27,28 @@ async function create_email(body) {
   }
 }
 
+async function get_email(id, emailData = true) {
+  try {
+    const { data } = await api.get(`/api/email/${id}/${emailData}`);
+    return data;
+  } catch {
+    return false;
+  }
+}
+
+async function update_email(id, body) {
+  try {
+    const { data } = await api.put(`/api/email/${id}`, body);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export default {
   list_all,
   create_email,
   delete_email,
+  update_email,
+  get_email,
 };

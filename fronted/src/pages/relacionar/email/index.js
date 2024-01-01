@@ -17,6 +17,8 @@ import email from "../../../models/email";
 import CreateEmailModal from "./CreateEmailModal";
 import comum from "../../../helpers/comum";
 
+const URL_PREFIX = "/email/options/";
+
 function EmailPage() {
   const [myEmails, setMyEmail] = useState([]);
   const [modalAdd, setModalAdd] = useState(false);
@@ -74,7 +76,9 @@ function EmailPage() {
         <tbody>
           {myEmails.map((emailData) => (
             <tr>
-              <td>{emailData.name}</td>
+              <td>
+                <a href={`${URL_PREFIX}${emailData.id}`}>{emailData.name}</a>
+              </td>
               <td>{comum.ParseDate(emailData.updated_at)}</td>
               <td>
                 <div
@@ -95,7 +99,9 @@ function EmailPage() {
                   <Col>
                     <Button
                       color="primary"
-                      onClick={() => comum.Redirect(`/email/${emailData.id}`)}
+                      onClick={() =>
+                        comum.Redirect(`${URL_PREFIX}${emailData.id}`)
+                      }
                     >
                       <MdEdit />
                     </Button>

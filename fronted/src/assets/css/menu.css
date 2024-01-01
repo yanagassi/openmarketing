@@ -60,6 +60,7 @@
   padding: 0;
   border-bottom: 1px double;
   border-bottom-color: var(--gray);
+  z-index: 1 !important;
 }
 
 .menu-bar-switch {
