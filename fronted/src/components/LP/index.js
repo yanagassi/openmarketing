@@ -43,7 +43,13 @@ const MenuBar = () => {
 
   return (
     <div className="menu-bar">
-      <Navbar className="menu-bar-container" color="dark" dark expand="md">
+      <Navbar
+        className="menu-bar-container"
+        color="dark"
+        dark
+        expand="md"
+        style={{ zIndex: 99 }}
+      >
         <div className="menu-bar-main">
           <div>
             <Nav navbar>
@@ -102,10 +108,10 @@ const MenuBar = () => {
                     <DropdownMenu>
                       <DropdownItem href="/leads">Base de Leads</DropdownItem>
                       <DropdownItem href="/lead-scoring">
-                        Lead Scoring
+                        Lead Tracker
                       </DropdownItem>
                       <DropdownItem href="/lead-tracking">
-                        Lead Tracker
+                        Lead Scoring
                       </DropdownItem>
                       <DropdownItem href="/segments">
                         Segmentação de Leads
@@ -113,8 +119,6 @@ const MenuBar = () => {
                       <DropdownItem href="/email">Email</DropdownItem>
                     </DropdownMenu>
                   </Dropdown>
-
-              
                 </>
               )}
             </Nav>

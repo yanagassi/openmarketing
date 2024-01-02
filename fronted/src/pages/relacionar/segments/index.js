@@ -106,7 +106,11 @@ function Segments() {
                     <Button color="danger">
                       <MdDelete />
                     </Button>{" "}
-                    <Button type="button" color="primary">
+                    <Button
+                      type="button"
+                      color="primary"
+                      onClick={() => comum.Redirect(`/segments/${e?.id}`)}
+                    >
                       <MdEdit />
                     </Button>
                   </center>

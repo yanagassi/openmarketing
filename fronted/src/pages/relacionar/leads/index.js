@@ -3,30 +3,60 @@ import { Badge, Button, Col, Container, Input, Row, Table } from "reactstrap";
 import comum from "../../../helpers/comum";
 import "../../../assets/css/LPPage.css";
 import landing_pages from "../../../models/landing_pages";
-import { MdVisibility, MdCopyAll, MdDelete } from "react-icons/md";
+import {
+  MdVisibility,
+  MdCopyAll,
+  MdDelete,
+  MdOpenInFull,
+  MdAdd,
+  MdPerson,
+  MdPersonOff,
+} from "react-icons/md";
 import leads from "../../../models/leads";
 
 function Leads() {
-  const [my_leads, setmy_leads] = useState([]);
+  const [myLeads, setMyLeads] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [leadsPerPage] = useState(10);
 
   async function init() {
     const data = await leads.get_leads();
-    setmy_leads(data);
+    setMyLeads(data);
   }
 
   useEffect(() => {
     init();
   }, []);
 
+  const indexOfLastLead = currentPage * leadsPerPage;
+  const indexOfFirstLead = indexOfLastLead - leadsPerPage;
+  const currentLeads = myLeads.slice(indexOfFirstLead, indexOfLastLead);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const filterLeads = () => {
+    return currentLeads.filter(
+      (lead) =>
+        lead.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        lead.email.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  };
+
   return (
     <Container>
       <Col className="mt-4">
         <h4 className="mb-4">
-          Leads <span style={{ fontWeight: "200" }}>({my_leads?.length})</span>
+          Leads <span style={{ fontWeight: "200" }}>({myLeads?.length})</span>
         </h4>
         <div className="sm-1">
           <Col md={2}>
-            <Input type="text" placeholder="Buscar Lead" className="mb-2" />
+            <Input
+              type="text"
+              placeholder="Buscar Lead"
+              className="mb-2"
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </Col>
         </div>
 
@@ -44,11 +74,6 @@ function Leads() {
                   Nome
                 </div>
               </th>
-              {/* <th>
-                <div role="button" tabIndex="0" className="table-header">
-                  Nº Interações
-                </div>
-              </th> */}
               <th>
                 <div role="button" tabIndex="0" className="table-header">
                   Data de Alteração
@@ -58,8 +83,8 @@ function Leads() {
             </tr>
           </thead>
           <tbody>
-            {my_leads?.map((e) => (
-              <tr>
+            {filterLeads()?.map((e) => (
+              <tr key={e.id}>
                 <td>
                   <div
                     style={{
@@ -74,16 +99,19 @@ function Leads() {
                       tabIndex="0"
                       className="landing-page-link"
                     >
-                      {e?.name && e?.name != "" ? e.name : e.email}
+                      {e?.name && e?.name !== "" ? e.name : e.email}
                     </a>
-                    <Badge color="success" style={{ paddingTop: 5 }}>
-                      Ativo
-                    </Badge>
+                    {!e?.deleted_date ? (
+                      <Badge color="success" style={{ paddingTop: 5 }}>
+                        Ativo
+                      </Badge>
+                    ) : (
+                      <Badge color="danger" style={{ paddingTop: 5 }}>
+                        Inativo
+                      </Badge>
+                    )}
                   </div>
                 </td>
-                {/* <td className="col-1">
-                  <center>{e.data_len ?? "0"}</center>
-                </td> */}
                 <td className="col-3">
                   <div className="date">
                     <p>{comum.ParseDate(e.updated_at ?? e.created_at)}</p>
@@ -92,14 +120,20 @@ function Leads() {
 
                 <td className="col-1">
                   <center>
-                    <Button color="danger">
-                      <MdDelete />
-                    </Button>{" "}
+                    {e?.deleted_date ? (
+                      <Button color="danger" title="Reativar Lead">
+                        <MdPerson />
+                      </Button>
+                    ) : (
+                      <Button color="danger" title="Inativar Lead">
+                        <MdPersonOff />
+                      </Button>
+                    )}{" "}
                     <Button
                       color="primary"
                       type="button"
                       className="statistics-button"
-                      onClick={() => comum.Redirect(`/view/${e._id}`, true)}
+                      onClick={() => comum.Redirect(`/leads/${e.id}`, true)}
                     >
                       <MdVisibility />
                     </Button>{" "}
@@ -109,6 +143,23 @@ function Leads() {
             ))}
           </tbody>
         </Table>
+
+        <Row className="pagination-container p-2">
+          <ul className="pagination">
+            {Array.from({
+              length: Math.ceil(myLeads.length / leadsPerPage),
+            }).map((item, index) => (
+              <li key={index} className="page-item">
+                <Button
+                  className="page-link"
+                  onClick={() => paginate(index + 1)}
+                >
+                  {index + 1}
+                </Button>
+              </li>
+            ))}
+          </ul>
+        </Row>
       </Col>
     </Container>
   );

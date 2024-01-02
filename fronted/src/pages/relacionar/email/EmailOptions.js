@@ -1,46 +1,165 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import email from "../../../models/email";
+import segments from "../../../models/segments";
 import CardDropdown from "../../../components/CardDropdown";
-import { Container } from "reactstrap";
+import { Button, Col, Container, Input, Label, Row } from "reactstrap";
 import MenuGenerical from "../../../components/MenuGenerical";
+import comum from "../../../helpers/comum";
 
 import texts from "../../../constants/texts";
 function EmailOptions({}) {
   const { id_email } = useParams();
   const [emailOptions, setEmailOptions] = useState({});
 
+  const [segmentos, setSegments] = useState([]);
+
   useEffect(() => {
     init();
   }, []);
 
   async function init() {
+    const resSeg = await segments.get_segments();
     const responseData = await email.get_email(id_email, false);
     setEmailOptions(responseData);
+    setSegments(resSeg);
   }
+
+  async function updateItem(key, value) {
+    setEmailOptions({
+      ...emailOptions,
+      [key]: value,
+    });
+  }
+
+  async function updateInApi(key, value) {
+    const data = await email.update_email(id_email, { [key]: value });
+  }
+
+  const btnSend = (
+    <Button
+      color="primary"
+      className="button-mid-height"
+      disabled={!emailOptions?.from}
+    >
+      Enviar Email
+    </Button>
+  );
+
   return (
-    <>
-      <MenuGenerical title={emailOptions.name} onSave={() => {}} />
+    <div className="mb-4">
+      <MenuGenerical title={emailOptions.name}>{btnSend}</MenuGenerical>
 
-      <Container style={{ marginTop: 60 }}>
+      <Container style={{ marginTop: 70 }}>
         <div>
-          <CardDropdown title="Destinatários">
-            <p>sss</p>
+          <CardDropdown
+            title="Nome de Identificação"
+            success={emailOptions?.name}
+            blockButton={!emailOptions.name}
+            sobrescription={`Nome que você utiliza para o email, atualmente é ${emailOptions.name}.`}
+            onEdit={() => {
+              if (emailOptions?.name && emailOptions.name !== "") {
+                updateInApi("name", emailOptions.name);
+              }
+            }}
+          >
+            <Col xs={8}>
+              <div className="mt-2">
+                <Input
+                  value={emailOptions.name}
+                  onChange={({ target }) => updateItem("name", target.value)}
+                />
+              </div>
+            </Col>
           </CardDropdown>
 
-          <CardDropdown title="Assunto" description={texts.TEXT_ASSUNTO_DICAS}>
-            <p>sss</p>
+          <CardDropdown
+            title="Destinatários"
+            sobrescription="Selecione as listas de segmentação para receber sua campanha."
+          >
+            <div>
+              <Label>Segmentações:</Label>
+              <br />
+              <select
+                className="form-select mt-1"
+                onChange={({ target }) => updateItem("from", target.value)}
+              >
+                <option disabled selected />
+                {segmentos.map((e) => (
+                  <option value={e.id}>{e.name}</option>
+                ))}
+              </select>
+            </div>
           </CardDropdown>
 
-          <CardDropdown title="Remetente">
-            <p>sss</p>
+          <CardDropdown
+            sobrescription={
+              "Adicione aqui o assunto do seu email" +
+              (emailOptions?.subject
+                ? `, o atual é ${emailOptions?.subject}.`
+                : ".")
+            }
+            success={emailOptions?.subject}
+            title="Assunto"
+            description={texts.TEXT_ASSUNTO_DICAS}
+            onEdit={() => updateInApi("subject", emailOptions?.subject ?? "")}
+          >
+            <Row className="align-items-end">
+              <Col xs={10}>
+                <Input
+                  value={emailOptions?.subject ?? ""}
+                  onChange={({ target }) => updateItem("subject", target.value)}
+                />
+              </Col>
+              <Col xs={2}>
+                <Button className="mb-1" color="transparent">
+                  <span className="text-primary">
+                    <b>Inserir Variável</b>
+                  </span>
+                </Button>
+              </Col>
+            </Row>
           </CardDropdown>
-          <CardDropdown title="Conteúdo">
-            <p>sss</p>
+
+          <CardDropdown
+            title="Conteúdo"
+            success={emailOptions?.exists_html}
+            onEditClick={() => comum.Redirect("/email/" + id_email)}
+            sobrescription="Você pode editar o layout escolhido."
+            editFixed={true}
+          />
+
+          <CardDropdown
+            title="Remetente"
+            sobrescription="O envio será feito de acordo com o remetente que você adicionar aqui."
+            success={emailOptions?.sender_name && emailOptions?.sender}
+            blockButton={!emailOptions?.sender_name || !emailOptions?.sender}
+            onEdit={() => {
+              updateInApi("sender_name", emailOptions?.sender_name ?? "");
+              updateInApi("sender", emailOptions?.sender ?? "");
+            }}
+          >
+            <div>
+              <Label>Nome do Remetente</Label>
+              <Input
+                value={emailOptions?.sender_name ?? ""}
+                onChange={({ target }) =>
+                  updateItem("sender_name", target.value)
+                }
+              />
+            </div>
+            <div>
+              <Label>Email do Remetente</Label>
+              <Input
+                value={emailOptions?.sender ?? ""}
+                onChange={({ target }) => updateItem("sender", target.value)}
+              />
+            </div>
           </CardDropdown>
         </div>
+        <div className="mt-4">{btnSend}</div>
       </Container>
-    </>
+    </div>
   );
 }
 

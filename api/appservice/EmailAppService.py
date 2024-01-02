@@ -23,7 +23,7 @@ class EmailAppService(BaseAppService):
 
         return res
 
-    def get_email(self, organization_id, id, email_data):
+    def get_email(self, organization_id, id, email_data=True):
         res = self._repo.get_by_id(id)
         if res != None and str(res.organization_id) == organization_id:
             res = parse_entity(res.__dict__)

@@ -1,4 +1,5 @@
 .main-create-render {
   /* max-width: 100vw; */
   overflow-x: hidden;
+  z-index: 9999 !important;
 }

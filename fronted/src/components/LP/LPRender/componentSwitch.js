@@ -149,7 +149,7 @@ function ComponentSwitch({
         element.type !== LP_HTML_COMPONENTS_TYPE.form ? (
           <a
             href="#"
-            style={{ color: "white", zIndex: 10 }}
+            style={{ color: "white" }}
             onClick={() => deleteElement(activeId, element.id, element)}
           >
             <MdDelete />

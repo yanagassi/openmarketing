@@ -40,7 +40,7 @@ function LeadScoring() {
     <Container>
       <Col className="mt-4">
         <h4 className="mb-4">
-          Lead {isLeadScoring ? "Scoring" : "Tracking"}{" "}
+          Lead {!isLeadScoring ? "Scoring" : "Tracker"}{" "}
           <span style={{ fontWeight: "200" }}>({my_leads?.length})</span>
         </h4>
       </Col>

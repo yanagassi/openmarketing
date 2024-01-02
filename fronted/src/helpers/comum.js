@@ -217,6 +217,12 @@ const VerifyTypeForm = (array, searchString) => {
   };
 };
 
+function validDateRegex(dateString) {
+  const regex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}$/;
+
+  return regex.test(dateString);
+}
+
 export default {
   Redirect,
   GenerateId,
@@ -228,7 +234,7 @@ export default {
   CompareDateToSortDesc,
   isMobile,
   ParseDate,
-
+  validDateRegex,
   applyFunctionToXY,
   VerifyTypeForm,
 };

@@ -1,5 +1,6 @@
 from .Base.BaseAppService import BaseAppService
 from appservice.LeadsAppService import LeadsAppService
+from appservice.LeadScoringAppService import LeadScoringAppService
 from segment_rules.register.RuleRegister import RuleRegister
 from repository.SegmentsRepository import SegmentsRepository
 from helpers.comun import parse_entity
@@ -17,6 +18,7 @@ class SegmentsAppService(BaseAppService):
         self._leads_appservice = LeadsAppService()
         self._rule_register = RuleRegister()
         self._repo = SegmentsRepository()
+        self._lead_scoring_appservice = LeadScoringAppService()
 
     def list_rules(self, organization_id):
         """
@@ -51,6 +53,11 @@ class SegmentsAppService(BaseAppService):
         for lead in leads:
             if class_instance.run(lead, values):
                 lead["events"] = []
+                lead[
+                    "data"
+                ] = self._lead_scoring_appservice.get_especifico_campo_formulario(
+                    organization_id, lead["data"], True
+                )
                 result.append(lead)
 
         return result

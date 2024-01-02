@@ -48,6 +48,14 @@ No estágio final, converta oportunidades em vendas bem-sucedidas. Utilize autom
 
 **Pagina de Lead**: Explore detalhes abrangentes sobre cada lead, incluindo informações demográficas, interações anteriores e pontuações de interesse.
 
+### Segmentação de Leads
+
+É uma estratégia de marketing digital que envolve a divisão e categorização de uma audiência de potenciais clientes em grupos mais específicos com base em características semelhantes. Essas características podem incluir dados demográficos, comportamentais, geográficos, ou até mesmo informações específicas de interações passadas com a marca.
+
+![Segmentos](/images/segment_page.png)
+
+Ao segmentar leads, as empresas podem personalizar suas mensagens e campanhas, direcionando-as de maneira mais eficaz para atender às necessidades e interesses específicos de cada grupo, aumentando assim a relevância e a eficiência das ações de marketing. Essa abordagem permite uma comunicação mais direcionada e personalizada, melhorando as chances de conversão e construção de relacionamentos duradouros com os clientes.
+
 ## 2. Ferramentas de Criação de Landing Pages
 
 **Editor de Arrastar e Soltar**:
@@ -151,14 +159,14 @@ O algoritmo é projetado para calcular o interesse de um lead com base em um con
 
 ### Editor de Conteúdo:
 
+![Email Page](/images/email_edit.png)
+
 - **Divisão de Tela (Modal)**: Utilizamos um editor dividido em duas partes, permitindo a edição simultânea no modo de código e visualização. Essa abordagem oferece flexibilidade aos usuários, permitindo edições diretas em HTML ou por meio de uma interface gráfica.
+
 - **Código**: Oferece a opção de inserir código HTML diretamente para usuários avançados que desejam personalizar detalhes específicos do e-mail.
 - **Visualização**: Permite visualizar o e-mail conforme é desenvolvido, garantindo que as edições reflitam o layout desejado.
+
 - **Separador Dinâmico (`*|SEPARADOR|*`)**: Facilita a configuração do conteúdo variável, proporcionando uma experiência intuitiva ao usuário durante a personalização.
-
-### Envio de E-mails:
-
-- Cada e-mail enviado será registrado no banco de dados, garantindo transparência e possibilitando auditoria. Uma flag no settings controla se o sistema salva o arquivo bruto do envio de e-mail.
 
 ### Confirmação de Aberturas de E-mails:
 
@@ -169,7 +177,7 @@ Para confirmar a abertura de e-mails, implementamos uma imagem de 1px integrada 
   - A URL inclui um parâmetro `id={ID_EMAIL}`, permitindo identificar exclusivamente cada envio.
 
 - **Quando o E-mail é Aberto:**
-  - Quando o destinatário abre o e-mail, a imagem de 1px é solicitada por meio de uma requisição GET.
+  - Quando o destinatário abre o e-mail, a imagem de 1px é solicitada por meio de uma requisição GET, fazendo com que a api detecte e adicione o atributo de abertura no email.
 
 ### Rastreamento de Links:
 
