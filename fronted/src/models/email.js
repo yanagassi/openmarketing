@@ -45,10 +45,30 @@ async function update_email(id, body) {
   }
 }
 
+async function send_email(body) {
+  try {
+    const { data } = await api.post(`/api/email/send`, body);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function list_all_variables() {
+  try {
+    const { data } = await api.get(`/api/email/list-all`);
+    return data;
+  } catch {
+    return [];
+  }
+}
+
 export default {
   list_all,
   create_email,
   delete_email,
+  list_all_variables,
   update_email,
   get_email,
+  send_email,
 };

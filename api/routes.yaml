@@ -33,6 +33,22 @@
     - route: /api/email/<id>
       methods: ["DELETE"]
       endpoint: delete_email
+    - route: /api/email/send
+      methods: ["POST"]
+      endpoint: send_email
+    - route: /api/email/list-all
+      methods: ["GET"]
+      endpoint: list_all_variables
+
+- controller: controllers.SystemController.SystemController
+  routes:
+    - route: /api/system/form-types
+      methods: ["GET"]
+      endpoint: list_form_types
+
+    - route: /api/system/form-types-private
+      methods: ["GET"]
+      endpoint: list_form_types_private
 
 - controller: controllers.LeadScoringController.LeadScoringController
   routes:

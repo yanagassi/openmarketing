@@ -32,7 +32,7 @@ const CreateEmailModal = ({ isOpen, toggle }) => {
           <div>
             <Label>Nome</Label>
             <Input
-              value={form.name}
+              value={form?.name}
               required={true}
               onChange={({ target }) =>
                 setForm({ ...form, name: target.value })

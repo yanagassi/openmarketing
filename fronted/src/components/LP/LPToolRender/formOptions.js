@@ -1,14 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { MdAdd, MdAddBox, MdDelete, MdMicNone } from "react-icons/md";
 import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
-import {
-  FORM_LP_INPUTS,
-  FORM_LP_INPUT_TYPES,
-  FORM_LP_TYPES,
-} from "../../../constants/LpContants";
+import { FORM_LP_TYPES } from "../../../constants/LpContants";
 import comum from "../../../helpers/comum";
 import lead_scoring from "../../../models/lead_scoring";
 import textConstants from "../../../constants/textConstants";
+import system from "../../../models/system";
 
 function FormOptions({
   activeElementValues,
@@ -17,6 +14,13 @@ function FormOptions({
   className = "",
 }) {
   const [perfisOptions, setPefisOptions] = useState([]);
+  const [formLpInputTypes, setFormLpInputTypes] = useState([]);
+  const [formLpInputs, setFormLpInputs] = useState([]);
+
+  useEffect(() => {
+    getPerfilOptions();
+    init();
+  }, []);
 
   const removeElementForm = (id) => {
     if (!id) return;
@@ -25,6 +29,13 @@ function FormOptions({
     );
     updateItemByKey(elementActive, "fields", updatedFields);
   };
+
+  async function init() {
+    const data = await system.get_form_variables();
+    setFormLpInputTypes(data);
+    const privateData = await system.get_form_variables_private();
+    setFormLpInputs(privateData);
+  }
 
   const addElementForm = () => {
     const newField = {
@@ -44,7 +55,7 @@ function FormOptions({
       (field) => {
         let finalVi = { ...field, [key]: value };
 
-        if (optionForm && FORM_LP_INPUTS.indexOf(value) !== -1) {
+        if (optionForm && formLpInputs.indexOf(value) !== -1) {
           finalVi = { ...field, [key]: value, id: value };
         }
         return field.id === id ? finalVi : field;
@@ -53,10 +64,6 @@ function FormOptions({
 
     updateItemByKey(elementActive, "fields", updatedFields);
   };
-
-  useEffect(() => {
-    getPerfilOptions();
-  }, []);
 
   const getPerfilOptions = async () => {
     const data = await lead_scoring.list_perfil();
@@ -115,7 +122,7 @@ function FormOptions({
                       </option>
                     ))}
 
-                    {FORM_LP_INPUT_TYPES.operations.map((operation) => (
+                    {formLpInputTypes?.operations?.map((operation) => (
                       <option key={operation} value={operation}>
                         {textConstants.translate_type(operation)}
                       </option>

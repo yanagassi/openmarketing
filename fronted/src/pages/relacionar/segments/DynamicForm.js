@@ -60,18 +60,18 @@ function DynamicForm({ onDataChange }) {
 
   function addRule(rule, use_data = rules) {
     const selectedRule = use_data.find((e) => e.group === rule);
+
     if (!selectedRule) return;
+
     const ids = comum.GenerateId(10);
-    setForm([
-      ...form,
-      {
-        id: ids,
-        name: selectedRule.group,
-        type: selectedRule.class,
-        filters: selectedRule?.filters?.map((e) => ({ ...e })) ?? [],
-        restrict: selectedRule?.restrict ?? [],
-      },
-    ]);
+    const newRule = {
+      id: ids,
+      name: selectedRule.group,
+      type: selectedRule.class,
+      filters: selectedRule?.filters?.map((e) => ({ ...e })) ?? [],
+      restrict: selectedRule?.restrict ?? [],
+    };
+    form && form.length > 0 ? setForm([...form, newRule]) : setForm([newRule]);
     setRuleActive(false);
   }
 
@@ -214,7 +214,7 @@ function DynamicForm({ onDataChange }) {
                 {ruleActive ? (
                   <select
                     className="dynamic-form-container-select"
-                    value={form.name}
+                    value={form?.name}
                     onChange={({ target }) => addRule(target.value)}
                   >
                     <option />

@@ -6,6 +6,7 @@ from route_register import RouteRegister
 from settings import JWT_SECRET  # Corrigi o nome da variável
 from flask_cors import CORS
 
+
 # Criar o aplicativo Flask
 app = Flask(__name__)
 

@@ -9,7 +9,7 @@ import {
 } from "reactstrap";
 import { MdArrowBack, MdSave, MdVisibility } from "react-icons/md";
 
-function MenuGenerical({ title = "", onSave, children }) {
+function MenuGenerical({ title = "", onSave, children, hideSave = false }) {
   return (
     <div>
       <Navbar
@@ -37,13 +37,15 @@ function MenuGenerical({ title = "", onSave, children }) {
               <MdArrowBack />
             </Button>{" "}
             {children}{" "}
-            <Button
-              color="primary"
-              className="button-mid-height"
-              onClick={() => onSave()}
-            >
-              <MdSave /> <span>Salvar</span>
-            </Button>
+            {!hideSave ? (
+              <Button
+                color="primary"
+                className="button-mid-height"
+                onClick={() => onSave()}
+              >
+                <MdSave /> <span>Salvar</span>
+              </Button>
+            ) : null}
           </div>
         </div>
       </Navbar>

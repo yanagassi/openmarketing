@@ -2,6 +2,7 @@ import json
 from settings import RULES_SEED
 import random
 import hashlib
+import re
 
 
 def verify_json(jsonRes, field):
@@ -31,3 +32,10 @@ def parse_entity(res):
 
 def hash_gen_seed(item_name):
     return str(hashlib.md5(f"{RULES_SEED}-{item_name}".encode("utf-8")).hexdigest())
+
+
+def remove_special_characters(input_string):
+    pattern = re.compile(r"[^a-zA-Z0-9\s]")
+    cleaned_string = re.sub(pattern, "", input_string)
+
+    return cleaned_string

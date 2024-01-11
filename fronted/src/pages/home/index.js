@@ -121,10 +121,10 @@ function HomeScreen() {
                   height="200px"
                   style={{ padding: 10 }}
                   src="https://img.freepik.com/free-vector/tiny-women-getting-mail-from-mailbox-flat-vector-illustration-cartoon-people-reading-newsletter-social-news-marketing-mail-service-business-concept_74855-10176.jpg"
-                  alt="Email Marketing"
+                  alt="E-mail Marketing"
                 />
               </center>
-              <p>Último Email Marketing</p>
+              <p>Último E-mail Marketing</p>
               <p>
                 Desenvolva jornadas personalizadas para seus clientes,
                 aumentando as vendas com comunicações por email direcionadas e
@@ -138,7 +138,7 @@ function HomeScreen() {
                   rel="noopener noreferrer"
                   color="primary"
                 >
-                  Criar meu primeiro Email Marketing
+                  Criar meu primeiro E-mail Marketing
                 </Button>
               </center>
             </CardBody>

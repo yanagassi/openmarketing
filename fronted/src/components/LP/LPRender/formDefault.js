@@ -3,26 +3,35 @@ import { Button, FormGroup, Input, Label } from "reactstrap";
 import { useParams } from "react-router-dom";
 import LP_LEADS_REQUEST_TYPE from "../../../constants/LPLeadsRequestType";
 import cookiesHelper from "../../../helpers/cookiesHelper";
-import {
-  FORM_LP_EMAIL_TYPE,
-  FORM_LP_INPUT_TYPES,
-} from "../../../constants/LpContants";
+import { FORM_LP_EMAIL_NAME_ID } from "../../../constants/LpContants";
 import leads_events from "../../../models/leads_events";
 import lead_scoring from "../../../models/lead_scoring";
 import comum from "../../../helpers/comum";
+import system from "../../../models/system";
 
 function FormDefaultLp({ readOnly, fin, element, organization_id }) {
   const [form, setForm] = useState({});
   const { route_lp_view_id } = useParams();
   const [perfisOptions, setPefisOptions] = useState([]);
 
+  const [formLpInputTypes, setFormLpInputTypes] = useState({ operations: [] });
+
+  const formLpEmailField =
+    formLpInputTypes?.operations?.filter((e) => e.includes("email"))[0] ||
+    "email";
+
   const EMAIL_FIELD = element.content.fields.filter(
-    (e) => e.type === FORM_LP_EMAIL_TYPE
+    (e) => e.type === formLpEmailField
   );
 
   useEffect(() => {
-    getPerfilOptions();
+    init();
   }, []);
+
+  async function init() {
+    setFormLpInputTypes(await system.get_form_variables());
+    await getPerfilOptions();
+  }
 
   const getPerfilOptions = async () => {
     const data = await lead_scoring.list_perfil(organization_id);
@@ -39,7 +48,7 @@ function FormDefaultLp({ readOnly, fin, element, organization_id }) {
       .map((field) => field.id);
 
     const allRequiredFieldsFilled = requiredElementIds.map((value) =>
-      nonEmptyFormValues.includes(value)
+      nonEmptyFormValues?.includes(value)
     );
     return allRequiredFieldsFilled;
   }
@@ -67,7 +76,10 @@ function FormDefaultLp({ readOnly, fin, element, organization_id }) {
       cookies: document.cookie,
     };
 
-    cookiesHelper.addOrUpdateCookie(EMAIL_FIELD[0].id, form[EMAIL_FIELD[0].id]);
+    cookiesHelper.addOrUpdateCookie(
+      FORM_LP_EMAIL_NAME_ID,
+      form[EMAIL_FIELD[0].id]
+    );
 
     const response = await leads_events.send_event(objectForm);
     alert(response);
@@ -89,13 +101,14 @@ function FormDefaultLp({ readOnly, fin, element, organization_id }) {
         {element?.content?.title}{" "}
       </span>
       {element?.content?.fields?.map((field) => {
-        const isModify =
-          comum.VerifyTypeForm(FORM_LP_INPUT_TYPES.operations, field.type)
-            .type === "modify";
-        const mod_key = comum.VerifyTypeForm(
-          FORM_LP_INPUT_TYPES.operations,
+        const fieldType = comum.VerifyTypeForm(
+          formLpInputTypes.operations,
           field.type
-        ).key;
+        );
+        const isModify = fieldType.type === "modify";
+        const modKey = fieldType.key;
+
+        console.log(formLpInputTypes);
 
         return (
           <FormGroup key={field.id} className="input-form-lp">
@@ -105,14 +118,14 @@ function FormDefaultLp({ readOnly, fin, element, organization_id }) {
               name={isModify ? field.type : field.id}
               required={field.required}
               id={field.id}
-              type={mod_key}
+              type={modKey}
             >
               {field?.operations?.map((op, index) => (
                 <option key={index} value={op}>
                   {op}
                 </option>
               ))}
-              {isModify ? (
+              {isModify && (
                 <>
                   <option />
                   {perfisOptions.map((perf) => {
@@ -124,7 +137,7 @@ function FormDefaultLp({ readOnly, fin, element, organization_id }) {
                     ));
                   })}
                 </>
-              ) : null}
+              )}
             </Input>
           </FormGroup>
         );

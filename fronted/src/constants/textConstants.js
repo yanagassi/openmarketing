@@ -1,8 +1,4 @@
-import { FORM_LP_NAME, FORM_LP_EMAIL_TYPE } from "./LpContants";
-
 const TEXT_TYPE_TRANSLATE = {
-  [FORM_LP_EMAIL_TYPE]: "Email",
-  [FORM_LP_NAME]: "Nome",
   text: "Texto",
   number: "Numérico",
   date: "Data",
@@ -37,4 +33,7 @@ function translate_type(value) {
   return TEXT_TYPE_TRANSLATE?.[value] ?? value;
 }
 
-export default { translate_type, TEXT_TABLE_TRANSLATE };
+export default {
+  translate_type,
+  TEXT_TABLE_TRANSLATE,
+};

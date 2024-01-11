@@ -28,14 +28,14 @@ const EmailEditorTool = () => {
       const unlayer = emailEditorRef.current?.editor;
       unlayer?.loadDesign(responseData.design);
     } catch (error) {
-      console.error("Error initializing Email Editor:", error);
+      console.error("Error initializing E-mail Editor:", error);
     }
   }
 
   async function save(html, design) {
     try {
       await email.update_email(id_email, { html, design });
-      toast.success("Email salvo com sucesso.");
+      toast.success("E-mail salvo com sucesso.");
     } catch (error) {
       toast.error(
         "Não foi possivel salvar as alterações no email, tente novamente."
@@ -58,7 +58,7 @@ const EmailEditorTool = () => {
 
   return (
     <>
-      <MenuGenerical title={form.name} onSave={() => saveEmail()} />
+      <MenuGenerical title={form?.name} onSave={() => saveEmail()} />
 
       <EmailEditor
         style={{

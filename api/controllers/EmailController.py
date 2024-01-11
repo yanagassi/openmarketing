@@ -4,8 +4,9 @@ from flask import jsonify, request
 from constants.messages import ERRO_LOGIN
 from middlewares.jwt_middleware import jwt_required
 import json
-
+import threading
 from appservice.EmailAppService import EmailAppService
+from datetime import datetime
 
 
 class EmailController(Resource):
@@ -53,3 +54,25 @@ class EmailController(Resource):
 
         res = self._appservice.update_email(organization_id, id, body)
         return jsonify(res)
+
+    @jwt_required
+    def send_email(self):
+        organization_id = request.headers.get("Organizationid")
+        body = request.get_json()
+
+        if "id" not in body or "from" not in body:
+            return False
+
+        worker = threading.Thread(
+            target=self._appservice.send_email, args=[organization_id, body]
+        )
+        worker.name = "EMAIL_SEND | %s | %s" % (body["id"], datetime.now())
+        worker.daemon = True
+        worker.start()
+
+        return jsonify(True)
+
+    @jwt_required
+    def list_all_variables(self):
+        organization_id = request.headers.get("Organizationid")
+        return jsonify(self._appservice.list_all_variables(organization_id))

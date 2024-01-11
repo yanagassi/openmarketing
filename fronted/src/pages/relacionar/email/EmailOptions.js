@@ -6,11 +6,15 @@ import CardDropdown from "../../../components/CardDropdown";
 import { Button, Col, Container, Input, Label, Row } from "reactstrap";
 import MenuGenerical from "../../../components/MenuGenerical";
 import comum from "../../../helpers/comum";
+import { toast } from "react-toastify";
 
 import texts from "../../../constants/texts";
+import EmailVariables from "./EmailVariables";
+
 function EmailOptions({}) {
   const { id_email } = useParams();
   const [emailOptions, setEmailOptions] = useState({});
+  const [variablesModal, setVariablesModal] = useState(false);
 
   const [segmentos, setSegments] = useState([]);
 
@@ -36,11 +40,28 @@ function EmailOptions({}) {
     const data = await email.update_email(id_email, { [key]: value });
   }
 
+  async function sendEmail() {
+    const data = await email.send_email({
+      id: id_email,
+      from: emailOptions.from,
+    });
+    if (data) {
+      toast.success(
+        "E-mails enviados com sucesso, para os destinatários selecionados!"
+      );
+    } else {
+      toast.error(
+        "Não foi possivel enviar os e-mails, por favor tente novamente."
+      );
+    }
+  }
+
   const btnSend = (
     <Button
       color="primary"
       className="button-mid-height"
       disabled={!emailOptions?.from}
+      onClick={() => sendEmail()}
     >
       Enviar Email
     </Button>
@@ -48,7 +69,9 @@ function EmailOptions({}) {
 
   return (
     <div className="mb-4">
-      <MenuGenerical title={emailOptions.name}>{btnSend}</MenuGenerical>
+      <MenuGenerical title={emailOptions.name} hideSave={true}>
+        {btnSend}
+      </MenuGenerical>
 
       <Container style={{ marginTop: 70 }}>
         <div>
@@ -112,7 +135,11 @@ function EmailOptions({}) {
                 />
               </Col>
               <Col xs={2}>
-                <Button className="mb-1" color="transparent">
+                <Button
+                  className="mb-1"
+                  color="transparent"
+                  onClick={() => setVariablesModal(true)}
+                >
                   <span className="text-primary">
                     <b>Inserir Variável</b>
                   </span>
@@ -149,8 +176,9 @@ function EmailOptions({}) {
               />
             </div>
             <div>
-              <Label>Email do Remetente</Label>
+              <Label>E-mail do Remetente</Label>
               <Input
+                type="email"
                 value={emailOptions?.sender ?? ""}
                 onChange={({ target }) => updateItem("sender", target.value)}
               />
@@ -159,6 +187,14 @@ function EmailOptions({}) {
         </div>
         <div className="mt-4">{btnSend}</div>
       </Container>
+      <EmailVariables
+        isOpen={variablesModal}
+        onChange={(e) => {
+          updateItem("subject", `${emailOptions.subject} ${e.key}`);
+          setVariablesModal(false);
+        }}
+        toggle={() => setVariablesModal(false)}
+      />
     </div>
   );
 }

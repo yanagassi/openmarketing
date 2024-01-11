@@ -159,12 +159,13 @@ O algoritmo é projetado para calcular o interesse de um lead com base em um con
 
 ### Editor de Conteúdo:
 
-![Email Page](/images/email_edit.png)
+![E-mail Page](/images/email_edit.png)
 
 - **Divisão de Tela (Modal)**: Utilizamos um editor dividido em duas partes, permitindo a edição simultânea no modo de código e visualização. Essa abordagem oferece flexibilidade aos usuários, permitindo edições diretas em HTML ou por meio de uma interface gráfica.
 
 - **Código**: Oferece a opção de inserir código HTML diretamente para usuários avançados que desejam personalizar detalhes específicos do e-mail.
 - **Visualização**: Permite visualizar o e-mail conforme é desenvolvido, garantindo que as edições reflitam o layout desejado.
+- **Variáveis Email**: Existe uma lógica na qual ele pega todos os campos de entrada de formularios, landingpages e os agrupa juntamente com outros campos do sistema, para utilizalos dinamicamente como varaveis de email.
 
 - **Separador Dinâmico (`*|SEPARADOR|*`)**: Facilita a configuração do conteúdo variável, proporcionando uma experiência intuitiva ao usuário durante a personalização.
 
@@ -187,7 +188,7 @@ Para implementar o rastreamento de links, utilizaremos um processo que insere re
 
   - O usuário inclui um link, por exemplo, "google.com".
 
-- **Salvando o Email Editado:**
+- **Salvando o E-mail Editado:**
 
   - Ao salvar o e-mail editado, o sistema utiliza o BeautifulSoup para analisar o HTML em busca de todos os links (`<a>`).
 

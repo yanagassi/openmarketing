@@ -21,7 +21,7 @@ async function get_lps_by_organization() {
 async function save(body) {
   try {
     const { data } = await api.post(`/api/landing-pages`, body);
-    return data;
+    return true;
   } catch {
     return false;
   }

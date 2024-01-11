@@ -134,25 +134,10 @@ const FORM_LP_TYPES = {
   },
 };
 
-const FORM_LP_EMAIL_TYPE = "email";
+//Cookies
 const FORM_LP_EMAIL_NAME_ID = "emailField";
-const FORM_LP_NAME = "nameField";
 
-const FORM_LP_INPUTS = [FORM_LP_EMAIL_TYPE, FORM_LP_NAME];
-
-const FORM_LP_INPUT_TYPES = {
-  operations: [
-    FORM_LP_EMAIL_TYPE,
-    FORM_LP_NAME,
-    "text",
-    "checkbox",
-    "date",
-    "number",
-    "password",
-    "radio",
-    "time",
-  ],
-};
+// FORM
 
 const KEY_PROPS_DEFAULT = {
   text_type: {
@@ -225,13 +210,9 @@ const KEY_TYPES = [
 ];
 
 export {
-  FORM_LP_INPUT_TYPES,
   FORM_LP_TYPES,
   KEY_TYPES,
-  FORM_LP_EMAIL_TYPE,
   KEY_VALUE,
   LP_HTML_COMPONENTS_TYPE,
   FORM_LP_EMAIL_NAME_ID,
-  FORM_LP_INPUTS,
-  FORM_LP_NAME,
 };

@@ -15,6 +15,7 @@ import {
 import landing_pages from "../../../models/landing_pages";
 import comum from "../../../helpers/comum";
 import { MdArrowBack, MdSave, MdVisibility } from "react-icons/md";
+import { toast } from "react-toastify";
 
 function LPMenuRender({
   title = "Nova LandingPage",
@@ -25,7 +26,12 @@ function LPMenuRender({
   renewMobile,
 }) {
   async function salvar() {
-    const { data } = await landing_pages.save(body);
+    const data = await landing_pages.save(body);
+    if (data) {
+      toast.success("Landingpage salva com sucesso!");
+    } else {
+      toast.error("Não foi possivel salvar a landingpage, tente novamente.");
+    }
   }
 
   return (

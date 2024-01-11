@@ -7,10 +7,7 @@ import { useParams } from "react-router-dom";
 import cookiesHelper from "../../../../helpers/cookiesHelper";
 import landing_pages from "../../../../models/landing_pages";
 
-import {
-  FORM_LP_EMAIL_NAME_ID,
-  FORM_LP_EMAIL_TYPE,
-} from "../../../../constants/LpContants";
+import { FORM_LP_EMAIL_NAME_ID } from "../../../../constants/LpContants";
 import leads_events from "../../../../models/leads_events";
 import comum from "../../../../helpers/comum";
 
