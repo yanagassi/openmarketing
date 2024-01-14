@@ -1,78 +1,31 @@
-import React, { memo } from "react";
-import { Handle, useReactFlow, useStoreApi, Position } from "reactflow";
+import { Button, Card, CardBody, CardHeader } from "reactstrap";
 import "../../assets/css/custom_node.css";
-import { Card, CardBody, CardHeader } from "reactstrap";
-import { FaPlus } from "react-icons/fa";
+import { MdClose } from "react-icons/md";
 
-function Select({ value, handleId, nodeId }) {
-  const { setNodes } = useReactFlow();
-  const store = useStoreApi();
-
-  const onChange = (evt) => {
-    const { nodeInternals } = store.getState();
-    setNodes(
-      Array.from(nodeInternals.values()).map((node) => {
-        if (node.id === nodeId) {
-          node.data = {
-            ...node.data,
-            selects: {
-              ...node.data.selects,
-              [handleId]: evt.target.value,
-            },
-          };
-        }
-
-        return node;
-      })
-    );
-  };
-
+function CustomNode({ node, onClick, onRemoveNode }) {
+  const { data, fixed = false } = node;
   return (
-    <div className="custom-node__select">
-      <div>Edge Type</div>
-      <select className="nodrag" onChange={onChange} value={value}></select>
+    <div>
+      <Card className="custom-node__main">
+        <CardHeader>
+          <div className="d-flex justify-content-between align-items-center">
+            <span onClick={() => onClick(node)}>{data?.title}</span>
+            {!fixed ? (
+              <Button
+                color="trasnparent p-0"
+                onClick={() => onRemoveNode(node)}
+              >
+                <MdClose />
+              </Button>
+            ) : null}
+          </div>
+        </CardHeader>
+        <CardBody onClick={() => onClick(node)}>
+          <span>{JSON.stringify(data)}</span>
+        </CardBody>
+      </Card>
     </div>
   );
 }
 
-function CustomNode({ id, data }) {
-  const { inputs = [] } = data;
-
-  return (
-    <Card className="custm-node__main">
-      <CardHeader className="custom-node__header">
-        <span>{data?.title}</span>
-      </CardHeader>
-      <CardBody>
-        <span style={{ fontSize: 10 }}>{JSON.stringify(data)}</span>
-      </CardBody>
-
-      <div className="custom-node__body">
-        {inputs.map((inpt) => (
-          <Handle
-            type={inpt.type}
-            position={inpt.type == "source" ? Position.Right : Position.Left}
-            id={inpt.id}
-            // onClick={() => alert("ssssss")}
-            style={{
-              background: "var(--primary)",
-              marginLeft: -10,
-              width: 20,
-              height: 20,
-            }}
-          >
-            {/* {inpt.type === "source" ? (
-              <FaPlus
-                color="var(--white)"
-                fontSize={10}
-                style={{ marginTop: -10, marginLeft: 4 }}
-              />
-            ) : null} */}
-          </Handle>
-        ))}
-      </div>
-    </Card>
-  );
-}
-
-export default memo(CustomNode);
+export default CustomNode;

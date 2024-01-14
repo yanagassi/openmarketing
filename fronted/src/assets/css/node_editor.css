@@ -2,3 +2,7 @@
   border-left: 1px double;
   border-left-color: var(--gray);
 }
+
+.node-editor__main {
+  user-select: none;
+}

@@ -1,81 +1,18 @@
-import { useCallback, useEffect, useState } from "react";
-import ReactFlow, {
-  MiniMap,
-  Controls,
-  Background,
-  useNodesState,
-  useEdgesState,
-  addEdge,
-  MarkerType,
-} from "reactflow";
-
-import "reactflow/dist/style.css";
-import MenuGenerical from "../../../components/MenuGenerical";
-import CustomNode from "../../../components/Workflow/CustomNode";
-import comum from "../../../helpers/comum";
 import { Button, Col, Row } from "reactstrap";
-import { MdBallot, MdOutlineStart, MdRunCircle, MdStart } from "react-icons/md";
+import MenuGenerical from "../../../components/MenuGenerical";
+import { MdBallot } from "react-icons/md";
+import WorkflowStep from "../../../components/Workflow/WorkflowStep";
+import { useState } from "react";
+
+import comum from "../../../helpers/comum";
 import NodeEditor from "./NodeEditor";
 
-const initialNodes = [
-  {
-    id: "1",
-    type: "custom",
-    position: { x: 100, y: 100 },
-    data: {
-      title: "Entrada",
-      inputs: [{ id: "input_1", type: "source" }],
-    },
-  },
-  {
-    id: "2",
-    type: "custom",
-    position: { x: 200, y: 200 },
-    data: {
-      title: "2",
-      inputs: [{ id: "target_1", type: "target" }],
-    },
-  },
-];
+const nodestes = { id: "dasdass", data: { title: "ENTRADA 1" } };
+const initalNodes = [{ ...nodestes, fixed: true }];
 
-const initialEdges = [
-  {
-    source: "1",
-    sourceHandle: "input_1",
-    target: "2",
-    targetHandle: "target_1",
-    id: comum.GenerateId(),
-
-    // Default values
-    type: "step",
-    markerEnd: {
-      type: MarkerType.ArrowClosed,
-      color: "#2a4f95",
-    },
-
-    style: {
-      strokeWidth: 4,
-      stroke: "var(--primary)",
-    },
-  },
-];
-
-const nodeTypes = {
-  custom: CustomNode,
-};
-
-function FlowTool() {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+function FlowTool({}) {
   const [nodeOpen, setNodeOpen] = useState(null);
-
-  const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
-    [setEdges]
-  );
-  useEffect(() => {
-    console.log(edges);
-  }, [edges]);
+  const [nodes, setNodes] = useState(initalNodes);
 
   function changeNode(node, drag = false) {
     if (nodeOpen === null) {
@@ -83,48 +20,60 @@ function FlowTool() {
       return;
     }
 
-    if (node.id !== nodeOpen.id) setNodeOpen(node);
+    if (node.id !== nodeOpen?.id) setNodeOpen(node);
+  }
+
+  function removeNode(node) {
+    const filtered = nodes.filter((e) => e.id !== node.id);
+    setNodes(filtered);
+    setNodeOpen(null);
+  }
+
+  function addNode(node) {
+    const index = nodes
+      .map(function (e) {
+        return e.id;
+      })
+      .indexOf(node.id);
+
+    let newNode = [...nodes];
+
+    newNode.splice(index + 1, 0, {
+      ...nodestes,
+      id: comum.GenerateId(),
+      data: { title: comum.GenerateId() },
+    });
+    setNodes(newNode);
   }
 
   return (
-    <>
+    <div>
       <MenuGenerical title={"Worflow Beta"} onSave={() => {}}>
         <Button className="button-mid-height" color="primary">
           <MdBallot /> Rodar
         </Button>
       </MenuGenerical>
 
-      <Row style={{ width: "101vw" }}>
-        <Col xs={nodeOpen ? 9 : 12}>
-          <div style={{ height: "calc(100vh - 60px)" }}>
-            <ReactFlow
-              nodes={nodes}
-              edges={edges}
-              onNodesChange={onNodesChange}
-              onEdgesChange={onEdgesChange}
-              nodeTypes={nodeTypes}
-              onNodeDragStart={(_, nodeActive) => {
-                changeNode(nodeActive, true);
-              }}
-              onPaneClick={() => setNodeOpen(null)}
-              onConnect={onConnect}
-              fitView
-            >
-              <Controls />
-              <Background variant="lines" />
-            </ReactFlow>
-          </div>
+      <Row style={{ width: "100vw", margin: 0, padding: 0 }}>
+        <Col xs={nodeOpen ? 9 : 12} style={{ paddingRight: 0, paddingLeft: 0 }}>
+          <WorkflowStep
+            nodes={nodes}
+            onNodeClick={(e) => changeNode(e)}
+            onRemoveNode={(e) => removeNode(e)}
+            onAddClick={(e) => addNode(e)}
+            onPaneDoubleClick={() => setNodeOpen(null)}
+          />
         </Col>
         {nodeOpen ? (
           <Col
             className="node-editor__container"
-            style={{ padding: 0, margin: 0 }}
+            style={{ padding: 0, margin: 0, paddingRight: 0, paddingLeft: 0 }}
           >
             <NodeEditor node={nodeOpen} onClose={() => setNodeOpen(null)} />
           </Col>
         ) : null}
       </Row>
-    </>
+    </div>
   );
 }
 

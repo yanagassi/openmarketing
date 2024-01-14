@@ -1,0 +1,32 @@
+.workflow-step__main {
+  background: var(--gray-light);
+  height: calc(100vh - 60px);
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 2%;
+
+  overflow-x: auto;
+}
+
+.workdlow-step__btn {
+  width: 30px;
+  height: 30px;
+  background-color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  color: var(--white);
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+.workflow-step__node {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  user-select: none;
+  margin-right: 5px;
+}

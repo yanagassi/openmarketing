@@ -5,14 +5,14 @@ import { MdClose } from "react-icons/md";
 function NodeEditor({ node, onClose }) {
   const { data } = node;
   return (
-    <div style={{ marginTop: 40 }}>
+    <div style={{ marginTop: 40 }} className="node-editor__main">
       <CardHeader>
-        <div className="d-flex flex-row justify-content-between">
+        <div className="d-flex flex-row justify-content-between p-0">
           <span>{data?.title}</span>
 
           <Button
             color="transparent"
-            className="button-mid-height"
+            className="button-mid-height p-0"
             onClick={() => onClose()}
           >
             <MdClose size={14} />
