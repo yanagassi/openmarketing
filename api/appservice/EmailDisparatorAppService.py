@@ -109,7 +109,7 @@ class EmailDisparatorAppService:
     def _send_email_via_sendgrid(self, lead, html, subject):
         sg = SendGridAPIClient(api_key=SENDGRID_API_KEY)
 
-        from_email = From("test@example.com")
+        from_email = From("gestao@easydoctor.com.br")
         to_email = To(lead["email"])
         subject = Subject(subject)
         content = Content("text/plain", html)

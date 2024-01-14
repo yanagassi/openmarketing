@@ -117,6 +117,9 @@ const MenuBar = () => {
                         Segmentação de Leads
                       </DropdownItem>
                       <DropdownItem href="/email">Email</DropdownItem>
+                      <DropdownItem href="/flow/create">
+                        Automação de Marketing
+                      </DropdownItem>
                     </DropdownMenu>
                   </Dropdown>
                 </>

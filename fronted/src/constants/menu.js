@@ -14,6 +14,7 @@ import ViewLead from "../pages/relacionar/leads/viewLead";
 import Segments from "../pages/relacionar/segments";
 import SegmentView from "../pages/relacionar/segments/view.js";
 import EmailOptions from "../pages/relacionar/email/EmailOptions.js";
+import FlowTool from "../pages/relacionar/workflow/index.js";
 
 ///TODO: Tirar isso daqui....
 const MENU_ITENS = [
@@ -136,7 +137,6 @@ const MENU_ITENS = [
     component: <CreateLandingPage />,
     private: true,
   },
-
   {
     text: "Landing Pages",
     href: "/landing-pages/edit/:id_lp",
@@ -154,6 +154,14 @@ const MENU_ITENS = [
     hidden: true,
     hideMenu: true,
     component: <ViewLandingPage />,
+    private: true,
+  },
+  {
+    text: "Flow Page",
+    href: "/flow/create",
+    active: true,
+    hidden: true,
+    component: <FlowTool />,
     private: true,
   },
 

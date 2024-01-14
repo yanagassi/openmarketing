@@ -150,22 +150,26 @@ const FunilStageCalc = (lead) => {
 };
 
 const applyRuleOfThree = (value, oldReference, newReference) => {
-  if (!value) return;
+  if (!value) return value;
   return (value * newReference) / oldReference;
 };
-
 const applyFunctionToXY = (data, oldReference, newReferenceWidth) => {
-  const newReferenceHeight = 1000;
-
   return data.properties.map((section) => {
+    const sortedItems = section.items
+      .slice() // Create a copy to avoid modifying the original array
+      .sort((a, b) => a.position.y + b.position.y); // Sort items based on posY
+
+    let cumulativeY = 0;
+
     const adjustedSection = {
       ...section,
-      items: section.items.map((item) => {
+      items: sortedItems.map((item) => {
         const width = applyRuleOfThree(
           item.content.width,
           oldReference,
           newReferenceWidth
         );
+
         const height = applyRuleOfThree(
           item.content.height,
           oldReference,
@@ -177,23 +181,37 @@ const applyFunctionToXY = (data, oldReference, newReferenceWidth) => {
           oldReference,
           newReferenceWidth
         );
+
         const posY = applyRuleOfThree(
-          item.position.y,
+          item.position.y + cumulativeY,
           oldReference,
-          newReferenceHeight
+          section.styles.height
         );
+
+        cumulativeY += height + 10; // Stack items with 10 pixels spacing
+
+        let finalWidth =
+          width * 2 < newReferenceWidth ? width * 2 : newReferenceWidth;
+        let finalHeight = height * 2;
+
+        let finalX = posX;
+        let finalY = posY * 4;
+
+        if (item.type == "span" || item.type == "form" || item.type == "h1") {
+          finalX = 10;
+          finalWidth = newReferenceWidth;
+        }
 
         return {
           ...item,
           content: {
             ...item.content,
-            width: width,
-            height: height,
+            width: finalWidth,
+            height: finalHeight,
           },
-
           position: {
-            x: posX,
-            y: posY,
+            x: finalX,
+            y: finalY,
           },
         };
       }),

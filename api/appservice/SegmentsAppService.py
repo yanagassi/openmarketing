@@ -1,6 +1,7 @@
 from .Base.BaseAppService import BaseAppService
 from appservice.LeadsAppService import LeadsAppService
 from appservice.LeadScoringAppService import LeadScoringAppService
+from appservice.EventsAppService import EventsAppService
 from segment_rules.register.RuleRegister import RuleRegister
 from repository.SegmentsRepository import SegmentsRepository
 from helpers.comun import parse_entity
@@ -18,6 +19,7 @@ class SegmentsAppService(BaseAppService):
         self._leads_appservice = LeadsAppService()
         self._rule_register = RuleRegister()
         self._repo = SegmentsRepository()
+        self._repo_event = EventsAppService()
         self._lead_scoring_appservice = LeadScoringAppService()
 
     def list_rules(self, organization_id):

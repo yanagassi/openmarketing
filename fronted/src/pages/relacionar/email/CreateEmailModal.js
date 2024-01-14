@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import EmailEditor, { EditorRef, EmailEditorProps } from "react-email-editor";
 import {
   Button,
   Form,

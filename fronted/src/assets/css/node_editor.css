@@ -1,0 +1,4 @@
+.node-editor__container {
+  border-left: 1px double;
+  border-left-color: var(--gray);
+}

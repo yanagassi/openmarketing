@@ -62,7 +62,7 @@ function FormDefaultLp({ readOnly, fin, element, organization_id }) {
 
   async function submitForm(e) {
     e.preventDefault();
-    console.log(readOnly, validateForm(), form);
+
     if (!readOnly || !validateForm()) {
       alert("Erro de validação de formulário");
       return;
@@ -107,8 +107,6 @@ function FormDefaultLp({ readOnly, fin, element, organization_id }) {
         );
         const isModify = fieldType.type === "modify";
         const modKey = fieldType.key;
-
-        console.log(formLpInputTypes);
 
         return (
           <FormGroup key={field.id} className="input-form-lp">

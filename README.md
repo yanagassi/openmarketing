@@ -201,7 +201,7 @@ Dessa forma, quando o destinatário do e-mail clicar no link "Acessar Google", e
 
 ## 5. Fluxos de Automação: (In Dev)
 
-**Automação de E-mails**:
+**Automação e E-mail Marketing**:
 
 Os fluxos de automação e e-mail marketing foram meticulosamente projetados para potencializar a interação com leads, proporcionando uma abordagem personalizada e eficaz.
 
@@ -210,10 +210,19 @@ Os fluxos de automação e e-mail marketing foram meticulosamente projetados par
 - Defina diversos gatilhos para identificar novos leads e diferenciá-los dos existentes na base:
 
   - Convertidos em evento (Landingpage, forms poup-ups e Apis)
+
+    - Toda vez que chega um evento, ele valida se está incluido em algum flow.
+
   - Leads recém-segmentados
+    - Mesmo caso do primeiro item, só que com eventos de entrada/saida no segmento.
   - Campo do Lead (Dados de Leads)
+    - Toda vez que é chamada a funcao de upadate do lead, verifica-se se há algum flow ligado.
   - Marcados como oportunidade
+    - Mesmo caso do primeiro item, so que com o evento OPORTUINITY
   - WebHook de dispáro [**despriorizado**]
+    - Ele foge da logica dos demais, logo despriorizado.
+    - É basicamente um enpoint que chama o mesmo metodo que é chamado o start do fluxo.
+    - Nesse caso, eu penso em criar um setor de integrações na barra de menu, pra poder fornecer cadastro dos endpoints e uma documentação basica.
 
 #### Operações:
 

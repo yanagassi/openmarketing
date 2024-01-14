@@ -65,7 +65,7 @@ function CreateLandingPage() {
   }
 
   function renewMobile(e) {
-    const final = comum.applyFunctionToXY(desktopScript, 1000, 350);
+    const final = comum.applyFunctionToXY(desktopScript, 1000, 380);
     const res = { ...mobileScript, properties: final };
 
     setScript(res);
